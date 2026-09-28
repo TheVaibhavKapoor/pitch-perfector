@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Bank - Solitaire Home Loan Benefit Calculator</title>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        html {
+            font-size: 93%;
+        }
+        html, body {
+            height: auto !important;
+            min-height: 100% !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        .calc-container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 24px 20px 60px;
+        }
+
+        /* Top Navigation Header */
+        .calc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 16px 28px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            background: #f1f5f9;
+            color: #1e3a8a;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
+            border-radius: 20px;
+            padding: 28px 32px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(30, 58, 138, 0.2);
+            margin-bottom: 28px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 4px 14px;
+            border-radius: 16px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main 2-Column Calculator Grid */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 28px;
+            margin-bottom: 32px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calc-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+        }
+
+        .card-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Inputs Styling */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .input-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        .input-val-badge {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #0f172a;
+            background: #f1f5f9;
+            padding: 3px 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        
+        .loan-type-btn {
+            flex: 1;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .loan-type-btn.active {
+            background: #1e3a8a;
+            color: white;
+            border-color: #1e3a8a;
+        }
+
+        .slider-control {
+            width: 100%;
+            accent-color: #1e3a8a;
+            cursor: pointer;
+            height: 5px;
+        }
+
+        /* Summary breakdown bar */
+        .loan-breakdown-bar {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #1e3a8a;
+        }
+
+        /* Rate Badges Comparison Grid */
+        .rate-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .rate-card-box {
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .rate-card-normal {
+            background: #fef2f2;
+            border: 1.5px solid #fecaca;
+        }
+
+        .rate-card-solitaire {
+            background: #ecfdf5;
+            border: 1.5px solid #a7f3d0;
+        }
+
+        /* Results Card */
+        .results-hero-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            border-radius: 16px;
+            padding: 24px;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .result-savings-pill {
+            background: #10b981;
+            color: white;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 900;
+            margin-top: 12px;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.25);
+        }
+
+        .total-savings-banner {
+            background: #f0fdf4;
+            border: 1.5px solid #bbf7d0;
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn-apply {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.2s;
+            box-shadow: 0 6px 16px rgba(30, 58, 138, 0.18);
+        }
+
+        .btn-apply:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calc-container">
+        <!-- Header -->
+        <header class="calc-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+                    <circle cx="20" cy="20" r="18" fill="#1e3a8a"/>
+                    <rect x="18.5" y="8" width="3" height="24" fill="#d61f26"/>
+                    <path d="M13 15 C8 15 8 25 13 25 C18 25 22 15 27 15 C32 15 32 25 27 25 C22 25 18 15 13 15 Z" stroke="#ffffff" stroke-width="3" fill="none"/>
+                </svg>
+                <div>
+                    <span style="font-weight: 900; font-size: 1.15rem; color: #1e3a8a;">Cloud Bank</span>
+                    <span style="font-weight: 800; font-size: 1.15rem; color: #d61f26;"> Solitaire</span>
+                </div>
+            </div>
+            <a href="javascript:history.back()" class="btn-back">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Dashboard
+            </a>
+        </header>
+
+        <!-- Hero Banner -->
+        <section class="hero-banner">
+            <div class="hero-badge">🏡 SOLITAIRE HOME LOAN PRICING</div>
+            <h1 style="font-size: 1.45rem; font-weight: 900; margin: 0 0 5px 0; letter-spacing: -0.3px;">Home Loan Savings Calculator</h1>
+            <p style="color: #cbd5e1; font-size: 0.82rem; margin: 0;">Compare your EMI and total interest savings at the Solitaire Rate (7.50% p.a.) versus Standard Market Rates (7.80% p.a.).</p>
+        </section>
+
+        <!-- 2-Column Calculator Layout -->
+        <div class="calc-grid">
+            <!-- Left Column: Inputs -->
+            <div class="calc-card">
+                <div class="card-title">
+                    <span>⚙️</span> Loan &amp; Down Payment Inputs
+                </div>
+
+                
+                <!-- Loan Type Selector -->
+                <div style="display: flex; gap: 8px; margin-bottom: 24px;">
+                    <button class="loan-type-btn active" onclick="setLoanType(this, 'New')">New</button>
+                    <button class="loan-type-btn" onclick="setLoanType(this, 'BT')">BT</button>
+                    <button class="loan-type-btn" onclick="setLoanType(this, 'Top up')">Top up</button>
+                    <button class="loan-type-btn" onclick="setLoanType(this, 'BT + Top up')">BT + Top up</button>
+                </div>
+
+                <!-- 1. Property Value Input -->
+                <div class="input-group">
+                    <div class="input-label-row">
+                        <label class="input-label" for="page-prop-val">Property Value (&#8377;)</label>
+                        <span id="page-prop-val-disp" class="input-val-badge">&#8377; 1.25 Cr</span>
+                    </div>
+                    <input id="page-prop-val" type="range" min="2000000" max="100000000" step="500000" value="12500000" class="slider-control" oninput="updatePageHLCalc()">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">
+                        <span>&#8377;20 Lakh</span>
+                        <span>&#8377;10 Crore</span>
+                    </div>
+                </div>
+
+                <!-- 2. Down Payment Percentage Input -->
+                <div class="input-group">
+                    <div class="input-label-row">
+                        <label class="input-label" for="page-dp-pct">Down Payment (%)</label>
+                        <span id="page-dp-pct-disp" class="input-val-badge">20% (&#8377; 25.00 L)</span>
+                    </div>
+                    <input id="page-dp-pct" type="range" min="10" max="50" step="1" value="20" class="slider-control" oninput="updatePageHLCalc()">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">
+                        <span>10%</span>
+                        <span>50%</span>
+                    </div>
+                </div>
+
+                <!-- Live Loan Amount Breakdown Box -->
+                <div class="loan-breakdown-bar">
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.75rem; color: #475569;">NET LOAN REQUIRED</div>
+                        <div id="page-net-loan-disp" style="font-size: 1.1rem; font-weight: 900; color: #1e3a8a;">&#8377; 1,00,00,000</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-weight: 600; font-size: 0.75rem; color: #475569;">DOWN PAYMENT</div>
+                        <div id="page-dp-amt-disp" style="font-size: 0.95rem; font-weight: 800; color: #059669;">&#8377; 25,00,000</div>
+                    </div>
+                </div>
+
+                <!-- 3. Tenure Input -->
+                <div class="input-group">
+                    <div class="input-label-row">
+                        <label class="input-label" for="page-hl-tenure">Loan Tenure (Years)</label>
+                        <span id="page-hl-tenure-disp" class="input-val-badge">20 Years</span>
+                    </div>
+                    <input id="page-hl-tenure" type="range" min="5" max="30" step="1" value="20" class="slider-control" oninput="updatePageHLCalc()">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #94a3b8; margin-top: 4px;">
+                        <span>5 Years</span>
+                        <span>30 Years</span>
+                    </div>
+                </div>
+
+                <!-- Interest Rate Comparison Box -->
+                <div class="rate-comparison-grid">
+                    <div class="rate-card-box rate-card-normal">
+                        <div style="font-size: 0.72rem; color: #dc2626; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Standard Market Rate</div>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                            <input type="number" id="market-rate-input" step="0.05" value="7.80" style="width: 70px; font-size: 1.25rem; font-weight: 900; color: #991b1b; background: transparent; border: 1.5px dashed #f87171; text-align: center; border-radius: 4px; outline: none; padding: 2px;" oninput="updatePageHLCalc()">
+                            <span style="font-size: 1.1rem; font-weight: 800; color: #991b1b;">% p.a.</span>
+                        </div>
+                    </div>
+                    <div class="rate-card-box rate-card-solitaire">
+                        <div style="font-size: 0.72rem; color: #047857; font-weight: 800; text-transform: uppercase; margin-bottom: 6px;">Solitaire Rate</div>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 4px;">
+                            <input type="number" id="solitaire-rate-input" step="0.05" value="7.50" style="width: 70px; font-size: 1.25rem; font-weight: 900; color: #065f46; background: transparent; border: 1.5px dashed #34d399; text-align: center; border-radius: 4px; outline: none; padding: 2px;" oninput="updatePageHLCalc()">
+                            <span style="font-size: 1.1rem; font-weight: 800; color: #065f46;">% p.a. 🔥</span>
+                        </div>
+                    </div>
+                </div>
+                    <div class="rate-card-box rate-card-solitaire">
+                        <div style="font-size: 0.72rem; color: #047857; font-weight: 800; text-transform: uppercase;">Solitaire Rate</div>
+                        <div style="font-size: 1.25rem; font-weight: 900; color: #065f46; margin-top: 2px;">7.50% p.a. 🔥</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Live Savings Output -->
+            <div class="calc-card" style="position: sticky; top: 24px;">
+                <div class="card-title">
+                    <span>📊</span> Savings &amp; EMI Comparison
+                </div>
+
+                <div class="results-hero-box">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 14px;">
+                        <div>
+                            <div style="font-size: 0.72rem; color: #cbd5e1; font-weight: 600;">Standard Rate EMI (<span id="disp-normal-rate">7.80</span>%)</div>
+                            <div id="page-emi-normal" style="font-size: 1.2rem; font-weight: 800; color: #fca5a5; margin-top: 3px;">&#8377; 82,404</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.72rem; color: #cbd5e1; font-weight: 600;">Solitaire Rate EMI (<span id="disp-sol-rate">7.50</span>%)</div>
+                            <div id="page-emi-solitaire" style="font-size: 1.2rem; font-weight: 900; color: #34d399; margin-top: 3px;">&#8377; 80,559</div>
+                        </div>
+                    </div>
+
+                    <div class="result-savings-pill">
+                        <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #d1fae5; margin-bottom: 2px;">Monthly EMI Savings</div>
+                        <div id="page-monthly-savings">&#8377; 1,845 / month</div>
+                    </div>
+                </div>
+
+                <div class="total-savings-banner">
+                    <div>
+                        <div style="font-size: 0.75rem; color: #166534; font-weight: 800; text-transform: uppercase;">Total Interest Saved Over Tenure</div>
+                        <div style="font-size: 0.78rem; color: #475569; margin-top: 2px;">Interest (<span id="disp-int-normal-rate">7.80</span>%): <span id="page-int-normal">&#8377;97.77 L</span> | Solitaire (<span id="disp-int-sol-rate">7.50</span>%): <span id="page-int-solitaire">&#8377;93.34 L</span></div>
+                    </div>
+                    <div id="page-total-interest-saved" style="font-size: 1.5rem; font-weight: 900; color: #059669;">&#8377; 4,42,800</div>
+                </div>
+
+                <!-- Processing Fee Waiver Badge -->
+                <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 10px 14px; font-size: 0.8rem; color: #1e3a8a; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                    <span>✨ <strong>Zero Processing Fee:</strong> Save up to &#8377;50,000 on processing charges.</span>
+                    <span style="font-weight: 800; color: #059669;">+ &#8377;50,000</span>
+                </div>
+
+                <a href="calculate_benefit.html" class="btn-apply">
+                    VIEW COMPLETE SOLITAIRE BENEFIT SUMMARY &rarr;
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        let currentLoanType = 'New';
+        function setLoanType(btn, type) {
+            document.querySelectorAll('.loan-type-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentLoanType = type;
+            // Additional logic can be added here if BT/Topup needs to change input labels
+        }
+        
+        function updatePageHLCalc() {
+            const propVal = parseFloat(document.getElementById('page-prop-val').value) || 12500000;
+            const dpPct = parseFloat(document.getElementById('page-dp-pct').value) || 20;
+
+            const dpAmount = propVal * (dpPct / 100);
+            const loanAmount = propVal - dpAmount;
+
+            const yrs = parseInt(document.getElementById('page-hl-tenure').value) || 20;
+            const n = yrs * 12;
+
+            const normalRateVal = parseFloat(document.getElementById('market-rate-input').value) || 7.80;
+            const solRateVal = parseFloat(document.getElementById('solitaire-rate-input').value) || 7.50;
+
+            const rNormal = normalRateVal / 100 / 12;
+            const rSolitaire = solRateVal / 100 / 12;
+            
+            // Update the display labels
+            document.getElementById('disp-normal-rate').textContent = normalRateVal.toFixed(2);
+            document.getElementById('disp-sol-rate').textContent = solRateVal.toFixed(2);
+            document.getElementById('disp-int-normal-rate').textContent = normalRateVal.toFixed(2);
+            document.getElementById('disp-int-sol-rate').textContent = solRateVal.toFixed(2);
+
+            const emiNormal = loanAmount * rNormal * Math.pow(1 + rNormal, n) / (Math.pow(1 + rNormal, n) - 1);
+            const emiSolitaire = loanAmount * rSolitaire * Math.pow(1 + rSolitaire, n) / (Math.pow(1 + rSolitaire, n) - 1);
+
+            const monthlySave = emiNormal - emiSolitaire;
+            const totalInterestNormal = (emiNormal * n) - loanAmount;
+            const totalInterestSolitaire = (emiSolitaire * n) - loanAmount;
+            const totalInterestSaved = totalInterestNormal - totalInterestSolitaire;
+
+            // Format Property Value Display
+            document.getElementById('page-prop-val-disp').textContent = '₹ ' + (propVal >= 10000000 ? (propVal/10000000).toFixed(2) + ' Cr' : (propVal/100000).toFixed(1) + ' Lakh');
+            
+            // Format Down Payment Display
+            document.getElementById('page-dp-pct-disp').textContent = dpPct + '% (₹ ' + (dpAmount >= 10000000 ? (dpAmount/10000000).toFixed(2) + ' Cr' : (dpAmount/100000).toFixed(2) + ' L') + ')';
+            document.getElementById('page-dp-amt-disp').textContent = '₹ ' + Math.round(dpAmount).toLocaleString('en-IN');
+            
+            // Format Net Loan Display
+            document.getElementById('page-net-loan-disp').textContent = '₹ ' + Math.round(loanAmount).toLocaleString('en-IN');
+            
+            // Format Tenure Display
+            document.getElementById('page-hl-tenure-disp').textContent = yrs + ' Years';
+
+            // Format EMI Displays
+            document.getElementById('page-emi-normal').textContent = '₹ ' + Math.round(emiNormal).toLocaleString('en-IN');
+            document.getElementById('page-emi-solitaire').textContent = '₹ ' + Math.round(emiSolitaire).toLocaleString('en-IN');
+            document.getElementById('page-monthly-savings').textContent = '₹ ' + Math.round(monthlySave).toLocaleString('en-IN') + ' / month';
+
+            // Format Interest Saved Displays
+            document.getElementById('page-int-normal').textContent = '₹ ' + (totalInterestNormal/100000).toFixed(2) + ' L';
+            document.getElementById('page-int-solitaire').textContent = '₹ ' + (totalInterestSolitaire/100000).toFixed(2) + ' L';
+            document.getElementById('page-total-interest-saved').textContent = '₹ ' + Math.round(totalInterestSaved).toLocaleString('en-IN');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePageHLCalc();
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- GLOBAL FLOATING SIDE TABS (KOMPANION & SPOC - MATHEMATICALLY GUARANTEED 30PX GAP) -->
+<div id="kompanion-tab" onclick="toggleKompanionDrawer()" style="position: fixed; right: 0; top: calc(50% - 15px); transform: translateY(-100%); z-index: 9999; background: #da251c; color: white; padding: 14px 8px; border-radius: 10px 0 0 10px; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.03em; cursor: pointer; box-shadow: -3px 4px 14px rgba(0,0,0,0.2); writing-mode: vertical-rl; text-orientation: mixed; user-select: none; transition: all 0.2s ease;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#da251c'">
+    Kompanion
+</div>
+
+<div id="spoc-tab" onclick="toggleSpocDrawer()" style="position: fixed; right: 0; top: calc(50% + 15px); transform: translateY(0%); z-index: 9999; background: #2563eb; color: white; padding: 14px 8px; border-radius: 10px 0 0 10px; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.03em; cursor: pointer; box-shadow: -3px 4px 14px rgba(0,0,0,0.2); writing-mode: vertical-rl; text-orientation: mixed; user-select: none; transition: all 0.2s ease;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+    Spoc
+</div>
+
+<!-- KOMPANION SLIDE-OUT DRAWER -->
+<div id="kompanion-drawer" style="position: fixed; right: -440px; pointer-events: none; visibility: hidden; top: 0; width: 400px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 10000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="background: #182545; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #da251c;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; background: #da251c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">K</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700;">Kotak Kompanion</h3>
+                <span style="font-size: 0.72rem; color: #94a3b8;">AI Pitch & Product Assistant</span>
+            </div>
+        </div>
+        <button onclick="toggleKompanionDrawer()" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; padding: 0 4px;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#94a3b8'">&times;</button>
+    </div>
+    
+    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #f8fafc;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <span style="font-size: 0.75rem; font-weight: 700; color: #da251c; text-transform: uppercase; letter-spacing: 0.05em;">RM Quick Pitch Assistant</span>
+            <h4 style="margin: 6px 0 10px 0; color: #0f172a; font-size: 0.95rem;">Smart Solitaire Objections & Pitches</h4>
+            <p style="font-size: 0.84rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">Need quick answers during client calls? Select a product topic below to get instant talking points.</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <button onclick="setKompanionMsg('What is the key pitch for Solitaire Credit Card?')" style="background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Credit Card Pitch</button>
+                <button onclick="setKompanionMsg('How to pitch Home Loan balance transfer to Kotak?')" style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Home Loan BT</button>
+                <button onclick="setKompanionMsg('Why shift Mutual Fund portfolio to Kotak?')" style="background: #fefce8; border: 1px solid #fef08a; color: #854d0e; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Mutual Fund Shift</button>
+                <button onclick="setKompanionMsg('Highlight ActivMoney auto-sweep benefits')" style="background: #faf5ff; border: 1px solid #e9d5ff; color: #6b21a8; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">ActivMoney FD</button>
+            </div>
+        </div>
+
+        <div id="kompanion-chat-log" style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; font-size: 0.85rem; color: #334155; line-height: 1.5;">
+                👋 <strong>Hello RM!</strong> I am your <strong>Kompanion AI Assistant</strong>. Ask me anything about Kotak Solitaire privileges, lending rates, credit cards, or client objection handling!
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 16px 20px; background: white; border-top: 1px solid #e2e8f0; display: flex; gap: 10px;">
+        <input type="text" id="kompanion-input" placeholder="Ask Kompanion a question..." style="flex: 1; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; outline: none;" onkeypress="if(event.key==='Enter') sendKompanionMsg()">
+        <button onclick="sendKompanionMsg()" style="background: #da251c; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer;">Send</button>
+    </div>
+</div>
+
+<!-- SPOC SLIDE-OUT DRAWER -->
+<div id="spoc-drawer" style="position: fixed; right: -440px; pointer-events: none; visibility: hidden; top: 0; width: 420px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 10000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="background: #1e3a8a; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3b82f6;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">S</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700;">Kotak SPOC Directory</h3>
+                <span style="font-size: 0.72rem; color: #93c5fd;">Single Point of Contact & Escalation</span>
+            </div>
+        </div>
+        <button onclick="toggleSpocDrawer()" style="background: none; border: none; color: #93c5fd; font-size: 1.4rem; cursor: pointer; padding: 0 4px;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#93c5fd'">&times;</button>
+    </div>
+
+    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #f8fafc;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <h4 style="margin: 0 0 12px 0; color: #0f172a; font-size: 0.92rem; font-weight: 700;">Select SPOC Parameters</h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- 1. Pincode -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">1. PINCODE / LOCATION</label>
+                    <input type="text" id="spoc-pincode" value="400051" placeholder="Enter Pincode (e.g. 400051, 110001)" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; box-sizing: border-box;" oninput="fetchSpocDetails()">
+                </div>
+
+                <!-- 2. Program -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">2. PROGRAM</label>
+                    <select id="spoc-program" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="Solitaire" selected>Kotak Solitaire</option>
+                        <option value="Privy+">Kotak Privy League+</option>
+                        <option value="Privy">Kotak Privy League</option>
+                    </select>
+                </div>
+
+                <!-- 3. Category -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">3. PRODUCT CATEGORY</label>
+                    <select id="spoc-category" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="updateSpocProducts(); fetchSpocDetails();">
+                        <option value="cc" selected>Credit Cards</option>
+                        <option value="assets">Assets & Loans</option>
+                        <option value="investments">Investments</option>
+                        <option value="lifestyle">Lifestyle & Concierge</option>
+                        <option value="ops">Account Operations</option>
+                    </select>
+                </div>
+
+                <!-- 4. Specific Product List -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">4. SPECIFIC PRODUCT</label>
+                    <select id="spoc-product" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <!-- Dynamically populated based on category -->
+                    </select>
+                </div>
+
+                <!-- 5. Team (Product & Sales Only) -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">5. TEAM</label>
+                    <select id="spoc-team" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="product" selected>Product Team</option>
+                        <option value="sales">Sales Team</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div id="spoc-result-container">
+            <!-- Dynamically populated by JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleKompanionDrawer() {
+    const kDrawer = document.getElementById('kompanion-drawer');
+    const sDrawer = document.getElementById('spoc-drawer');
+    if (sDrawer) sDrawer.style.right = '-440px'; sDrawer.style.pointerEvents = 'none'; sDrawer.style.visibility = 'hidden';
+    if (!kDrawer) return;
+    if (kDrawer.style.right === '0px') {
+        kDrawer.style.right = '-440px'; kDrawer.style.pointerEvents = 'none'; kDrawer.style.visibility = 'hidden';
+    } else {
+        kDrawer.style.right = '0px'; kDrawer.style.pointerEvents = 'auto'; kDrawer.style.visibility = 'visible';
+    }
+}
+
+function toggleSpocDrawer() {
+    const kDrawer = document.getElementById('kompanion-drawer');
+    const sDrawer = document.getElementById('spoc-drawer');
+    if (kDrawer) kDrawer.style.right = '-440px'; kDrawer.style.pointerEvents = 'none'; kDrawer.style.visibility = 'hidden';
+    if (!sDrawer) return;
+    if (sDrawer.style.right === '0px') {
+        sDrawer.style.right = '-440px'; sDrawer.style.pointerEvents = 'none'; sDrawer.style.visibility = 'hidden';
+    } else {
+        sDrawer.style.right = '0px'; sDrawer.style.pointerEvents = 'auto'; sDrawer.style.visibility = 'visible';
+        updateSpocProducts();
+        fetchSpocDetails();
+    }
+}
+
+function setKompanionMsg(msg) {
+    const input = document.getElementById('kompanion-input');
+    if (input) {
+        input.value = msg;
+        sendKompanionMsg();
+    }
+}
+
+function sendKompanionMsg() {
+    const input = document.getElementById('kompanion-input');
+    const log = document.getElementById('kompanion-chat-log');
+    if (!input || !log || !input.value.trim()) return;
+    
+    const query = input.value.trim();
+    input.value = '';
+    
+    const uMsg = document.createElement('div');
+    uMsg.style.cssText = 'background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; border-radius: 12px; padding: 12px 14px; font-size: 0.85rem; align-self: flex-end; max-width: 85%; line-height: 1.4;';
+    uMsg.innerHTML = '<strong>You:</strong> ' + query;
+    log.appendChild(uMsg);
+    
+    setTimeout(() => {
+        const aMsg = document.createElement('div');
+        aMsg.style.cssText = 'background: white; border: 1px solid #e2e8f0; color: #0f172a; border-radius: 12px; padding: 14px; font-size: 0.85rem; line-height: 1.5; box-shadow: 0 1px 3px rgba(0,0,0,0.03);';
+        
+        let resp = "💡 <strong>Solitaire Insight:</strong> Kotak Solitaire offers exclusive family relationship banking, 0% Forex Markup on Credit Cards, pre-approved Home Loans up to ₹7.5 Cr with ~0.25% interest discount, and ActivMoney FD auto-sweep returns on idle savings.";
+        
+        if (query.toLowerCase().includes('credit card')) {
+            resp = "💳 <strong>Kompanion Recommendation:</strong> Pitch the Kotak Solitaire Metal Credit Card highlighting <strong>10 Air Miles / ₹100</strong> via Kotak Unbox (1 Mile = ₹1 value), <strong>0% Forex Markup</strong> (saving ~₹14,000 per ₹4L international spend), and <strong>unlimited domestic & international lounge access</strong> for primary and add-on cardholders.";
+        } else if (query.toLowerCase().includes('home loan') || query.toLowerCase().includes('bt')) {
+            resp = "🏠 <strong>Kompanion Recommendation:</strong> Use Home Loan Pitch C: <em>'Sir/Ma'am, if you already have a Home Loan elsewhere, I can evaluate whether moving it to Kotak saves interest for you. At ~0.25% lower rate with zero processing fees, we can calculate your exact monthly EMI savings.'</em>";
+        } else if (query.toLowerCase().includes('mutual fund')) {
+            resp = "📈 <strong>Kompanion Recommendation:</strong> Start with financial objectives rather than fund names. Pitch SIP for long-term wealth or SWP for tax-efficient monthly income. Emphasize zero-AMC Demat and 0.10% delivery brokerage!";
+        } else if (query.toLowerCase().includes('activmoney')) {
+            resp = "⚡ <strong>Kompanion Recommendation:</strong> Highlight ActivMoney auto-sweep: idle funds above ₹25,000 are automatically converted to fixed deposits earning higher FD interest while remaining 100% liquid with zero penalty on withdrawals.";
+        }
+        
+        aMsg.innerHTML = resp;
+        log.appendChild(aMsg);
+        log.scrollTop = log.scrollHeight;
+    }, 400);
+}
+
+// SPOC SPECIFIC PRODUCTS DATA
+const SPOC_PRODUCTS = {
+    cc: [
+        { id: "solitaire_cc", name: "Kotak Solitaire Metal Credit Card" },
+        { id: "privy_cc", name: "Privy League Signature Credit Card" },
+        { id: "white_cc", name: "White Reserve Credit Card" },
+        { id: "zen_cc", name: "Zen Signature Credit Card" }
+    ],
+    assets: [
+        { id: "hl", name: "Home Loan & Balance Transfer" },
+        { id: "lap", name: "Loan Against Property (LAP)" },
+        { id: "las", name: "Loan Against Securities (LAS)" },
+        { id: "od", name: "Credit Line & Overdraft (OD)" }
+    ],
+    investments: [
+        { id: "mf", name: "Mutual Funds (SIP / SWP)" },
+        { id: "demat", name: "Demat & Equity Trading" },
+        { id: "ipo", name: "IPO (ASBA)" },
+        { id: "mtf", name: "MTF Margin Trading" },
+        { id: "pms", name: "AIF & PMS Solutions" }
+    ],
+    lifestyle: [
+        { id: "table", name: "Solitaire Table Dining Privileges" },
+        { id: "lounge", name: "Airport Lounge & Priority Pass" },
+        { id: "golf", name: "Golf Privileges & Coaching" },
+        { id: "concierge", name: "24/7 Solitaire Concierge" }
+    ],
+    ops: [
+        { id: "activmoney", name: "ActivMoney FD Auto-Sweep" },
+        { id: "debit", name: "Solitaire Visa Infinite Debit Card" },
+        { id: "family", name: "Family Relationship Pooling" },
+        { id: "service", name: "Priority Service & Account Requests" }
+    ]
+};
+
+function updateSpocProducts() {
+    const category = document.getElementById('spoc-category')?.value || 'cc';
+    const prodSelect = document.getElementById('spoc-product');
+    if (!prodSelect) return;
+
+    const products = SPOC_PRODUCTS[category] || SPOC_PRODUCTS.cc;
+    prodSelect.innerHTML = products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+}
+
+// SPOC DIRECTORY FETCH LOGIC
+function fetchSpocDetails() {
+    const pincode = (document.getElementById('spoc-pincode')?.value || '400051').trim();
+    const program = document.getElementById('spoc-program')?.value || 'Solitaire';
+    const category = document.getElementById('spoc-category')?.value || 'cc';
+    const team = document.getElementById('spoc-team')?.value || 'product';
+    const prodSelect = document.getElementById('spoc-product');
+    const prodName = prodSelect?.options[prodSelect.selectedIndex]?.text || "Credit Cards";
+    const container = document.getElementById('spoc-result-container');
+    if (!container) return;
+
+    const isSales = (team === 'sales');
+
+    let poc = {
+        name: isSales ? "Vikrant Roy" : "Rajesh Sharma",
+        title: isSales ? "Lead Sales Acquisition Manager - " + prodName : "Senior Product Lead - " + prodName,
+        email: isSales ? "vikrant.roy@kotak.com" : "rajesh.sharma@kotak.com",
+        phone: isSales ? "+91 98204 11990" : "+91 98201 44521",
+        hub: "BKC Regional Office, Mumbai (Pincode: " + pincode + ")"
+    };
+    
+    let supervisor = {
+        name: isSales ? "Sandeep Narang" : "Ananya Iyer",
+        title: isSales ? "Zonal Sales Head - Ultra HNI Banking" : "Vice President - Product & Synergies",
+        email: isSales ? "sandeep.narang@kotak.com" : "ananya.iyer@kotak.com",
+        phone: isSales ? "+91 98200 99887" : "+91 98200 11234",
+        hub: "Regional Hub Command Center"
+    };
+
+    if (category === 'assets') {
+        poc = {
+            name: isSales ? "Manish Tandon" : "Vikram Deshmukh",
+            title: isSales ? "Senior Assets Sales Lead (" + prodName + ")" : "Lead Mortgages Specialist (" + prodName + ")",
+            email: isSales ? "manish.tandon@kotak.com" : "vikram.deshmukh@kotak.com",
+            phone: isSales ? "+91 98195 66778" : "+91 98192 33410",
+            hub: "Zone Assets Desk (Pincode: " + pincode + ")"
+        };
+        supervisor = {
+            name: "Sunil Mehta",
+            title: "Regional Business Head - Mortgages",
+            email: "sunil.mehta@kotak.com",
+            phone: "+91 98190 99887",
+            hub: "Zonal Assets Directorate"
+        };
+    } else if (category === 'investments') {
+        poc = {
+            name: isSales ? "Karan Malhotra" : "Neha Malhotra",
+            title: isSales ? "Wealth Sales Specialist (" + prodName + ")" : "Senior Product Lead - Wealth (" + prodName + ")",
+            email: isSales ? "karan.m@kotak.com" : "neha.malhotra@kotak.com",
+            phone: isSales ? "+91 98705 11223" : "+91 98702 55431",
+            hub: "Wealth Desk (Pincode: " + pincode + ")"
+        };
+        supervisor = {
+            name: "Sameer Kulkarni",
+            title: "Executive VP - Solitaire Wealth Management",
+            email: "sameer.kulkarni@kotak.com",
+            phone: "+91 98700 88765",
+            hub: "National Wealth Desk"
+        };
+    } else if (category === 'lifestyle') {
+        poc = {
+            name: isSales ? "Priya Shah" : "Kavita Rao",
+            title: isSales ? "Lifestyle Benefits Relationship Lead" : "Solitaire Privileges Desk Lead (" + prodName + ")",
+            email: isSales ? "priya.shah@kotak.com" : "kavita.rao@kotak.com",
+            phone: isSales ? "+91 98335 44110" : "+91 98330 77123",
+            hub: "Solitaire Priority Desk"
+        };
+        supervisor = {
+            name: "Rohan Kapoor",
+            title: "Head - Ultra HNI Lifestyle & Privileges",
+            email: "rohan.kapoor@kotak.com",
+            phone: "+91 98330 00999",
+            hub: "Consumer Banking Directorate"
+        };
+    } else if (category === 'ops') {
+        poc = {
+            name: isSales ? "Rahul Bajaj" : "Amitabh Sen",
+            title: isSales ? "Account Servicing Lead" : "Operations & Service Desk Lead (" + prodName + ")",
+            email: isSales ? "rahul.bajaj@kotak.com" : "amitabh.sen@kotak.com",
+            phone: isSales ? "+91 98215 33221" : "+91 98211 88299",
+            hub: "Central Service Desk"
+        };
+        supervisor = {
+            name: "Pooja Verma",
+            title: "Senior VP - Service Quality",
+            email: "pooja.verma@kotak.com",
+            phone: "+91 98210 11445",
+            hub: "Service Quality Directorate"
+        };
+    }
+
+    if (pincode.startsWith('11') || pincode.startsWith('12')) {
+        poc.hub = "North Regional Office, Delhi NCR (Pincode: " + pincode + ")";
+        supervisor.hub = "North Zonal Command Center, New Delhi";
+    } else if (pincode.startsWith('56') || pincode.startsWith('60')) {
+        poc.hub = "South Regional Office, Bengaluru (Pincode: " + pincode + ")";
+        supervisor.hub = "South Zonal Command Center, MG Road";
+    }
+
+    container.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+
+            <!-- PRIMARY POC CARD -->
+            <div style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(37,99,235,0.06);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 0.7rem; font-weight: 800; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;">PRIMARY POC (${isSales ? 'SALES TEAM' : 'PRODUCT TEAM'})</span>
+                    <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">${program}</span>
+                </div>
+                <h3 style="margin: 0 0 2px 0; color: #0f172a; font-size: 1.05rem; font-weight: 800;">${poc.name}</h3>
+                <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.82rem; font-weight: 600;">${poc.title}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>📞</span>
+                        <a href="tel:${poc.phone}" style="color: #2563eb; text-decoration: none; font-weight: 700;">${poc.phone}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>✉️</span>
+                        <a href="mailto:${poc.email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${poc.email}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748b;">
+                        <span>📍</span>
+                        <span>${poc.hub}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUPERVISOR / ESCALATION CARD -->
+            <div style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 0.7rem; font-weight: 800; color: #475569; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;">ESCALATION SUPERVISOR</span>
+                    <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 600;">Level 2 Escalation</span>
+                </div>
+                <h3 style="margin: 0 0 2px 0; color: #0f172a; font-size: 1.02rem; font-weight: 800;">${supervisor.name}</h3>
+                <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.82rem; font-weight: 600;">${supervisor.title}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>📞</span>
+                        <a href="tel:${supervisor.phone}" style="color: #0f172a; text-decoration: none; font-weight: 700;">${supervisor.phone}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>✉️</span>
+                        <a href="mailto:${supervisor.email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${supervisor.email}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748b;">
+                        <span>📍</span>
+                        <span>${supervisor.hub}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+</script>
+
+</body>
+</html>

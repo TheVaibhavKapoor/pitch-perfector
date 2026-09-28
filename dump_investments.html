@@ -1,0 +1,653 @@
+id="panel-investments"><h2 style="font-size: 1.25rem; font-weight: 800; color: #111827; margin-bottom: 6px;">Investment Suite</h2><p style="color: #4b5563; line-height: 1.6; margin-bottom: 20px;">Access institutional-grade investment strategies with zero subscription fees and a dedicated dealer.</p>
+<div class="inner-tabs-container" style="display: flex; gap: 8px; margin-bottom: 24px; background: #f1f5f9; padding: 6px; border-radius: 12px;">
+<button class="inner-tab-btn active" onclick="switchInnerTab(this, 'features')" style="flex: 1; padding: 10px 16px; font-size: 0.95rem; font-weight: 600; color: #0f172a; background: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.2s;">Features</button>
+<button class="inner-tab-btn" onclick="switchInnerTab(this, 'calculator')" style="flex: 1; padding: 10px 16px; font-size: 0.95rem; font-weight: 600; color: #475569; background: transparent; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s;">Calculator</button>
+<button class="inner-tab-btn" onclick="switchInnerTab(this, 'pitches')" style="flex: 1; padding: 10px 16px; font-size: 0.95rem; font-weight: 600; color: #475569; background: transparent; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s;">Pitches</button>
+</div>
+<div class="inner-tab-content inner-tab-content-features" style="display: block;">
+<!-- Pricing Cards -->
+<div class="product-features-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 28px;">
+<div class="feature-card">
+<div class="feat-card-header"><span class="feat-icon">💰</span><h3>Pricing &amp; AMC</h3></div>
+<ul class="feat-list">
+<li>Competitive pricing <strong>without subscription fees</strong></li>
+<li><strong style="color: #10b981;">No AMC</strong> on Demat</li>
+</ul>
+</div>
+<div class="feature-card">
+<div class="feat-card-header"><span class="feat-icon">📈</span><h3>Equity &amp; Futures</h3></div>
+<ul class="feat-list">
+<li>Delivery @ <strong style="color: #10b981;">0.10%</strong></li>
+<li>Intraday &amp; Futures @ <strong style="color: #10b981;">0.01%</strong></li>
+</ul>
+</div>
+<div class="feature-card">
+<div class="feat-card-header"><span class="feat-icon">📊</span><h3>Margin Trading (MTF)</h3></div>
+<ul class="feat-list">
+<li><strong style="color: #10b981;">9.69%</strong> (For NTB customers)</li>
+<li><strong style="color: #10b981;">9.75%</strong> (For ETB customers)</li>
+</ul>
+</div>
+<div class="feature-card">
+<div class="feat-card-header"><span class="feat-icon">📞</span><h3>Options &amp; Dealer</h3></div>
+<ul class="feat-list">
+<li><strong>Dedicated Dealer Support</strong> included</li>
+<li><strong style="color: #10b981;">₹20 per lot</strong> (with dealer)</li>
+<li><strong style="color: #10b981;">₹10 per lot</strong> (without dealer)</li>
+</ul>
+</div>
+</div>
+<!-- CALCULATOR SECTION -->
+</div><div class="inner-tab-content inner-tab-content-calculator" style="display: none;"><div style="background: linear-gradient(135deg, #f8faff 0%, #eff4ff 100%); border: 1.5px solid #e0e7ff; border-radius: 16px; padding: 28px; margin-bottom: 20px;">
+<h3 style="font-weight: 800; color: #1e3a8a; margin-bottom: 6px; font-size: 1.05rem;">📈 Investment Return Calculator</h3>
+<p style="color: #64748b; font-size: 0.85rem; margin-bottom: 20px;">Calculate your returns across SIP, SWP, and Lumpsum investments</p>
+<!-- Calculator Type Tabs -->
+<div style="display: flex; gap: 8px; margin-bottom: 24px; background: #e8eeff; border-radius: 10px; padding: 4px;">
+<button id="inv-tab-sip" onclick="switchInvCalc('sip')" style="flex:1; padding: 10px; border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; background: #1e3a8a; color: white; transition: all 0.2s;">SIP</button>
+<button id="inv-tab-swp" onclick="switchInvCalc('swp')" style="flex:1; padding: 10px; border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; background: transparent; color: #1e3a8a; transition: all 0.2s;">SWP</button>
+<button id="inv-tab-lump" onclick="switchInvCalc('lump')" style="flex:1; padding: 10px; border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; background: transparent; color: #1e3a8a; transition: all 0.2s;">Lumpsum</button>
+</div>
+<!-- SIP Calculator -->
+<div id="inv-calc-sip" style="display:block;">
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Monthly SIP (₹)</label>
+<input id="sip-amount" min="500" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="10000"/>
+<input max="200000" min="500" oninput="document.getElementById('sip-amount').value=this.value;calcInv()" step="500" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="10000"/>
+</div>
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Expected Return (%)</label>
+<input id="sip-rate" max="30" min="1" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="12"/>
+<input max="30" min="1" oninput="document.getElementById('sip-rate').value=this.value;calcInv()" step="0.5" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="12"/>
+</div>
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Time Period (Years)</label>
+<input id="sip-years" max="40" min="1" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="10"/>
+<input max="40" min="1" oninput="document.getElementById('sip-years').value=this.value;calcInv()" step="1" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="10"/>
+</div>
+</div>
+</div>
+<!-- SWP Calculator -->
+<div id="inv-calc-swp" style="display:none;">
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Total Investment (₹)</label>
+<input id="swp-corpus" min="10000" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="1000000"/>
+<input max="10000000" min="100000" oninput="document.getElementById('swp-corpus').value=this.value;calcInv()" step="100000" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="1000000"/>
+</div>
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Monthly Withdrawal (₹)</label>
+<input id="swp-withdrawal" min="500" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="8000"/>
+<input max="200000" min="500" oninput="document.getElementById('swp-withdrawal').value=this.value;calcInv()" step="500" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="8000"/>
+</div>
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Expected Return (%)</label>
+<input id="swp-rate" max="20" min="1" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="8"/>
+<input max="20" min="1" oninput="document.getElementById('swp-rate').value=this.value;calcInv()" step="0.5" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="8"/>
+</div>
+</div>
+</div>
+<!-- Lumpsum Calculator -->
+<div id="inv-calc-lump" style="display:none;">
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Investment Amount (₹)</label>
+<input id="lump-amount" min="1000" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="500000"/>
+<input max="10000000" min="10000" oninput="document.getElementById('lump-amount').value=this.value;calcInv()" step="10000" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="500000"/>
+</div>
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Expected Return (%)</label>
+<input id="lump-rate" max="30" min="1" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="12"/>
+<input max="30" min="1" oninput="document.getElementById('lump-rate').value=this.value;calcInv()" step="0.5" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="12"/>
+</div>
+<div>
+<label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Time Period (Years)</label>
+<input id="lump-years" max="40" min="1" oninput="calcInv()" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" type="number" value="10"/>
+<input max="40" min="1" oninput="document.getElementById('lump-years').value=this.value;calcInv()" step="1" style="width:100%; margin-top:6px; accent-color:#1e3a8a;" type="range" value="10"/>
+</div>
+</div>
+</div>
+<!-- Results Row -->
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; margin-top: 4px;">
+<div style="background: white; border: 1.5px solid #e0e7ff; border-radius: 12px; padding: 16px; text-align: center;">
+<div id="inv-lbl-invested" style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px;">Total Invested</div>
+<div id="inv-val-invested" style="font-size: 1.4rem; font-weight: 800; color: #1e3a8a;">₹12,00,000</div>
+</div>
+<div style="background: white; border: 1.5px solid #bbf7d0; border-radius: 12px; padding: 16px; text-align: center;">
+<div id="inv-lbl-returns" style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px;">Est. Returns</div>
+<div id="inv-val-returns" style="font-size: 1.4rem; font-weight: 800; color: #10b981;">₹11,23,391</div>
+</div>
+<div style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); border-radius: 12px; padding: 16px; text-align: center;">
+<div id="inv-lbl-total" style="font-size: 0.75rem; color: #bfdbfe; font-weight: 600; margin-bottom: 4px;">Total Value</div>
+<div id="inv-val-total" style="font-size: 1.4rem; font-weight: 800; color: white;">₹23,23,391</div>
+</div>
+</div>
+<!-- Bar Chart (SVG, no external lib) -->
+<div style="background: white; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<h4 style="font-weight: 700; color: #111827; font-size: 0.9rem; margin: 0;">Year-by-Year Growth</h4>
+<div style="display: flex; gap: 16px; font-size: 0.75rem; color: #6b7280;">
+<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#1e3a8a;border-radius:2px;display:inline-block;"></span>Invested</span>
+<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#10b981;border-radius:2px;display:inline-block;"></span>Returns</span>
+</div>
+</div>
+<div id="inv-chart" style="width:100%; overflow-x:auto;"></div>
+</div>
+<div style="margin-top: 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px; font-size: 0.82rem; color: #166534;">
+                            🌟 <strong>Solitaire Advantage:</strong> Zero Subscription Fee on Mutual Fund platform + <strong>No AMC on Demat</strong> — saving ₹2,000+/year vs standard plans.
+                        </div>
+</div></div>
+<div class="inner-tab-content inner-tab-content-pitches" style="display: none;"><div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); height: 600px; overflow-y: auto;">
+<h3 style="color: #0f172a; margin-top: 32px; margin-bottom: 16px; font-size: 1.15rem; text-align: left; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;"><span style="color: #3b82f6; margin-right: 8px;">🔥.</span>THE BEST INVESTMENT PITCH FOR YOU AS RM (Recommended)</h3>
+<p style="text-align: left; color: #475569; font-size: 0.95rem; margin-bottom: 16px;">For your Privy / Privy+ / Solitaire customers, don't randomly pitch MF, Trinity and NEO. Do an Investment Health Check.</p>
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; text-align: left;">Investment Health Check</h4>
+<div style="background: #f1f5f9; padding: 16px; border-radius: 8px; text-align: left; margin-bottom: 24px;">
+<p style="color: #334155; margin-bottom: 12px;"><strong>Opening:</strong> <em>“Sir/Ma’am, apart from your banking requirements, I'd also like to understand how you currently manage your investments.”</em></p>
+<p style="color: #0f172a; font-weight: 600; margin-bottom: 8px;">Then ask:</p>
+<ol style="padding-left: 20px; color: #475569; font-size: 0.95rem; margin-bottom: 16px; line-height: 1.6;">
+<li>“Do you invest directly in equities?”</li>
+<li>“Do you have mutual funds?”</li>
+<li>“Are your investments primarily with Kotak or spread across different platforms?”</li>
+<li>“Do you manage your portfolio yourself or work with an advisor?”</li>
+<li>“What would you say is your primary objective—wealth creation, regular income, capital preservation or a specific future goal?”</li>
+</ol>
+<p style="color: #0f172a; font-weight: 600; margin-bottom: 8px;">Then map:</p>
+<ul style="padding-left: 20px; color: #475569; font-size: 0.95rem; margin-bottom: 0; line-height: 1.6; list-style-type: none;">
+<li>Customer has no market investments → <strong style="color: #3b82f6;">MF / SIP</strong></li>
+<li>Customer has MF but scattered across platforms → <strong style="color: #3b82f6;">Portfolio consolidation / Kotak Investment Account</strong></li>
+<li>Customer invests in stocks through another broker → <strong style="color: #3b82f6;">Trinity + NEO</strong></li>
+<li>Customer actively trades → <strong style="color: #3b82f6;">Trinity + NEO</strong></li>
+<li>Customer has large idle savings → <strong style="color: #3b82f6;">Asset allocation discussion → MF / debt / equity</strong> based on suitability</li>
+<li>HNI with ₹50L+ investments → Don't stop at MF. Move the conversation toward: <strong style="color: #3b82f6;">MF → Equity → Bonds → PMS → AIF → structured/alternate investments</strong></li>
+</ul>
+</div>
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; text-align: left;">Your One-Line Positioning</h4>
+<div style="text-align: left; margin-bottom: 24px; color: #475569; font-size: 0.95rem;">
+<p style="margin-bottom: 8px;"><strong>Trinity:</strong> “One ecosystem to Save, Trade &amp; Invest.”</p>
+<p style="margin-bottom: 8px;"><strong>Mutual Funds:</strong> “Professionally managed diversification for long-term wealth creation.”</p>
+<p style="margin-bottom: 16px;"><strong>NEO:</strong> “A digital platform for customers who want to actively manage their investments and trades.”</p>
+</div>
+<div style="margin-bottom: 24px;">
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600;">Your RM Role</h4>
+<div style="background: #f8fafc; border-left: 4px solid #1e3a8a; padding: 16px; text-align: left; border-radius: 0 8px 8px 0; font-style: italic; color: #334155; font-size: 0.95rem;">
+<p style="margin-bottom: 0;">“I don't want to sell you an investment product. I want to understand your existing portfolio and identify where your money can be better structured according to your goals, liquidity needs and risk profile.”</p>
+<p style="font-size: 0.85rem; color: #475569; font-weight: 400; font-style: italic; margin-top: 8px;">(That last line is the premium-RM positioning I'd use with Solitaire/Privy+ clients.)</p>
+</div>
+</div>
+<hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 32px 0;"/>
+<h3 style="color: #0f172a; margin-top: 32px; margin-bottom: 16px; font-size: 1.15rem; text-align: left; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;"><span style="color: #3b82f6; margin-right: 8px;">1.</span>KOTAK TRINITY — 3-in-1 ACCOUNT</h3>
+<div style="margin-bottom: 24px;">
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600;">Customer Pitch</h4>
+<div style="background: #f8fafc; border-left: 4px solid #1e3a8a; padding: 16px; text-align: left; border-radius: 0 8px 8px 0; font-style: italic; color: #334155; font-size: 0.95rem;">
+<p style="margin-bottom: 12px;">“Sir/Ma’am, I also noticed that we can make your investment experience much more seamless through Kotak Trinity.</p>
+<p style="margin-bottom: 12px;">Trinity essentially brings your Savings Account, Demat Account and Trading Account together.</p>
+<p style="margin-bottom: 12px;">So instead of maintaining separate banking and investment setups, your Kotak savings account is directly linked to your trading and demat account.</p>
+<p style="margin-bottom: 12px;">The biggest convenience is the seamless movement of funds from your savings account to your trading account, along with the ability to invest in stocks, bonds and IPOs through the same ecosystem.</p>
+<p style="margin-bottom: 0;">So if you actively invest in the markets, I would recommend having Trinity because it gives you one integrated relationship for saving, investing and trading.”</p>
+</div>
+</div>
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; text-align: left;">Key Features / Benefits</h4>
+<ul style="text-align: left; line-height: 1.6; padding-left: 20px; color: #475569; font-size: 0.95rem; margin-bottom: 24px;"><li style="margin-bottom: 4px;"><strong>3-in-1 structure:</strong> Savings Account (KMB) + Demat Account (KS) + Trading Account (KS)</li><li style="margin-bottom: 4px;"><strong>Investment access:</strong> Equity/stocks, Bonds, IPOs, ASBA, Mutual Funds</li><li style="margin-bottom: 4px;"><strong>Convenience:</strong> Seamless transfer between Savings → Trading, Single integrated ecosystem, Easier settlement of trades</li><li style="margin-bottom: 4px;">Digital account opening/upgrade</li><li style="margin-bottom: 4px;"><strong>Pricing:</strong> Current Kotak information advertises ₹0 account-opening fee, varying pricing plans, flat ₹10/order for Intraday and F&amp;O under applicable plans</li></ul>
+<div style="margin-bottom: 24px; text-align: left;">
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600;">Strong RM Question</h4>
+<div style="background: #eef2ff; padding: 16px; border-radius: 8px; color: #1e40af; font-weight: 600; border-left: 4px solid #3b82f6; font-size: 0.95rem;">
+<p style="margin-bottom: 8px;">“Sir, do you currently maintain your Demat and trading account with another broker?”</p>
+<p style="margin-bottom: 8px; color: #475569; font-weight: 400;">If yes:</p>
+<p style="margin-bottom: 8px;">“And do you usually transfer money from your bank account to the broker before investing?”</p>
+<p style="margin-bottom: 8px; color: #475569; font-weight: 400;">Then:</p>
+<p style="margin-bottom: 0;">“That's exactly where Trinity can simplify the experience for you.”</p>
+</div>
+</div>
+<h3 style="color: #0f172a; margin-top: 32px; margin-bottom: 16px; font-size: 1.15rem; text-align: left; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;"><span style="color: #3b82f6; margin-right: 8px;">2.</span>MUTUAL FUNDS</h3>
+<p style="text-align: left; color: #475569; font-size: 0.95rem; margin-bottom: 16px;">Don't start with <em>“Sir, we have mutual funds.”</em> Start with the customer's idle money / goals / existing portfolio.</p>
+<div style="margin-bottom: 24px;">
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600;">Recommended Pitch</h4>
+<div style="background: #f8fafc; border-left: 4px solid #1e3a8a; padding: 16px; text-align: left; border-radius: 0 8px 8px 0; font-style: italic; color: #334155; font-size: 0.95rem;">
+<p style="margin-bottom: 12px;">“Sir/Ma’am, one area I would like to review with you is your investment portfolio.</p>
+<p style="margin-bottom: 12px;">A lot of customers have money sitting in savings accounts or FDs, while their long-term wealth creation happens separately through mutual funds.</p>
+<p style="margin-bottom: 12px;">What I would like to do is understand your goals, investment horizon and risk appetite and then see whether a portion of your surplus can be allocated towards market-linked investments.</p>
+<p style="margin-bottom: 12px;">The advantage of mutual funds is that you don't have to individually research and manage every stock. The portfolio is managed by professional fund managers and can give you diversification across companies and sectors.</p>
+<p style="margin-bottom: 12px;">We can structure it through SIP, lump-sum investment or STP, depending on your cash flow and objective.</p>
+<p style="margin-bottom: 0;">More importantly, I don't want to simply recommend a fund. I'd first like to look at what you already hold and identify whether there is any concentration, duplication or asset-allocation gap.”</p>
+<p style="font-size: 0.85rem; color: #475569; font-weight: 400; font-style: italic; margin-top: 8px;">(That last line is excellent for affluent clients.)</p>
+</div>
+</div>
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; text-align: left;">MF Features / Benefits</h4>
+<ul style="text-align: left; line-height: 1.6; padding-left: 20px; color: #475569; font-size: 0.95rem; margin-bottom: 24px;"><li style="margin-bottom: 4px;"><strong>Investment Options:</strong> SIP, Lump-sum, STP, Systematic instructions</li><li style="margin-bottom: 4px;"><strong>Categories:</strong> Equity funds, Debt funds, Hybrid funds based on risk profile</li><li style="margin-bottom: 4px;">Kotak's investment account currently allows customers to transact in mutual funds from 25+ fund houses.</li></ul>
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; text-align: left;">Portfolio Management (Kotak Investment Account)</h4>
+<ul style="text-align: left; line-height: 1.6; padding-left: 20px; color: #475569; font-size: 0.95rem; margin-bottom: 24px;"><li style="margin-bottom: 4px;">Consolidated MF portfolio view</li><li style="margin-bottom: 4px;">Daily NAV tracking &amp; Portfolio-performance tracking</li><li style="margin-bottom: 4px;">Recommended funds</li><li style="margin-bottom: 4px;">Transaction reports &amp; Capital-gain/loss reports</li><li style="margin-bottom: 4px;">Nomination facility</li><li style="margin-bottom: 4px;">Online purchase/redemption, SIP/STP/standing instructions</li></ul>
+<div style="margin-bottom: 24px; text-align: left;">
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600;">Why SIP?</h4>
+<div style="background: #eef2ff; padding: 16px; border-radius: 8px; color: #1e40af; font-weight: 600; border-left: 4px solid #3b82f6; font-size: 0.95rem;">
+<p style="margin-bottom: 12px; font-weight: 400; color: #475569;">Pitch it like this:</p>
+<p style="margin-bottom: 12px;">“Instead of trying to identify the perfect time to enter the market, SIP allows you to invest a fixed amount regularly across different market conditions. It creates discipline and helps average your purchase cost over time.”</p>
+<p style="margin-bottom: 0; font-weight: 400; color: #475569;">Kotak highlights discipline, rupee-cost averaging and avoiding the need to time the market as key SIP benefits.</p>
+</div>
+</div>
+<h3 style="color: #0f172a; margin-top: 32px; margin-bottom: 16px; font-size: 1.15rem; text-align: left; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;"><span style="color: #3b82f6; margin-right: 8px;">3.</span>KOTAK NEO</h3>
+<p style="text-align: left; color: #475569; font-size: 0.95rem; margin-bottom: 16px;">This one should be positioned very differently from Trinity. Trinity = account architecture. NEO = investment/trading platform.</p>
+<div style="margin-bottom: 24px;">
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600;">Customer Pitch</h4>
+<div style="background: #f8fafc; border-left: 4px solid #1e3a8a; padding: 16px; text-align: left; border-radius: 0 8px 8px 0; font-style: italic; color: #334155; font-size: 0.95rem;">
+<p style="margin-bottom: 12px;">“Sir/Ma’am, if you are someone who actively follows the market or manages your own investments, I'd also recommend looking at Kotak NEO.</p>
+<p style="margin-bottom: 12px;">NEO is Kotak Securities' digital investment and trading platform where you can manage your market investments digitally.</p>
+<p style="margin-bottom: 12px;">You get access to stocks, mutual funds, IPOs and trading capabilities, along with research and tools designed for more active investors.</p>
+<p style="margin-bottom: 12px;">So if you prefer taking your own investment decisions rather than having everything managed for you, NEO gives you the digital platform to research, execute and monitor your investments in one place.</p>
+<p style="margin-bottom: 0;">And because your banking relationship is already with Kotak, we can also look at integrating the overall banking and investment experience through Trinity.”</p>
+</div>
+</div>
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600; text-align: left;">NEO — Key Features</h4>
+<ul style="text-align: left; line-height: 1.6; padding-left: 20px; color: #475569; font-size: 0.95rem; margin-bottom: 24px;"><li style="margin-bottom: 4px;"><strong>📈 Equity:</strong> Buy/sell stocks, Market monitoring, Research and insights, Portfolio tracking</li><li style="margin-bottom: 4px;"><strong>📊 Trading:</strong> Intraday, Futures &amp; Options, Advanced basket orders, MTF (with dedicated research section), Charts, Option-chain tools</li><li style="margin-bottom: 4px;"><strong>📈 Mutual Funds:</strong> Native MF investment journey, MF discovery, Digital execution, UPI Autopay support</li><li style="margin-bottom: 4px;"><strong>🏦 IPO:</strong> IPO applications, ASBA, UPI-based payment journey, Digital application process</li><li style="margin-bottom: 4px;"><strong>📱 Digital:</strong> Mobile investment platform, Personalised market/investment views, Integrated investment experience</li></ul>
+<h3 style="color: #0f172a; margin-top: 32px; margin-bottom: 16px; font-size: 1.15rem; text-align: left; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;"><span style="color: #3b82f6; margin-right: 8px;">4.</span>TRINITY vs NEO — VERY IMPORTANT FOR YOUR PITCH</h3>
+<p style="text-align: left; color: #475569; font-size: 0.95rem; margin-bottom: 16px;">Don't confuse these two with the customer.</p>
+<table style="width: 100%; text-align: left; border-collapse: collapse; margin-bottom: 24px; font-size: 0.9rem;"><thead style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;"><tr><th style="padding: 12px; font-weight: 600; color: #475569; width: 30%;">Feature</th><th style="padding: 12px; font-weight: 600; color: #1e3a8a; width: 35%;">Trinity</th><th style="padding: 12px; font-weight: 600; color: #b91c1c; width: 35%;">NEO</th></tr></thead><tbody><tr style="background: #ffffff; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">What is it?</td><td style="padding: 12px; color: #475569;">3-in-1 account</td><td style="padding: 12px; color: #475569;">Digital investment/trading platform</td></tr><tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">Bank Account</td><td style="padding: 12px; color: #475569;">✓</td><td style="padding: 12px; color: #475569;">Through linked ecosystem</td></tr><tr style="background: #ffffff; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">Demat</td><td style="padding: 12px; color: #475569;">✓</td><td style="padding: 12px; color: #475569;">✓</td></tr><tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">Trading</td><td style="padding: 12px; color: #475569;">✓</td><td style="padding: 12px; color: #475569;">✓</td></tr><tr style="background: #ffffff; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">Stocks</td><td style="padding: 12px; color: #475569;">✓</td><td style="padding: 12px; color: #475569;">✓</td></tr><tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">Mutual Funds</td><td style="padding: 12px; color: #475569;">✓</td><td style="padding: 12px; color: #475569;">✓</td></tr><tr style="background: #ffffff; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">IPO</td><td style="padding: 12px; color: #475569;">✓</td><td style="padding: 12px; color: #475569;">✓</td></tr><tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">Main proposition</td><td style="padding: 12px; color: #475569;">Integration</td><td style="padding: 12px; color: #475569;">Digital investing/trading</td></tr><tr style="background: #ffffff; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">Best for</td><td style="padding: 12px; color: #475569;">Customers wanting one integrated setup</td><td style="padding: 12px; color: #475569;">Active/self-directed investors</td></tr><tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;"><td style="padding: 12px; font-weight: 500; color: #0f172a;">RM pitch</td><td style="padding: 12px; color: #475569;">“Connect your banking &amp; investments”</td><td style="padding: 12px; color: #475569;">“Manage your investments digitally”</td></tr></tbody></table>
+<div style="background: #f1f5f9; padding: 16px; border-radius: 8px; text-align: left; margin-bottom: 24px;">
+<h4 style="color: #0f172a; margin-bottom: 12px; font-size: 1.05rem; font-weight: 600;">The easiest explanation to a client:</h4>
+<p style="color: #1e40af; font-weight: 600; margin-bottom: 0; font-style: italic;">“Sir, Trinity is the relationship structure—your Bank + Demat + Trading together. NEO is the digital platform through which you can actually manage your investments and trades.”</p>
+</div>
+</div></div>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- GLOBAL FLOATING SIDE TABS (KOMPANION & SPOC - MATHEMATICALLY GUARANTEED 30PX GAP) -->
+<div id="kompanion-tab" onclick="toggleKompanionDrawer()" style="position: fixed; right: 0; top: calc(50% - 15px); transform: translateY(-100%); z-index: 9999; background: #da251c; color: white; padding: 14px 8px; border-radius: 10px 0 0 10px; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.03em; cursor: pointer; box-shadow: -3px 4px 14px rgba(0,0,0,0.2); writing-mode: vertical-rl; text-orientation: mixed; user-select: none; transition: all 0.2s ease;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#da251c'">
+    Kompanion
+</div>
+
+<div id="spoc-tab" onclick="toggleSpocDrawer()" style="position: fixed; right: 0; top: calc(50% + 15px); transform: translateY(0%); z-index: 9999; background: #2563eb; color: white; padding: 14px 8px; border-radius: 10px 0 0 10px; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.03em; cursor: pointer; box-shadow: -3px 4px 14px rgba(0,0,0,0.2); writing-mode: vertical-rl; text-orientation: mixed; user-select: none; transition: all 0.2s ease;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+    Spoc
+</div>
+
+<!-- KOMPANION SLIDE-OUT DRAWER -->
+<div id="kompanion-drawer" style="position: fixed; right: -440px; pointer-events: none; visibility: hidden; top: 0; width: 400px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 10000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="background: #182545; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #da251c;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; background: #da251c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">K</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700;">Kotak Kompanion</h3>
+                <span style="font-size: 0.72rem; color: #94a3b8;">AI Pitch & Product Assistant</span>
+            </div>
+        </div>
+        <button onclick="toggleKompanionDrawer()" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; padding: 0 4px;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#94a3b8'">&times;</button>
+    </div>
+    
+    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #f8fafc;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <span style="font-size: 0.75rem; font-weight: 700; color: #da251c; text-transform: uppercase; letter-spacing: 0.05em;">RM Quick Pitch Assistant</span>
+            <h4 style="margin: 6px 0 10px 0; color: #0f172a; font-size: 0.95rem;">Smart Solitaire Objections & Pitches</h4>
+            <p style="font-size: 0.84rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">Need quick answers during client calls? Select a product topic below to get instant talking points.</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <button onclick="setKompanionMsg('What is the key pitch for Solitaire Credit Card?')" style="background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Credit Card Pitch</button>
+                <button onclick="setKompanionMsg('How to pitch Home Loan balance transfer to Kotak?')" style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Home Loan BT</button>
+                <button onclick="setKompanionMsg('Why shift Mutual Fund portfolio to Kotak?')" style="background: #fefce8; border: 1px solid #fef08a; color: #854d0e; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Mutual Fund Shift</button>
+                <button onclick="setKompanionMsg('Highlight ActivMoney auto-sweep benefits')" style="background: #faf5ff; border: 1px solid #e9d5ff; color: #6b21a8; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">ActivMoney FD</button>
+            </div>
+        </div>
+
+        <div id="kompanion-chat-log" style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; font-size: 0.85rem; color: #334155; line-height: 1.5;">
+                👋 <strong>Hello RM!</strong> I am your <strong>Kompanion AI Assistant</strong>. Ask me anything about Kotak Solitaire privileges, lending rates, credit cards, or client objection handling!
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 16px 20px; background: white; border-top: 1px solid #e2e8f0; display: flex; gap: 10px;">
+        <input type="text" id="kompanion-input" placeholder="Ask Kompanion a question..." style="flex: 1; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; outline: none;" onkeypress="if(event.key==='Enter') sendKompanionMsg()">
+        <button onclick="sendKompanionMsg()" style="background: #da251c; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer;">Send</button>
+    </div>
+</div>
+
+<!-- SPOC SLIDE-OUT DRAWER -->
+<div id="spoc-drawer" style="position: fixed; right: -440px; pointer-events: none; visibility: hidden; top: 0; width: 420px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 10000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="background: #1e3a8a; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3b82f6;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">S</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700;">Kotak SPOC Directory</h3>
+                <span style="font-size: 0.72rem; color: #93c5fd;">Single Point of Contact & Escalation</span>
+            </div>
+        </div>
+        <button onclick="toggleSpocDrawer()" style="background: none; border: none; color: #93c5fd; font-size: 1.4rem; cursor: pointer; padding: 0 4px;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#93c5fd'">&times;</button>
+    </div>
+
+    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #f8fafc;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <h4 style="margin: 0 0 12px 0; color: #0f172a; font-size: 0.92rem; font-weight: 700;">Select SPOC Parameters</h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- 1. Pincode -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">1. PINCODE / LOCATION</label>
+                    <input type="text" id="spoc-pincode" value="400051" placeholder="Enter Pincode (e.g. 400051, 110001)" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; box-sizing: border-box;" oninput="fetchSpocDetails()">
+                </div>
+
+                <!-- 2. Program -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">2. PROGRAM</label>
+                    <select id="spoc-program" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="Solitaire" selected>Kotak Solitaire</option>
+                        <option value="Privy+">Kotak Privy League+</option>
+                        <option value="Privy">Kotak Privy League</option>
+                    </select>
+                </div>
+
+                <!-- 3. Category -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">3. PRODUCT CATEGORY</label>
+                    <select id="spoc-category" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="updateSpocProducts(); fetchSpocDetails();">
+                        <option value="cc" selected>Credit Cards</option>
+                        <option value="assets">Assets & Loans</option>
+                        <option value="investments">Investments</option>
+                        <option value="lifestyle">Lifestyle & Concierge</option>
+                        <option value="ops">Account Operations</option>
+                    </select>
+                </div>
+
+                <!-- 4. Specific Product List -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">4. SPECIFIC PRODUCT</label>
+                    <select id="spoc-product" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <!-- Dynamically populated based on category -->
+                    </select>
+                </div>
+
+                <!-- 5. Team (Product & Sales Only) -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">5. TEAM</label>
+                    <select id="spoc-team" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="product" selected>Product Team</option>
+                        <option value="sales">Sales Team</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div id="spoc-result-container">
+            <!-- Dynamically populated by JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleKompanionDrawer() {
+    const kDrawer = document.getElementById('kompanion-drawer');
+    const sDrawer = document.getElementById('spoc-drawer');
+    if (sDrawer) sDrawer.style.right = '-440px'; sDrawer.style.pointerEvents = 'none'; sDrawer.style.visibility = 'hidden';
+    if (!kDrawer) return;
+    if (kDrawer.style.right === '0px') {
+        kDrawer.style.right = '-440px'; kDrawer.style.pointerEvents = 'none'; kDrawer.style.visibility = 'hidden';
+    } else {
+        kDrawer.style.right = '0px'; kDrawer.style.pointerEvents = 'auto'; kDrawer.style.visibility = 'visible';
+    }
+}
+
+function toggleSpocDrawer() {
+    const kDrawer = document.getElementById('kompanion-drawer');
+    const sDrawer = document.getElementById('spoc-drawer');
+    if (kDrawer) kDrawer.style.right = '-440px'; kDrawer.style.pointerEvents = 'none'; kDrawer.style.visibility = 'hidden';
+    if (!sDrawer) return;
+    if (sDrawer.style.right === '0px') {
+        sDrawer.style.right = '-440px'; sDrawer.style.pointerEvents = 'none'; sDrawer.style.visibility = 'hidden';
+    } else {
+        sDrawer.style.right = '0px'; sDrawer.style.pointerEvents = 'auto'; sDrawer.style.visibility = 'visible';
+        updateSpocProducts();
+        fetchSpocDetails();
+    }
+}
+
+function setKompanionMsg(msg) {
+    const input = document.getElementById('kompanion-input');
+    if (input) {
+        input.value = msg;
+        sendKompanionMsg();
+    }
+}
+
+function sendKompanionMsg() {
+    const input = document.getElementById('kompanion-input');
+    const log = document.getElementById('kompanion-chat-log');
+    if (!input || !log || !input.value.trim()) return;
+    
+    const query = input.value.trim();
+    input.value = '';
+    
+    const uMsg = document.createElement('div');
+    uMsg.style.cssText = 'background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; border-radius: 12px; padding: 12px 14px; font-size: 0.85rem; align-self: flex-end; max-width: 85%; line-height: 1.4;';
+    uMsg.innerHTML = '<strong>You:</strong> ' + query;
+    log.appendChild(uMsg);
+    
+    setTimeout(() => {
+        const aMsg = document.createElement('div');
+        aMsg.style.cssText = 'background: white; border: 1px solid #e2e8f0; color: #0f172a; border-radius: 12px; padding: 14px; font-size: 0.85rem; line-height: 1.5; box-shadow: 0 1px 3px rgba(0,0,0,0.03);';
+        
+        let resp = "💡 <strong>Solitaire Insight:</strong> Kotak Solitaire offers exclusive family relationship banking, 0% Forex Markup on Credit Cards, pre-approved Home Loans up to ₹7.5 Cr with ~0.25% interest discount, and ActivMoney FD auto-sweep returns on idle savings.";
+        
+        if (query.toLowerCase().includes('credit card')) {
+            resp = "💳 <strong>Kompanion Recommendation:</strong> Pitch the Kotak Solitaire Metal Credit Card highlighting <strong>10 Air Miles / ₹100</strong> via Kotak Unbox (1 Mile = ₹1 value), <strong>0% Forex Markup</strong> (saving ~₹14,000 per ₹4L international spend), and <strong>unlimited domestic & international lounge access</strong> for primary and add-on cardholders.";
+        } else if (query.toLowerCase().includes('home loan') || query.toLowerCase().includes('bt')) {
+            resp = "🏠 <strong>Kompanion Recommendation:</strong> Use Home Loan Pitch C: <em>'Sir/Ma'am, if you already have a Home Loan elsewhere, I can evaluate whether moving it to Kotak saves interest for you. At ~0.25% lower rate with zero processing fees, we can calculate your exact monthly EMI savings.'</em>";
+        } else if (query.toLowerCase().includes('mutual fund')) {
+            resp = "📈 <strong>Kompanion Recommendation:</strong> Start with financial objectives rather than fund names. Pitch SIP for long-term wealth or SWP for tax-efficient monthly income. Emphasize zero-AMC Demat and 0.10% delivery brokerage!";
+        } else if (query.toLowerCase().includes('activmoney')) {
+            resp = "⚡ <strong>Kompanion Recommendation:</strong> Highlight ActivMoney auto-sweep: idle funds above ₹25,000 are automatically converted to fixed deposits earning higher FD interest while remaining 100% liquid with zero penalty on withdrawals.";
+        }
+        
+        aMsg.innerHTML = resp;
+        log.appendChild(aMsg);
+        log.scrollTop = log.scrollHeight;
+    }, 400);
+}
+
+// SPOC SPECIFIC PRODUCTS DATA
+const SPOC_PRODUCTS = {
+    cc: [
+        { id: "solitaire_cc", name: "Kotak Solitaire Metal Credit Card" },
+        { id: "privy_cc", name: "Privy League Signature Credit Card" },
+        { id: "white_cc", name: "White Reserve Credit Card" },
+        { id: "zen_cc", name: "Zen Signature Credit Card" }
+    ],
+    assets: [
+        { id: "hl", name: "Home Loan & Balance Transfer" },
+        { id: "lap", name: "Loan Against Property (LAP)" },
+        { id: "las", name: "Loan Against Securities (LAS)" },
+        { id: "od", name: "Credit Line & Overdraft (OD)" }
+    ],
+    investments: [
+        { id: "mf", name: "Mutual Funds (SIP / SWP)" },
+        { id: "demat", name: "Demat & Equity Trading" },
+        { id: "ipo", name: "IPO (ASBA)" },
+        { id: "mtf", name: "MTF Margin Trading" },
+        { id: "pms", name: "AIF & PMS Solutions" }
+    ],
+    lifestyle: [
+        { id: "table", name: "Solitaire Table Dining Privileges" },
+        { id: "lounge", name: "Airport Lounge & Priority Pass" },
+        { id: "golf", name: "Golf Privileges & Coaching" },
+        { id: "concierge", name: "24/7 Solitaire Concierge" }
+    ],
+    ops: [
+        { id: "activmoney", name: "ActivMoney FD Auto-Sweep" },
+        { id: "debit", name: "Solitaire Visa Infinite Debit Card" },
+        { id: "family", name: "Family Relationship Pooling" },
+        { id: "service", name: "Priority Service & Account Requests" }
+    ]
+};
+
+function updateSpocProducts() {
+    const category = document.getElementById('spoc-category')?.value || 'cc';
+    const prodSelect = document.getElementById('spoc-product');
+    if (!prodSelect) return;
+
+    const products = SPOC_PRODUCTS[category] || SPOC_PRODUCTS.cc;
+    prodSelect.innerHTML = products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+}
+
+// SPOC DIRECTORY FETCH LOGIC
+function fetchSpocDetails() {
+    const pincode = (document.getElementById('spoc-pincode')?.value || '400051').trim();
+    const program = document.getElementById('spoc-program')?.value || 'Solitaire';
+    const category = document.getElementById('spoc-category')?.value || 'cc';
+    const team = document.getElementById('spoc-team')?.value || 'product';
+    const prodSelect = document.getElementById('spoc-product');
+    const prodName = prodSelect?.options[prodSelect.selectedIndex]?.text || "Credit Cards";
+    const container = document.getElementById('spoc-result-container');
+    if (!container) return;
+
+    const isSales = (team === 'sales');
+
+    let poc = {
+        name: isSales ? "Vikrant Roy" : "Rajesh Sharma",
+        title: isSales ? "Lead Sales Acquisition Manager - " + prodName : "Senior Product Lead - " + prodName,
+        email: isSales ? "vikrant.roy@kotak.com" : "rajesh.sharma@kotak.com",
+        phone: isSales ? "+91 98204 11990" : "+91 98201 44521",
+        hub: "BKC Regional Office, Mumbai (Pincode: " + pincode + ")"
+    };
+    
+    let supervisor = {
+        name: isSales ? "Sandeep Narang" : "Ananya Iyer",
+        title: isSales ? "Zonal Sales Head - Ultra HNI Banking" : "Vice President - Product & Synergies",
+        email: isSales ? "sandeep.narang@kotak.com" : "ananya.iyer@kotak.com",
+        phone: isSales ? "+91 98200 99887" : "+91 98200 11234",
+        hub: "Regional Hub Command Center"
+    };
+
+    if (category === 'assets') {
+        poc = {
+            name: isSales ? "Manish Tandon" : "Vikram Deshmukh",
+            title: isSales ? "Senior Assets Sales Lead (" + prodName + ")" : "Lead Mortgages Specialist (" + prodName + ")",
+            email: isSales ? "manish.tandon@kotak.com" : "vikram.deshmukh@kotak.com",
+            phone: isSales ? "+91 98195 66778" : "+91 98192 33410",
+            hub: "Zone Assets Desk (Pincode: " + pincode + ")"
+        };
+        supervisor = {
+            name: "Sunil Mehta",
+            title: "Regional Business Head - Mortgages",
+            email: "sunil.mehta@kotak.com",
+            phone: "+91 98190 99887",
+            hub: "Zonal Assets Directorate"
+        };
+    } else if (category === 'investments') {
+        poc = {
+            name: isSales ? "Karan Malhotra" : "Neha Malhotra",
+            title: isSales ? "Wealth Sales Specialist (" + prodName + ")" : "Senior Product Lead - Wealth (" + prodName + ")",
+            email: isSales ? "karan.m@kotak.com" : "neha.malhotra@kotak.com",
+            phone: isSales ? "+91 98705 11223" : "+91 98702 55431",
+            hub: "Wealth Desk (Pincode: " + pincode + ")"
+        };
+        supervisor = {
+            name: "Sameer Kulkarni",
+            title: "Executive VP - Solitaire Wealth Management",
+            email: "sameer.kulkarni@kotak.com",
+            phone: "+91 98700 88765",
+            hub: "National Wealth Desk"
+        };
+    } else if (category === 'lifestyle') {
+        poc = {
+            name: isSales ? "Priya Shah" : "Kavita Rao",
+            title: isSales ? "Lifestyle Benefits Relationship Lead" : "Solitaire Privileges Desk Lead (" + prodName + ")",
+            email: isSales ? "priya.shah@kotak.com" : "kavita.rao@kotak.com",
+            phone: isSales ? "+91 98335 44110" : "+91 98330 77123",
+            hub: "Solitaire Priority Desk"
+        };
+        supervisor = {
+            name: "Rohan Kapoor",
+            title: "Head - Ultra HNI Lifestyle & Privileges",
+            email: "rohan.kapoor@kotak.com",
+            phone: "+91 98330 00999",
+            hub: "Consumer Banking Directorate"
+        };
+    } else if (category === 'ops') {
+        poc = {
+            name: isSales ? "Rahul Bajaj" : "Amitabh Sen",
+            title: isSales ? "Account Servicing Lead" : "Operations & Service Desk Lead (" + prodName + ")",
+            email: isSales ? "rahul.bajaj@kotak.com" : "amitabh.sen@kotak.com",
+            phone: isSales ? "+91 98215 33221" : "+91 98211 88299",
+            hub: "Central Service Desk"
+        };
+        supervisor = {
+            name: "Pooja Verma",
+            title: "Senior VP - Service Quality",
+            email: "pooja.verma@kotak.com",
+            phone: "+91 98210 11445",
+            hub: "Service Quality Directorate"
+        };
+    }
+
+    if (pincode.startsWith('11') || pincode.startsWith('12')) {
+        poc.hub = "North Regional Office, Delhi NCR (Pincode: " + pincode + ")";
+        supervisor.hub = "North Zonal Command Center, New Delhi";
+    } else if (pincode.startsWith('56') || pincode.startsWith('60')) {
+        poc.hub = "South Regional Office, Bengaluru (Pincode: " + pincode + ")";
+        supervisor.hub = "South Zonal Command Center, MG Road";
+    }
+
+    container.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+
+            <!-- PRIMARY POC CARD -->
+            <div style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(37,99,235,0.06);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 0.7rem; font-weight: 800; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;">PRIMARY POC (${isSales ? 'SALES TEAM' : 'PRODUCT TEAM'})</span>
+                    <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">${program}</span>
+                </div>
+                <h3 style="margin: 0 0 2px 0; color: #0f172a; font-size: 1.05rem; font-weight: 800;">${poc.name}</h3>
+                <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.82rem; font-weight: 600;">${poc.title}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>📞</span>
+                        <a href="tel:${poc.phone}" style="color: #2563eb; text-decoration: none; font-weight: 700;">${poc.phone}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>✉️</span>
+                        <a href="mailto:${poc.email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${poc.email}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748b;">
+                        <span>📍</span>
+                        <span>${poc.hub}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUPERVISOR / ESCALATION CARD -->
+            <div style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 0.7rem; font-weight: 800; color: #475569; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;">ESCALATION SUPERVISOR</span>
+                    <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 600;">Level 2 Escalation</span>
+                </div>
+                <h3 style="margin: 0 0 2px 0; color: #0f172a; font-size: 1.02rem; font-weight: 800;">${supervisor.name}</h3>
+                <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.82rem; font-weight: 600;">${supervisor.title}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>📞</span>
+                        <a href="tel:${supervisor.phone}" style="color: #0f172a; text-decoration: none; font-weight: 700;">${supervisor.phone}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>✉️</span>
+                        <a href="mailto:${supervisor.email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${supervisor.email}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748b;">
+                        <span>📍</span>
+                        <span>${supervisor.hub}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+</script>

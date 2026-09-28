@@ -1,0 +1,375 @@
+import os, re, sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+workspace_dir = r"c:\Users\vaibh\Desktop\Pitch Perfector - Copy (3)"
+
+BOTH_TABS_AND_DRAWERS_HTML = """
+<!-- GLOBAL FLOATING SIDE TABS (KOMPANION & SPOC) -->
+<div id="kompanion-tab" onclick="toggleKompanionDrawer()" style="position: fixed; right: 0; top: 38%; transform: translateY(-50%); z-index: 9999; background: #da251c; color: white; padding: 16px 8px; border-radius: 10px 0 0 10px; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.03em; cursor: pointer; box-shadow: -3px 4px 14px rgba(0,0,0,0.25); writing-mode: vertical-rl; text-orientation: mixed; user-select: none; transition: all 0.2s ease;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#da251c'">
+    Kompanion
+</div>
+
+<div id="spoc-tab" onclick="toggleSpocDrawer()" style="position: fixed; right: 0; top: 56%; transform: translateY(-50%); z-index: 9999; background: #2563eb; color: white; padding: 16px 8px; border-radius: 10px 0 0 10px; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.03em; cursor: pointer; box-shadow: -3px 4px 14px rgba(0,0,0,0.25); writing-mode: vertical-rl; text-orientation: mixed; user-select: none; transition: all 0.2s ease;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+    Spoc
+</div>
+
+<!-- KOMPANION SLIDE-OUT DRAWER -->
+<div id="kompanion-drawer" style="position: fixed; right: -440px; top: 0; width: 400px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 10000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="background: #182545; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #da251c;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; background: #da251c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">K</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700;">Kotak Kompanion</h3>
+                <span style="font-size: 0.72rem; color: #94a3b8;">AI Pitch & Product Assistant</span>
+            </div>
+        </div>
+        <button onclick="toggleKompanionDrawer()" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; padding: 0 4px;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#94a3b8'">&times;</button>
+    </div>
+    
+    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #f8fafc;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <span style="font-size: 0.75rem; font-weight: 700; color: #da251c; text-transform: uppercase; letter-spacing: 0.05em;">RM Quick Pitch Assistant</span>
+            <h4 style="margin: 6px 0 10px 0; color: #0f172a; font-size: 0.95rem;">Smart Solitaire Objections & Pitches</h4>
+            <p style="font-size: 0.84rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">Need quick answers during client calls? Select a product topic below to get instant talking points.</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <button onclick="setKompanionMsg('What is the key pitch for Solitaire Credit Card?')" style="background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Credit Card Pitch</button>
+                <button onclick="setKompanionMsg('How to pitch Home Loan balance transfer to Kotak?')" style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Home Loan BT</button>
+                <button onclick="setKompanionMsg('Why shift Mutual Fund portfolio to Kotak?')" style="background: #fefce8; border: 1px solid #fef08a; color: #854d0e; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Mutual Fund Shift</button>
+                <button onclick="setKompanionMsg('Highlight ActivMoney auto-sweep benefits')" style="background: #faf5ff; border: 1px solid #e9d5ff; color: #6b21a8; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">ActivMoney FD</button>
+            </div>
+        </div>
+
+        <div id="kompanion-chat-log" style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; font-size: 0.85rem; color: #334155; line-height: 1.5;">
+                👋 <strong>Hello RM!</strong> I am your <strong>Kompanion AI Assistant</strong>. Ask me anything about Kotak Solitaire privileges, lending rates, credit cards, or client objection handling!
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 16px 20px; background: white; border-top: 1px solid #e2e8f0; display: flex; gap: 10px;">
+        <input type="text" id="kompanion-input" placeholder="Ask Kompanion a question..." style="flex: 1; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; outline: none;" onkeypress="if(event.key==='Enter') sendKompanionMsg()">
+        <button onclick="sendKompanionMsg()" style="background: #da251c; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer;">Send</button>
+    </div>
+</div>
+
+<!-- SPOC SLIDE-OUT DRAWER -->
+<div id="spoc-drawer" style="position: fixed; right: -440px; top: 0; width: 420px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 10000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="background: #1e3a8a; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3b82f6;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">S</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700;">Kotak SPOC Directory</h3>
+                <span style="font-size: 0.72rem; color: #93c5fd;">Single Point of Contact & Escalation</span>
+            </div>
+        </div>
+        <button onclick="toggleSpocDrawer()" style="background: none; border: none; color: #93c5fd; font-size: 1.4rem; cursor: pointer; padding: 0 4px;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#93c5fd'">&times;</button>
+    </div>
+
+    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #f8fafc;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <h4 style="margin: 0 0 12px 0; color: #0f172a; font-size: 0.92rem; font-weight: 700;">Select Parameters</h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Pincode -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">1. PINCODE / LOCATION</label>
+                    <input type="text" id="spoc-pincode" value="400051" placeholder="Enter Pincode (e.g. 400051, 110001)" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; box-sizing: border-box;" oninput="fetchSpocDetails()">
+                </div>
+
+                <!-- Program -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">2. PROGRAM</label>
+                    <select id="spoc-program" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="Solitaire" selected>Kotak Solitaire</option>
+                        <option value="Privy+">Kotak Privy League+</option>
+                        <option value="Privy">Kotak Privy League</option>
+                    </select>
+                </div>
+
+                <!-- Category -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">3. PRODUCT CATEGORY</label>
+                    <select id="spoc-category" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="cc" selected>Credit Cards (CC & Forex)</option>
+                        <option value="assets">Assets & Loans (HL / LAP / LAS / OD)</option>
+                        <option value="investments">Investments & Demat (MFs, IPO, MTF)</option>
+                        <option value="lifestyle">Lifestyle & Concierge Privileges</option>
+                        <option value="ops">Account Operations & Servicing</option>
+                    </select>
+                </div>
+
+                <!-- Team Level -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">4. TEAM / LEVEL</label>
+                    <select id="spoc-team" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="product" selected>Product Team & Specialists</option>
+                        <option value="sales">Sales Team & Acquisition</option>
+                        <option value="area_mgr">Area Manager & Zonal Head</option>
+                        <option value="underwriting">Underwriting & Credit Desk</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div id="spoc-result-container">
+            <!-- Dynamically populated by JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleKompanionDrawer() {
+    const kDrawer = document.getElementById('kompanion-drawer');
+    const sDrawer = document.getElementById('spoc-drawer');
+    if (sDrawer) sDrawer.style.right = '-440px';
+    if (!kDrawer) return;
+    if (kDrawer.style.right === '0px') {
+        kDrawer.style.right = '-440px';
+    } else {
+        kDrawer.style.right = '0px';
+    }
+}
+
+function toggleSpocDrawer() {
+    const kDrawer = document.getElementById('kompanion-drawer');
+    const sDrawer = document.getElementById('spoc-drawer');
+    if (kDrawer) kDrawer.style.right = '-440px';
+    if (!sDrawer) return;
+    if (sDrawer.style.right === '0px') {
+        sDrawer.style.right = '-440px';
+    } else {
+        sDrawer.style.right = '0px';
+        fetchSpocDetails();
+    }
+}
+
+function setKompanionMsg(msg) {
+    const input = document.getElementById('kompanion-input');
+    if (input) {
+        input.value = msg;
+        sendKompanionMsg();
+    }
+}
+
+function sendKompanionMsg() {
+    const input = document.getElementById('kompanion-input');
+    const log = document.getElementById('kompanion-chat-log');
+    if (!input || !log || !input.value.trim()) return;
+    
+    const query = input.value.trim();
+    input.value = '';
+    
+    const uMsg = document.createElement('div');
+    uMsg.style.cssText = 'background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; border-radius: 12px; padding: 12px 14px; font-size: 0.85rem; align-self: flex-end; max-width: 85%; line-height: 1.4;';
+    uMsg.innerHTML = '<strong>You:</strong> ' + query;
+    log.appendChild(uMsg);
+    
+    setTimeout(() => {
+        const aMsg = document.createElement('div');
+        aMsg.style.cssText = 'background: white; border: 1px solid #e2e8f0; color: #0f172a; border-radius: 12px; padding: 14px; font-size: 0.85rem; line-height: 1.5; box-shadow: 0 1px 3px rgba(0,0,0,0.03);';
+        
+        let resp = "💡 <strong>Solitaire Insight:</strong> Kotak Solitaire offers exclusive family relationship banking, 0% Forex Markup on Credit Cards, pre-approved Home Loans up to ₹7.5 Cr with ~0.25% interest discount, and ActivMoney FD auto-sweep returns on idle savings.";
+        
+        if (query.toLowerCase().includes('credit card')) {
+            resp = "💳 <strong>Kompanion Recommendation:</strong> Pitch the Kotak Solitaire Metal Credit Card highlighting <strong>10 Air Miles / ₹100</strong> via Kotak Unbox (1 Mile = ₹1 value), <strong>0% Forex Markup</strong> (saving ~₹14,000 per ₹4L international spend), and <strong>unlimited domestic & international lounge access</strong> for primary and add-on cardholders.";
+        } else if (query.toLowerCase().includes('home loan') || query.toLowerCase().includes('bt')) {
+            resp = "🏠 <strong>Kompanion Recommendation:</strong> Use Home Loan Pitch C: <em>'Sir/Ma'am, if you already have a Home Loan elsewhere, I can evaluate whether moving it to Kotak saves interest for you. At ~0.25% lower rate with zero processing fees, we can calculate your exact monthly EMI savings.'</em>";
+        } else if (query.toLowerCase().includes('mutual fund')) {
+            resp = "📈 <strong>Kompanion Recommendation:</strong> Start with financial objectives rather than fund names. Pitch SIP for long-term wealth or SWP for tax-efficient monthly income. Emphasize zero-AMC Demat and 0.10% delivery brokerage!";
+        } else if (query.toLowerCase().includes('activmoney')) {
+            resp = "⚡ <strong>Kompanion Recommendation:</strong> Highlight ActivMoney auto-sweep: idle funds above ₹25,000 are automatically converted to fixed deposits earning higher FD interest while remaining 100% liquid with zero penalty on withdrawals.";
+        }
+        
+        aMsg.innerHTML = resp;
+        log.appendChild(aMsg);
+        log.scrollTop = log.scrollHeight;
+    }, 400);
+}
+
+// SPOC DIRECTORY DATABASE & FETCH LOGIC
+function fetchSpocDetails() {
+    const pincode = (document.getElementById('spoc-pincode')?.value || '400051').trim();
+    const program = document.getElementById('spoc-program')?.value || 'Solitaire';
+    const category = document.getElementById('spoc-category')?.value || 'cc';
+    const team = document.getElementById('spoc-team')?.value || 'product';
+    const container = document.getElementById('spoc-result-container');
+    if (!container) return;
+
+    // Database simulation based on Pincode and Category
+    let poc = {
+        name: "Rajesh Sharma",
+        title: "Senior Product Specialist - Solitaire Cards",
+        email: "rajesh.sharma@kotak.com",
+        phone: "+91 98201 44521",
+        hub: "BKC Head Office, Mumbai (Pincode: " + pincode + ")"
+    };
+    
+    let supervisor = {
+        name: "Ananya Iyer",
+        title: "Vice President & Zonal Business Head",
+        email: "ananya.iyer@kotak.com",
+        phone: "+91 98200 11234",
+        hub: "Regional Hub Office"
+    };
+
+    if (category === 'assets') {
+        poc = {
+            name: "Vikram Deshmukh",
+            title: "Lead - Solitaire Mortgages & Assets",
+            email: "vikram.deshmukh@kotak.com",
+            phone: "+91 98192 33410",
+            hub: "Zone Asset Hub (Pincode: " + pincode + ")"
+        };
+        supervisor = {
+            name: "Sunil Mehta",
+            title: "Regional Business Head - Mortgages",
+            email: "sunil.mehta@kotak.com",
+            phone: "+91 98190 99887",
+            hub: "Zonal Corporate Center"
+        };
+    } else if (category === 'investments') {
+        poc = {
+            name: "Neha Malhotra",
+            title: "Senior Wealth & Demat Specialist",
+            email: "neha.malhotra@kotak.com",
+            phone: "+91 98702 55431",
+            hub: "Wealth Desk (Pincode: " + pincode + ")"
+        };
+        supervisor = {
+            name: "Sameer Kulkarni",
+            title: "Executive VP - Solitaire Wealth Management",
+            email: "sameer.kulkarni@kotak.com",
+            phone: "+91 98700 88765",
+            hub: "National Wealth Desk"
+        };
+    } else if (category === 'lifestyle') {
+        poc = {
+            name: "Kavita Rao",
+            title: "Solitaire Concierge Desk Lead",
+            email: "kavita.rao@kotak.com",
+            phone: "+91 98330 77123",
+            hub: "Solitaire Priority Desk"
+        };
+        supervisor = {
+            name: "Rohan Kapoor",
+            title: "Head - Ultra HNI Lifestyle & Privileges",
+            email: "rohan.kapoor@kotak.com",
+            phone: "+91 98330 00999",
+            hub: "Consumer Banking Directorate"
+        };
+    } else if (category === 'ops') {
+        poc = {
+            name: "Amitabh Sen",
+            title: "Operations & Service Desk Lead",
+            email: "amitabh.sen@kotak.com",
+            phone: "+91 98211 88299",
+            hub: "Central Operations Hub"
+        };
+        supervisor = {
+            name: "Pooja Verma",
+            title: "Senior VP - Service Operations",
+            email: "pooja.verma@kotak.com",
+            phone: "+91 98210 11445",
+            hub: "Service Quality Directorate"
+        };
+    }
+
+    if (pincode.startsWith('11') || pincode.startsWith('12')) {
+        poc.hub = "North Regional Office, Delhi NCR (Pincode: " + pincode + ")";
+        supervisor.hub = "North Zonal Command Center, New Delhi";
+    } else if (pincode.startsWith('56') || pincode.startsWith('60')) {
+        poc.hub = "South Regional Office, Bengaluru (Pincode: " + pincode + ")";
+        supervisor.hub = "South Zonal Command Center, MG Road";
+    }
+
+    container.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+
+            <!-- PRIMARY POC CARD -->
+            <div style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(37,99,235,0.06);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 0.7rem; font-weight: 800; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;">PRIMARY POC</span>
+                    <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">${program}</span>
+                </div>
+                <h3 style="margin: 0 0 2px 0; color: #0f172a; font-size: 1.05rem; font-weight: 800;">${poc.name}</h3>
+                <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.82rem; font-weight: 600;">${poc.title}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>📞</span>
+                        <a href="tel:${poc.phone}" style="color: #2563eb; text-decoration: none; font-weight: 700;">${poc.phone}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>✉️</span>
+                        <a href="mailto:${poc.email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${poc.email}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748b;">
+                        <span>📍</span>
+                        <span>${poc.hub}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUPERVISOR / ESCALATION CARD -->
+            <div style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 0.7rem; font-weight: 800; color: #475569; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;">ESCALATION SUPERVISOR</span>
+                    <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 600;">Level 2 Support</span>
+                </div>
+                <h3 style="margin: 0 0 2px 0; color: #0f172a; font-size: 1.02rem; font-weight: 800;">${supervisor.name}</h3>
+                <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.82rem; font-weight: 600;">${supervisor.title}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>📞</span>
+                        <a href="tel:${supervisor.phone}" style="color: #0f172a; text-decoration: none; font-weight: 700;">${supervisor.phone}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>✉️</span>
+                        <a href="mailto:${supervisor.email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${supervisor.email}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748b;">
+                        <span>📍</span>
+                        <span>${supervisor.hub}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+</script>
+"""
+
+count_updated = 0
+
+for root, dirs, files in os.walk(workspace_dir):
+    for f in files:
+        if f.endswith('.html'):
+            filepath = os.path.join(root, f)
+            try:
+                content = open(filepath, 'r', encoding='utf-8', errors='ignore').read()
+            except Exception as e:
+                print(f"Skipping {f}: {e}")
+                continue
+            
+            # Remove any previous injected tabs/drawers block first
+            if 'id="kompanion-tab"' in content or 'id="spoc-tab"' in content:
+                content = re.sub(r'<!-- (?:KOMPANION|GLOBAL FLOATING).*?<script>.*?</script>', '', content, flags=re.DOTALL)
+            
+            # Inject before </body> or at the end of file
+            if '</body>' in content:
+                content = content.replace('</body>', BOTH_TABS_AND_DRAWERS_HTML + '\n</body>')
+            else:
+                content = content + '\n' + BOTH_TABS_AND_DRAWERS_HTML
+            
+            with open(filepath, 'w', encoding='utf-8') as fp:
+                fp.write(content)
+            
+            count_updated += 1
+            print(f"Injected Kompanion & Spoc tabs into: {f}")
+
+print(f"\n==================== SUCCESS: Injected Kompanion & Spoc into all {count_updated} HTML pages! ====================")

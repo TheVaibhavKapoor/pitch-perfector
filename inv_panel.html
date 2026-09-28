@@ -1,0 +1,550 @@
+<div id="panel-investments" class="info-panel">
+                    <h2 style="font-size: 1.25rem; font-weight: 800; color: #111827; margin-bottom: 6px;">Investment Suite</h2>
+                    <p style="color: #4b5563; line-height: 1.6; margin-bottom: 20px;">Access institutional-grade investment strategies with zero subscription fees and a dedicated dealer.</p>
+
+                    <!-- Pricing Cards -->
+                    <div class="product-features-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 28px;">
+                        <div class="feature-card">
+                            <div class="feat-card-header"><span class="feat-icon">&#128176;</span><h3>Pricing &amp; AMC</h3></div>
+                            <ul class="feat-list">
+                                <li>Competitive pricing <strong>without subscription fees</strong></li>
+                                <li><strong style="color: #10b981;">No AMC</strong> on Demat</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feat-card-header"><span class="feat-icon">&#128200;</span><h3>Equity &amp; Futures</h3></div>
+                            <ul class="feat-list">
+                                <li>Delivery @ <strong style="color: #10b981;">0.10%</strong></li>
+                                <li>Intraday &amp; Futures @ <strong style="color: #10b981;">0.01%</strong></li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feat-card-header"><span class="feat-icon">&#128202;</span><h3>Margin Trading (MTF)</h3></div>
+                            <ul class="feat-list">
+                                <li><strong style="color: #10b981;">9.69%</strong> (For NTB customers)</li>
+                                <li><strong style="color: #10b981;">9.75%</strong> (For ETB customers)</li>
+                            </ul>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feat-card-header"><span class="feat-icon">&#128222;</span><h3>Options &amp; Dealer</h3></div>
+                            <ul class="feat-list">
+                                <li><strong>Dedicated Dealer Support</strong> included</li>
+                                <li><strong style="color: #10b981;">&#8377;20 per lot</strong> (with dealer)</li>
+                                <li><strong style="color: #10b981;">&#8377;10 per lot</strong> (without dealer)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- CALCULATOR SECTION -->
+                    <div style="background: linear-gradient(135deg, #f8faff 0%, #eff4ff 100%); border: 1.5px solid #e0e7ff; border-radius: 16px; padding: 28px; margin-bottom: 20px;">
+                        <h3 style="font-weight: 800; color: #1e3a8a; margin-bottom: 6px; font-size: 1.05rem;">&#128200; Investment Return Calculator</h3>
+                        <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 20px;">Calculate your returns across SIP, SWP, and Lumpsum investments</p>
+
+                        <!-- Calculator Type Tabs -->
+                        <div style="display: flex; gap: 8px; margin-bottom: 24px; background: #e8eeff; border-radius: 10px; padding: 4px;">
+                            <button id="inv-tab-sip" onclick="switchInvCalc('sip')" style="flex:1; padding: 10px; border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; background: #1e3a8a; color: white; transition: all 0.2s;">SIP</button>
+                            <button id="inv-tab-swp" onclick="switchInvCalc('swp')" style="flex:1; padding: 10px; border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; background: transparent; color: #1e3a8a; transition: all 0.2s;">SWP</button>
+                            <button id="inv-tab-lump" onclick="switchInvCalc('lump')" style="flex:1; padding: 10px; border: none; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; background: transparent; color: #1e3a8a; transition: all 0.2s;">Lumpsum</button>
+                        </div>
+
+                        <!-- SIP Calculator -->
+                        <div id="inv-calc-sip" style="display:block;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Monthly SIP (&#8377;)</label>
+                                    <input id="sip-amount" type="number" value="10000" min="500" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="500" max="200000" step="500" value="10000" oninput="document.getElementById('sip-amount').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Expected Return (%)</label>
+                                    <input id="sip-rate" type="number" value="12" min="1" max="30" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="1" max="30" step="0.5" value="12" oninput="document.getElementById('sip-rate').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Time Period (Years)</label>
+                                    <input id="sip-years" type="number" value="10" min="1" max="40" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="1" max="40" step="1" value="10" oninput="document.getElementById('sip-years').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SWP Calculator -->
+                        <div id="inv-calc-swp" style="display:none;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Total Investment (&#8377;)</label>
+                                    <input id="swp-corpus" type="number" value="1000000" min="10000" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="100000" max="10000000" step="100000" value="1000000" oninput="document.getElementById('swp-corpus').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Monthly Withdrawal (&#8377;)</label>
+                                    <input id="swp-withdrawal" type="number" value="8000" min="500" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="500" max="200000" step="500" value="8000" oninput="document.getElementById('swp-withdrawal').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Expected Return (%)</label>
+                                    <input id="swp-rate" type="number" value="8" min="1" max="20" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="1" max="20" step="0.5" value="8" oninput="document.getElementById('swp-rate').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lumpsum Calculator -->
+                        <div id="inv-calc-lump" style="display:none;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Investment Amount (&#8377;)</label>
+                                    <input id="lump-amount" type="number" value="500000" min="1000" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="10000" max="10000000" step="10000" value="500000" oninput="document.getElementById('lump-amount').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Expected Return (%)</label>
+                                    <input id="lump-rate" type="number" value="12" min="1" max="30" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="1" max="30" step="0.5" value="12" oninput="document.getElementById('lump-rate').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">Time Period (Years)</label>
+                                    <input id="lump-years" type="number" value="10" min="1" max="40" style="width:100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.95rem; font-family: inherit; outline: none; box-sizing: border-box;" oninput="calcInv()">
+                                    <input type="range" min="1" max="40" step="1" value="10" oninput="document.getElementById('lump-years').value=this.value;calcInv()" style="width:100%; margin-top:6px; accent-color:#1e3a8a;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Row -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; margin-top: 4px;">
+                            <div style="background: white; border: 1.5px solid #e0e7ff; border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px;" id="inv-lbl-invested">Total Invested</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #1e3a8a;" id="inv-val-invested">&#8377;12,00,000</div>
+                            </div>
+                            <div style="background: white; border: 1.5px solid #bbf7d0; border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px;" id="inv-lbl-returns">Est. Returns</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: #10b981;" id="inv-val-returns">&#8377;11,23,391</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #1e3a8a, #3b82f6); border-radius: 12px; padding: 16px; text-align: center;">
+                                <div style="font-size: 0.75rem; color: #bfdbfe; font-weight: 600; margin-bottom: 4px;" id="inv-lbl-total">Total Value</div>
+                                <div style="font-size: 1.4rem; font-weight: 800; color: white;" id="inv-val-total">&#8377;23,23,391</div>
+                            </div>
+                        </div>
+
+                        <!-- Bar Chart (SVG, no external lib) -->
+                        <div style="background: white; border: 1.5px solid #e5e7eb; border-radius: 12px; padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <h4 style="font-weight: 700; color: #111827; font-size: 0.9rem; margin: 0;">Year-by-Year Growth</h4>
+                                <div style="display: flex; gap: 16px; font-size: 0.75rem; color: #6b7280;">
+                                    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#1e3a8a;border-radius:2px;display:inline-block;"></span>Invested</span>
+                                    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:#10b981;border-radius:2px;display:inline-block;"></span>Returns</span>
+                                </div>
+                            </div>
+                            <div id="inv-chart" style="width:100%; overflow-x:auto;"></div>
+                        </div>
+
+                        <div style="margin-top: 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px; font-size: 0.82rem; color: #166534;">
+                            &#127775; <strong>Solitaire Advantage:</strong> Zero Subscription Fee on Mutual Fund platform + <strong>No AMC on Demat</strong> — saving &#8377;2,000+/year vs standard plans.
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- GLOBAL FLOATING SIDE TABS (KOMPANION & SPOC - MATHEMATICALLY GUARANTEED 30PX GAP) -->
+<div id="kompanion-tab" onclick="toggleKompanionDrawer()" style="position: fixed; right: 0; top: calc(50% - 15px); transform: translateY(-100%); z-index: 9999; background: #da251c; color: white; padding: 14px 8px; border-radius: 10px 0 0 10px; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.03em; cursor: pointer; box-shadow: -3px 4px 14px rgba(0,0,0,0.2); writing-mode: vertical-rl; text-orientation: mixed; user-select: none; transition: all 0.2s ease;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#da251c'">
+    Kompanion
+</div>
+
+<div id="spoc-tab" onclick="toggleSpocDrawer()" style="position: fixed; right: 0; top: calc(50% + 15px); transform: translateY(0%); z-index: 9999; background: #2563eb; color: white; padding: 14px 8px; border-radius: 10px 0 0 10px; font-weight: 700; font-size: 0.92rem; letter-spacing: 0.03em; cursor: pointer; box-shadow: -3px 4px 14px rgba(0,0,0,0.2); writing-mode: vertical-rl; text-orientation: mixed; user-select: none; transition: all 0.2s ease;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+    Spoc
+</div>
+
+<!-- KOMPANION SLIDE-OUT DRAWER -->
+<div id="kompanion-drawer" style="position: fixed; right: -440px; pointer-events: none; visibility: hidden; top: 0; width: 400px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 10000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="background: #182545; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #da251c;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; background: #da251c; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">K</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700;">Kotak Kompanion</h3>
+                <span style="font-size: 0.72rem; color: #94a3b8;">AI Pitch & Product Assistant</span>
+            </div>
+        </div>
+        <button onclick="toggleKompanionDrawer()" style="background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; padding: 0 4px;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#94a3b8'">&times;</button>
+    </div>
+    
+    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #f8fafc;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <span style="font-size: 0.75rem; font-weight: 700; color: #da251c; text-transform: uppercase; letter-spacing: 0.05em;">RM Quick Pitch Assistant</span>
+            <h4 style="margin: 6px 0 10px 0; color: #0f172a; font-size: 0.95rem;">Smart Solitaire Objections & Pitches</h4>
+            <p style="font-size: 0.84rem; color: #475569; line-height: 1.5; margin-bottom: 12px;">Need quick answers during client calls? Select a product topic below to get instant talking points.</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <button onclick="setKompanionMsg('What is the key pitch for Solitaire Credit Card?')" style="background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Credit Card Pitch</button>
+                <button onclick="setKompanionMsg('How to pitch Home Loan balance transfer to Kotak?')" style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Home Loan BT</button>
+                <button onclick="setKompanionMsg('Why shift Mutual Fund portfolio to Kotak?')" style="background: #fefce8; border: 1px solid #fef08a; color: #854d0e; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">Mutual Fund Shift</button>
+                <button onclick="setKompanionMsg('Highlight ActivMoney auto-sweep benefits')" style="background: #faf5ff; border: 1px solid #e9d5ff; color: #6b21a8; font-size: 0.78rem; padding: 6px 12px; border-radius: 20px; font-weight: 600; cursor: pointer;">ActivMoney FD</button>
+            </div>
+        </div>
+
+        <div id="kompanion-chat-log" style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; font-size: 0.85rem; color: #334155; line-height: 1.5;">
+                👋 <strong>Hello RM!</strong> I am your <strong>Kompanion AI Assistant</strong>. Ask me anything about Kotak Solitaire privileges, lending rates, credit cards, or client objection handling!
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 16px 20px; background: white; border-top: 1px solid #e2e8f0; display: flex; gap: 10px;">
+        <input type="text" id="kompanion-input" placeholder="Ask Kompanion a question..." style="flex: 1; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; outline: none;" onkeypress="if(event.key==='Enter') sendKompanionMsg()">
+        <button onclick="sendKompanionMsg()" style="background: #da251c; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer;">Send</button>
+    </div>
+</div>
+
+<!-- SPOC SLIDE-OUT DRAWER -->
+<div id="spoc-drawer" style="position: fixed; right: -440px; pointer-events: none; visibility: hidden; top: 0; width: 420px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.2); z-index: 10000; transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; font-family: system-ui, -apple-system, sans-serif;">
+    <div style="background: #1e3a8a; color: white; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3b82f6;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem;">S</div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700;">Kotak SPOC Directory</h3>
+                <span style="font-size: 0.72rem; color: #93c5fd;">Single Point of Contact & Escalation</span>
+            </div>
+        </div>
+        <button onclick="toggleSpocDrawer()" style="background: none; border: none; color: #93c5fd; font-size: 1.4rem; cursor: pointer; padding: 0 4px;" onmouseover="this.style.color='white'" onmouseout="this.style.color='#93c5fd'">&times;</button>
+    </div>
+
+    <div style="flex: 1; padding: 20px; overflow-y: auto; background: #f8fafc;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <h4 style="margin: 0 0 12px 0; color: #0f172a; font-size: 0.92rem; font-weight: 700;">Select SPOC Parameters</h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- 1. Pincode -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">1. PINCODE / LOCATION</label>
+                    <input type="text" id="spoc-pincode" value="400051" placeholder="Enter Pincode (e.g. 400051, 110001)" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; box-sizing: border-box;" oninput="fetchSpocDetails()">
+                </div>
+
+                <!-- 2. Program -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">2. PROGRAM</label>
+                    <select id="spoc-program" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="Solitaire" selected>Kotak Solitaire</option>
+                        <option value="Privy+">Kotak Privy League+</option>
+                        <option value="Privy">Kotak Privy League</option>
+                    </select>
+                </div>
+
+                <!-- 3. Category -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">3. PRODUCT CATEGORY</label>
+                    <select id="spoc-category" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="updateSpocProducts(); fetchSpocDetails();">
+                        <option value="cc" selected>Credit Cards</option>
+                        <option value="assets">Assets & Loans</option>
+                        <option value="investments">Investments</option>
+                        <option value="lifestyle">Lifestyle & Concierge</option>
+                        <option value="ops">Account Operations</option>
+                    </select>
+                </div>
+
+                <!-- 4. Specific Product List -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">4. SPECIFIC PRODUCT</label>
+                    <select id="spoc-product" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <!-- Dynamically populated based on category -->
+                    </select>
+                </div>
+
+                <!-- 5. Team (Product & Sales Only) -->
+                <div>
+                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">5. TEAM</label>
+                    <select id="spoc-team" style="width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 0.88rem; outline: none; background: white; box-sizing: border-box;" onchange="fetchSpocDetails()">
+                        <option value="product" selected>Product Team</option>
+                        <option value="sales">Sales Team</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div id="spoc-result-container">
+            <!-- Dynamically populated by JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleKompanionDrawer() {
+    const kDrawer = document.getElementById('kompanion-drawer');
+    const sDrawer = document.getElementById('spoc-drawer');
+    if (sDrawer) sDrawer.style.right = '-440px'; sDrawer.style.pointerEvents = 'none'; sDrawer.style.visibility = 'hidden';
+    if (!kDrawer) return;
+    if (kDrawer.style.right === '0px') {
+        kDrawer.style.right = '-440px'; kDrawer.style.pointerEvents = 'none'; kDrawer.style.visibility = 'hidden';
+    } else {
+        kDrawer.style.right = '0px'; kDrawer.style.pointerEvents = 'auto'; kDrawer.style.visibility = 'visible';
+    }
+}
+
+function toggleSpocDrawer() {
+    const kDrawer = document.getElementById('kompanion-drawer');
+    const sDrawer = document.getElementById('spoc-drawer');
+    if (kDrawer) kDrawer.style.right = '-440px'; kDrawer.style.pointerEvents = 'none'; kDrawer.style.visibility = 'hidden';
+    if (!sDrawer) return;
+    if (sDrawer.style.right === '0px') {
+        sDrawer.style.right = '-440px'; sDrawer.style.pointerEvents = 'none'; sDrawer.style.visibility = 'hidden';
+    } else {
+        sDrawer.style.right = '0px'; sDrawer.style.pointerEvents = 'auto'; sDrawer.style.visibility = 'visible';
+        updateSpocProducts();
+        fetchSpocDetails();
+    }
+}
+
+function setKompanionMsg(msg) {
+    const input = document.getElementById('kompanion-input');
+    if (input) {
+        input.value = msg;
+        sendKompanionMsg();
+    }
+}
+
+function sendKompanionMsg() {
+    const input = document.getElementById('kompanion-input');
+    const log = document.getElementById('kompanion-chat-log');
+    if (!input || !log || !input.value.trim()) return;
+    
+    const query = input.value.trim();
+    input.value = '';
+    
+    const uMsg = document.createElement('div');
+    uMsg.style.cssText = 'background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; border-radius: 12px; padding: 12px 14px; font-size: 0.85rem; align-self: flex-end; max-width: 85%; line-height: 1.4;';
+    uMsg.innerHTML = '<strong>You:</strong> ' + query;
+    log.appendChild(uMsg);
+    
+    setTimeout(() => {
+        const aMsg = document.createElement('div');
+        aMsg.style.cssText = 'background: white; border: 1px solid #e2e8f0; color: #0f172a; border-radius: 12px; padding: 14px; font-size: 0.85rem; line-height: 1.5; box-shadow: 0 1px 3px rgba(0,0,0,0.03);';
+        
+        let resp = "💡 <strong>Solitaire Insight:</strong> Kotak Solitaire offers exclusive family relationship banking, 0% Forex Markup on Credit Cards, pre-approved Home Loans up to ₹7.5 Cr with ~0.25% interest discount, and ActivMoney FD auto-sweep returns on idle savings.";
+        
+        if (query.toLowerCase().includes('credit card')) {
+            resp = "💳 <strong>Kompanion Recommendation:</strong> Pitch the Kotak Solitaire Metal Credit Card highlighting <strong>10 Air Miles / ₹100</strong> via Kotak Unbox (1 Mile = ₹1 value), <strong>0% Forex Markup</strong> (saving ~₹14,000 per ₹4L international spend), and <strong>unlimited domestic & international lounge access</strong> for primary and add-on cardholders.";
+        } else if (query.toLowerCase().includes('home loan') || query.toLowerCase().includes('bt')) {
+            resp = "🏠 <strong>Kompanion Recommendation:</strong> Use Home Loan Pitch C: <em>'Sir/Ma'am, if you already have a Home Loan elsewhere, I can evaluate whether moving it to Kotak saves interest for you. At ~0.25% lower rate with zero processing fees, we can calculate your exact monthly EMI savings.'</em>";
+        } else if (query.toLowerCase().includes('mutual fund')) {
+            resp = "📈 <strong>Kompanion Recommendation:</strong> Start with financial objectives rather than fund names. Pitch SIP for long-term wealth or SWP for tax-efficient monthly income. Emphasize zero-AMC Demat and 0.10% delivery brokerage!";
+        } else if (query.toLowerCase().includes('activmoney')) {
+            resp = "⚡ <strong>Kompanion Recommendation:</strong> Highlight ActivMoney auto-sweep: idle funds above ₹25,000 are automatically converted to fixed deposits earning higher FD interest while remaining 100% liquid with zero penalty on withdrawals.";
+        }
+        
+        aMsg.innerHTML = resp;
+        log.appendChild(aMsg);
+        log.scrollTop = log.scrollHeight;
+    }, 400);
+}
+
+// SPOC SPECIFIC PRODUCTS DATA
+const SPOC_PRODUCTS = {
+    cc: [
+        { id: "solitaire_cc", name: "Kotak Solitaire Metal Credit Card" },
+        { id: "privy_cc", name: "Privy League Signature Credit Card" },
+        { id: "white_cc", name: "White Reserve Credit Card" },
+        { id: "zen_cc", name: "Zen Signature Credit Card" }
+    ],
+    assets: [
+        { id: "hl", name: "Home Loan & Balance Transfer" },
+        { id: "lap", name: "Loan Against Property (LAP)" },
+        { id: "las", name: "Loan Against Securities (LAS)" },
+        { id: "od", name: "Credit Line & Overdraft (OD)" }
+    ],
+    investments: [
+        { id: "mf", name: "Mutual Funds (SIP / SWP)" },
+        { id: "demat", name: "Demat & Equity Trading" },
+        { id: "ipo", name: "IPO (ASBA)" },
+        { id: "mtf", name: "MTF Margin Trading" },
+        { id: "pms", name: "AIF & PMS Solutions" }
+    ],
+    lifestyle: [
+        { id: "table", name: "Solitaire Table Dining Privileges" },
+        { id: "lounge", name: "Airport Lounge & Priority Pass" },
+        { id: "golf", name: "Golf Privileges & Coaching" },
+        { id: "concierge", name: "24/7 Solitaire Concierge" }
+    ],
+    ops: [
+        { id: "activmoney", name: "ActivMoney FD Auto-Sweep" },
+        { id: "debit", name: "Solitaire Visa Infinite Debit Card" },
+        { id: "family", name: "Family Relationship Pooling" },
+        { id: "service", name: "Priority Service & Account Requests" }
+    ]
+};
+
+function updateSpocProducts() {
+    const category = document.getElementById('spoc-category')?.value || 'cc';
+    const prodSelect = document.getElementById('spoc-product');
+    if (!prodSelect) return;
+
+    const products = SPOC_PRODUCTS[category] || SPOC_PRODUCTS.cc;
+    prodSelect.innerHTML = products.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+}
+
+// SPOC DIRECTORY FETCH LOGIC
+function fetchSpocDetails() {
+    const pincode = (document.getElementById('spoc-pincode')?.value || '400051').trim();
+    const program = document.getElementById('spoc-program')?.value || 'Solitaire';
+    const category = document.getElementById('spoc-category')?.value || 'cc';
+    const team = document.getElementById('spoc-team')?.value || 'product';
+    const prodSelect = document.getElementById('spoc-product');
+    const prodName = prodSelect?.options[prodSelect.selectedIndex]?.text || "Credit Cards";
+    const container = document.getElementById('spoc-result-container');
+    if (!container) return;
+
+    const isSales = (team === 'sales');
+
+    let poc = {
+        name: isSales ? "Vikrant Roy" : "Rajesh Sharma",
+        title: isSales ? "Lead Sales Acquisition Manager - " + prodName : "Senior Product Lead - " + prodName,
+        email: isSales ? "vikrant.roy@kotak.com" : "rajesh.sharma@kotak.com",
+        phone: isSales ? "+91 98204 11990" : "+91 98201 44521",
+        hub: "BKC Regional Office, Mumbai (Pincode: " + pincode + ")"
+    };
+    
+    let supervisor = {
+        name: isSales ? "Sandeep Narang" : "Ananya Iyer",
+        title: isSales ? "Zonal Sales Head - Ultra HNI Banking" : "Vice President - Product & Synergies",
+        email: isSales ? "sandeep.narang@kotak.com" : "ananya.iyer@kotak.com",
+        phone: isSales ? "+91 98200 99887" : "+91 98200 11234",
+        hub: "Regional Hub Command Center"
+    };
+
+    if (category === 'assets') {
+        poc = {
+            name: isSales ? "Manish Tandon" : "Vikram Deshmukh",
+            title: isSales ? "Senior Assets Sales Lead (" + prodName + ")" : "Lead Mortgages Specialist (" + prodName + ")",
+            email: isSales ? "manish.tandon@kotak.com" : "vikram.deshmukh@kotak.com",
+            phone: isSales ? "+91 98195 66778" : "+91 98192 33410",
+            hub: "Zone Assets Desk (Pincode: " + pincode + ")"
+        };
+        supervisor = {
+            name: "Sunil Mehta",
+            title: "Regional Business Head - Mortgages",
+            email: "sunil.mehta@kotak.com",
+            phone: "+91 98190 99887",
+            hub: "Zonal Assets Directorate"
+        };
+    } else if (category === 'investments') {
+        poc = {
+            name: isSales ? "Karan Malhotra" : "Neha Malhotra",
+            title: isSales ? "Wealth Sales Specialist (" + prodName + ")" : "Senior Product Lead - Wealth (" + prodName + ")",
+            email: isSales ? "karan.m@kotak.com" : "neha.malhotra@kotak.com",
+            phone: isSales ? "+91 98705 11223" : "+91 98702 55431",
+            hub: "Wealth Desk (Pincode: " + pincode + ")"
+        };
+        supervisor = {
+            name: "Sameer Kulkarni",
+            title: "Executive VP - Solitaire Wealth Management",
+            email: "sameer.kulkarni@kotak.com",
+            phone: "+91 98700 88765",
+            hub: "National Wealth Desk"
+        };
+    } else if (category === 'lifestyle') {
+        poc = {
+            name: isSales ? "Priya Shah" : "Kavita Rao",
+            title: isSales ? "Lifestyle Benefits Relationship Lead" : "Solitaire Privileges Desk Lead (" + prodName + ")",
+            email: isSales ? "priya.shah@kotak.com" : "kavita.rao@kotak.com",
+            phone: isSales ? "+91 98335 44110" : "+91 98330 77123",
+            hub: "Solitaire Priority Desk"
+        };
+        supervisor = {
+            name: "Rohan Kapoor",
+            title: "Head - Ultra HNI Lifestyle & Privileges",
+            email: "rohan.kapoor@kotak.com",
+            phone: "+91 98330 00999",
+            hub: "Consumer Banking Directorate"
+        };
+    } else if (category === 'ops') {
+        poc = {
+            name: isSales ? "Rahul Bajaj" : "Amitabh Sen",
+            title: isSales ? "Account Servicing Lead" : "Operations & Service Desk Lead (" + prodName + ")",
+            email: isSales ? "rahul.bajaj@kotak.com" : "amitabh.sen@kotak.com",
+            phone: isSales ? "+91 98215 33221" : "+91 98211 88299",
+            hub: "Central Service Desk"
+        };
+        supervisor = {
+            name: "Pooja Verma",
+            title: "Senior VP - Service Quality",
+            email: "pooja.verma@kotak.com",
+            phone: "+91 98210 11445",
+            hub: "Service Quality Directorate"
+        };
+    }
+
+    if (pincode.startsWith('11') || pincode.startsWith('12')) {
+        poc.hub = "North Regional Office, Delhi NCR (Pincode: " + pincode + ")";
+        supervisor.hub = "North Zonal Command Center, New Delhi";
+    } else if (pincode.startsWith('56') || pincode.startsWith('60')) {
+        poc.hub = "South Regional Office, Bengaluru (Pincode: " + pincode + ")";
+        supervisor.hub = "South Zonal Command Center, MG Road";
+    }
+
+    container.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+
+            <!-- PRIMARY POC CARD -->
+            <div style="background: #ffffff; border: 1.5px solid #bfdbfe; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(37,99,235,0.06);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 0.7rem; font-weight: 800; color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;">PRIMARY POC (${isSales ? 'SALES TEAM' : 'PRODUCT TEAM'})</span>
+                    <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">${program}</span>
+                </div>
+                <h3 style="margin: 0 0 2px 0; color: #0f172a; font-size: 1.05rem; font-weight: 800;">${poc.name}</h3>
+                <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.82rem; font-weight: 600;">${poc.title}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>📞</span>
+                        <a href="tel:${poc.phone}" style="color: #2563eb; text-decoration: none; font-weight: 700;">${poc.phone}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>✉️</span>
+                        <a href="mailto:${poc.email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${poc.email}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748b;">
+                        <span>📍</span>
+                        <span>${poc.hub}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUPERVISOR / ESCALATION CARD -->
+            <div style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-size: 0.7rem; font-weight: 800; color: #475569; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;">ESCALATION SUPERVISOR</span>
+                    <span style="font-size: 0.75rem; color: #94a3b8; font-weight: 600;">Level 2 Escalation</span>
+                </div>
+                <h3 style="margin: 0 0 2px 0; color: #0f172a; font-size: 1.02rem; font-weight: 800;">${supervisor.name}</h3>
+                <p style="margin: 0 0 10px 0; color: #475569; font-size: 0.82rem; font-weight: 600;">${supervisor.title}</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; border-top: 1px solid #f1f5f9; padding-top: 10px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>📞</span>
+                        <a href="tel:${supervisor.phone}" style="color: #0f172a; text-decoration: none; font-weight: 700;">${supervisor.phone}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span>✉️</span>
+                        <a href="mailto:${supervisor.email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${supervisor.email}</a>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; color: #64748b;">
+                        <span>📍</span>
+                        <span>${supervisor.hub}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    `;
+}
+</script>

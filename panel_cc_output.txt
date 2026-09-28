@@ -1,0 +1,104 @@
+Line 364:
+  362: </ul>
+  363: </div>
+  364: <div class="info-panel" id="panel-cc"><h2 style="font-size: 1.25rem; font-weight: 800; color: #111827; margin-bottom: 16px;">Privy Credit Card</h2><p style="color: #4b5563; line-height: 1.6; margin-bottom: 24px;">Experience unparalleled luxury and rewards with our premium metallic Privy Credit Card, designed exclusively for our most esteemed clients.</p>
+  365: <div class="inner-tabs-container" style="display: flex; gap: 8px; margin-bottom: 24px; background: #f1f5f9; padding: 6px; border-radius: 12px;">
+  366: <button class="inner-tab-btn active" onclick="switchInnerTab(this, 'features')" style="flex: 1; padding: 10px 16px; font-size: 0.95rem; font-weight: 600; color: #0f172a; background: white; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.2s;">Features</button>
+  367: <button class="inner-tab-btn" onclick="switchInnerTab(this, 'calculator')" style="flex: 1; padding: 10px 16px; font-size: 0.95rem; font-weight: 600; color: #475569; background: transparent; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s;">Calculator</button>
+  368: <button class="inner-tab-btn" onclick="switchInnerTab(this, 'pitches')" style="flex: 1; padding: 10px 16px; font-size: 0.95rem; font-weight: 600; color: #475569; background: transparent; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s;">Pitches</button>
+  369: </div>
+  370: <div class="inner-tab-content inner-tab-content-features" style="display: block;"><div class="product-features-grid">
+  371: <!-- 1. Fee & Charges Card -->
+  372: <div class="feature-card">
+  373: <div class="feat-card-header">
+  374: <span class="feat-icon">💳</span>
+  375: <h3>Fee &amp; Charges</h3>
+  376: </div>
+  377: <ul class="feat-list">
+  378: <li><strong>Nil charges</strong> with Privy Program</li>
+  379: <li><strong>₹25,000 + GST</strong> in case RV is not met</li>
+  380: </ul>
+  381: </div>
+  382: <!-- 2. Lounge Access Card -->
+  383: <div class="feature-card">
+  384: <div class="feat-card-header">
+  385: <span class="feat-icon">✈️</span>
+  386: <h3>Lounge Access</h3>
+  387: </div>
+  388: <ul class="feat-list">
+  389: <li><strong>Unlimited Domestic &amp; International</strong> Lounge Access</li>
+  390: <li><strong>Guest lounge access provided:</strong>
+  391: <div class="guest-lounge-tags">
+  392: <span class="sub-tag">2 Domestic</span>
+  393: <span class="sub-tag">2 International</span>
+  394: </div>
+  395: </li>
+  396: </ul>
+  397: </div>
+  398: <!-- 3. Accelerated Reward Rate Card -->
+  399: <div class="feature-card">
+  400: <div class="feat-card-header">
+  401: <span class="feat-icon">🚀</span>
+  402: <h3>Accelerated Reward Rate</h3>
+  403: </div>
+  404: <ul class="feat-list">
+  405: <li><strong>10% on Flights &amp; Hotels</strong> via Kotak Unbox <em>(3.3X multiple)</em></li>
+  406: <li><strong>1,00,000 reward points cap</strong> on accelerated rewards</li>
+  407: </ul>
+  408: </div>
+  409: <!-- 4. Base Reward Rate Card -->
+  410: <div class="feature-card">
+  411: <div class="feat-card-header">
+  412: <span class="feat-icon">🎯</span>
+  413: <h3>Base Reward Rate</h3>
+  414: </div>
+  415: <ul class="feat-list">
+  416: <li><strong>3%</strong> base reward rate on eligible spends</li>
+  417: <li>Reward points expire after <strong>3 years</strong></li>
+  418: </ul>
+  419: </div>
+  420: <!-- 5. Forex & Transfer Partners Card -->
+  421: <div class="feature-card">
+  422: <div class="feat-card-header">
+  423: <span class="feat-icon">🌐</span>
+  424: <h3>Forex &amp; Point Transfer Partners</h3>
+  425: </div>
+  426: <ul class="feat-list">
+  427: <li><strong>0% Forex Charge</strong> on international transactions</li>
+  428: <li><strong>7 Flight Partners &amp; 2 Hotel Partners</strong></li>
+  429: <li><strong>Air India Point Transfer:</strong> 1:1 ratio</li>
+  430: </ul>
+  431: </div>
+  432: <!-- 6. Dining Benefits Card -->
+  433: <div class="feature-card">
+  434: <div class="feat-card-header">
+  435: <span class="feat-icon">🍽️</span>
+  436: <h3>Dining Benefits</h3>
+  437: </div>
+  438: <ul class="feat-list">
+  439: <li><strong>Zomato Gold</strong> at ₹1 annual subscription</li>
+  440: <li><strong>District by Zomato offers:</strong>
+  441: <ul class="sub-feat-list">
+  442: <li>20% discount up to ₹5,000 (Valid twice a month)</li>
+  443: <li>Pre-sale access to experiences</li>
+  444: </ul>
+  445: </li>
+  446: </ul>
+  447: </div>
+  448: <!-- 7. Hotel Benefits Card (Span 2 Cols) -->
+  449: <div class="feature-card full-width-card">
+  450: <div class="feat-card-header">
+  451: <span class="feat-icon">🏨</span>
+  452: <h3>Hotel Benefits</h3>
+  453: </div>
+  454: <div class="hotel-benefits-content">
+  455: <div class="hotel-benefit-block">
+  456: <span class="benefit-badge">2+1 Nights or 50% Off Second Night</span>
+  457: <div class="hotel-brands-pills">
+  458: <span class="hotel-pill">ITC Stays</span>
+  459: <span class="hotel-pill">Alaya</span>
+  460: <span class="hotel-pill">Elivaas</span>
+  461: </div>
+  462: </div>
+  463: <div class="hotel-benefit-block">
+--------------------------------------------------

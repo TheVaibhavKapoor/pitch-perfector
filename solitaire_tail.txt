@@ -1,0 +1,149 @@
+<div class="compare-category">
+<button class="compare-cat-header" onclick="toggleCompareCategory(this)">
+    Credit Cards
+    <span class="compare-cat-icon">▼</span>
+</button>
+<div class="compare-cat-content">
+<table class="compare-inner-table">
+<tbody>
+<tr>
+<td class="col-benefit">Card</td>
+<td class="col-privy">Air</td>
+<td class="col-privyplus">Air+</td>
+<td class="col-solitaire">Solitaire</td>
+</tr>
+<tr>
+<td class="col-benefit">Travel Air Miles</td>
+<td class="col-privy">3/₹100</td>
+<td class="col-privyplus">5/₹100</td>
+<td class="col-solitaire">10/₹100 via Unbox</td>
+</tr>
+<tr>
+<td class="col-benefit">Other Eligible Spends</td>
+<td class="col-privy">1/₹100</td>
+<td class="col-privyplus">2/₹100</td>
+<td class="col-solitaire">3/₹100</td>
+</tr>
+<tr>
+<td class="col-benefit">Domestic Lounge</td>
+<td class="col-privy">4/year*</td>
+<td class="col-privyplus">4/year*</td>
+<td class="col-solitaire">Unlimited</td>
+</tr>
+<tr>
+<td class="col-benefit">International Lounge</td>
+<td class="col-privy">—</td>
+<td class="col-privyplus">2/year*</td>
+<td class="col-solitaire">Unlimited</td>
+</tr>
+<tr>
+<td class="col-benefit">Forex Mark-up</td>
+<td class="col-privy">Standard</td>
+<td class="col-privyplus">2%</td>
+<td class="col-solitaire">0%</td>
+</tr>
+<tr>
+<td class="col-benefit">Welcome Air Miles</td>
+<td class="col-privy">1,000</td>
+<td class="col-privyplus">2,500</td>
+<td class="col-solitaire">—</td>
+</tr>
+<tr>
+<td class="col-benefit">Renewal Air Miles</td>
+<td class="col-privy">1,000</td>
+<td class="col-privyplus">2,500</td>
+<td class="col-solitaire">—</td>
+</tr>
+<tr>
+<td class="col-benefit">Annual Fee</td>
+<td class="col-privy">₹999 + GST</td>
+<td class="col-privyplus">₹3,000 + GST</td>
+<td class="col-solitaire">₹0 while eligible</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="compare-category">
+<button class="compare-cat-header" onclick="toggleCompareCategory(this)">
+    Loans & Credit
+    <span class="compare-cat-icon">▼</span>
+</button>
+<div class="compare-cat-content">
+<table class="compare-inner-table">
+<tbody>
+<tr>
+<td class="col-benefit">Home Loan</td>
+<td class="col-privy">Up to ₹85L</td>
+<td class="col-privyplus">Up to ₹1Cr</td>
+<td class="col-solitaire">Up to ₹7.5Cr</td>
+</tr>
+<tr>
+<td class="col-benefit">Auto Loan</td>
+<td class="col-privy">Up to ₹25L</td>
+<td class="col-privyplus">Up to ₹40L</td>
+<td class="col-solitaire">Available as per eligibility</td>
+</tr>
+<tr>
+<td class="col-benefit">Personal Loan</td>
+<td class="col-privy">Up to ₹10L</td>
+<td class="col-privyplus">Up to ₹15L</td>
+<td class="col-solitaire">Available as per eligibility</td>
+</tr>
+<tr>
+<td class="col-benefit">Credit Line</td>
+<td class="col-privy">—</td>
+<td class="col-privyplus">Mid-Month Advance</td>
+<td class="col-solitaire">Up to ₹25L</td>
+</tr>
+<tr>
+<td class="col-benefit">LAP</td>
+<td class="col-privy">—</td>
+<td class="col-privyplus">—</td>
+<td class="col-solitaire">Special Rates</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    </div>
+</div>
+
+<script>
+function handleSendDeck(btn) {
+    const email = document.getElementById('send-deck-email').value;
+    if(!email) { alert("Please enter an email address."); return; }
+    btn.innerText = "Sending...";
+    btn.style.opacity = "0.7";
+    setTimeout(() => {
+        btn.innerText = "Sent Successfully!";
+        btn.style.background = "#10b981";
+        btn.style.opacity = "1";
+        setTimeout(() => {
+            document.getElementById('send-deck-modal').style.display='none';
+            btn.innerText = "Send Email";
+            btn.style.background = "#1e3a8a";
+            document.getElementById('send-deck-email').value = "ashishkumar@gmail.com";
+        }, 1500);
+    }, 1000);
+}
+
+function handleCreateLead(btn) {
+    btn.innerText = "Creating...";
+    btn.style.opacity = "0.7";
+    setTimeout(() => {
+        btn.innerText = "Lead Created Successfully!";
+        btn.style.background = "#10b981";
+        btn.style.opacity = "1";
+        setTimeout(() => {
+            document.getElementById('create-lead-modal').style.display='none';
+            btn.innerText = "Create Lead";
+            btn.style.background = "#1e3a8a";
+        }, 1500);
+    }, 1000);
+}
+</script>
+<!-- END MODALS -->
+</body>
+</html>

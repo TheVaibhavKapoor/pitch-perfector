@@ -1,0 +1,62 @@
+1651: <ul class="feat-list">
+1652: <li><strong style="color: #10b981;">Preferential MDR</strong> (Merchant Discount rate)</li>
+1653: <li><strong style="color: #10b981;">Nil rentals &amp; Zero installation charges</strong> on new POS machines and sound boxes (No Cap on the number)</li>
+1654: </ul>
+1655: </div>
+1656: </div>
+1657: </div> <!-- close panel-business-other -->
+1658: </div> <!-- close segment-business-content -->
+1659: </div> <!-- close segment-business-content -->
+1660: <!-- Calculate Benefit Button -->
+1661: <div style="margin-top: 48px; text-align: center;">
+1662: <button onclick="window.open('calculate_benefit.html', '_blank')" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; border: none; padding: 16px 32px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+1663:                         CALCULATE OVERALL BENEFIT
+1664:                     </button>
+1665: </div>
+1666: </div></div></div></main>
+1667: </div>
+1668: <script>
+1669:         // Check for localStorage parameters if we passed them from the form
+1670:         document.addEventListener('DOMContentLoaded', function() {
+1671:             
+1672:             const type = localStorage.getItem('solitaire_type') || 'Existing';
+1673:             const isExisting = !type || type === 'Existing';
+1674:             const panels = ['dc', 'cc', 'assets', 'investments', 'forex', 'other'];
+1675:             panels.forEach(function(p) {
+1676:                 const newEl = document.getElementById(p + '-new-grid');
+1677:                 const existEl = document.getElementById(p + '-existing-table');
+1678:                 if (isExisting) {
+1679:                     if (newEl) newEl.style.display = 'none';
+1680:                     if (existEl) existEl.style.display = 'block';
+
+==================================================
+2371:         btn.style.background = "#10b981";
+2372:         btn.style.opacity = "1";
+2373:         setTimeout(() => {
+2374:             document.getElementById('create-lead-modal').style.display='none';
+2375:             btn.innerText = "Create Lead";
+2376:             btn.style.background = "#1e3a8a";
+2377:         }, 1500);
+2378:     }, 1000);
+2379: }
+2380: </script>
+2381: <!-- END MODALS -->
+2382: 
+2383: </body>
+2384: </html><!-- close segment-individual-content -->
+2385: <!-- Calculate Benefit Button -->
+2386: <div style="margin-top: 48px; text-align: center;">
+2387: <button onclick="window.open('calculate_benefit.html', '_blank')" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; border: none; padding: 16px 32px; border-radius: 8px; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+2388:                         CALCULATE OVERALL BENEFIT
+2389:                     </button>
+2390: </div>
+2391: <script>
+2392:         // Check for localStorage parameters if we passed them from the form
+2393:         document.addEventListener('DOMContentLoaded', function() {
+2394:             const type = localStorage.getItem('solitaire_type');
+2395:             const name = localStorage.getItem('solitaire_name');
+2396:             const phone = localStorage.getItem('solitaire_phone');
+2397:             const email = localStorage.getItem('solitaire_email');
+2398:             
+2399:             console.log("Dashboard loaded with localStorage:", {type, name, phone, email});
+2400:             

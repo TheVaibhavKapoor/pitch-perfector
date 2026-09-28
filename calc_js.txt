@@ -1,0 +1,102 @@
+1781:         const pullmanNightsCount = document.getElementById('pullmanNightsCount');
+1782:         const baliNightsCount = document.getElementById('baliNightsCount');
+1783: 
+1784:         if (btnCalculate) {
+1785:             btnCalculate.addEventListener('click', () => {
+1786:                 const travel = parseFloat(document.getElementById('monthlyTravelSpend').value) || 0;
+1787:                 const lifestyle = parseFloat(document.getElementById('monthlyLifestyleSpend').value) || 0;
+1788:                 const vacation = parseFloat(document.getElementById('annualVacationSpend').value) || 0;
+1789: 
+1790:                 const compName = competitorProduct.options[competitorProduct.selectedIndex]?.text || "HDFC Infinia";
+1791:                 competitorHeaderName.innerHTML = `${compName} <span class="cap-note">(Accelerated RP capped at 15,000 per St. cycle)</span>`;
+1792: 
+1793:                 // Kotak Privy (10 RP/₹100 travel, 3 RP/₹100 lifestyle, 10 RP/₹100 vacation)
+1794:                 // Competitor (HDFC Infinia: 17 RP/₹100 travel, 3 RP/₹100 lifestyle, 3 RP/₹100 vacation)
+1795:                 const kTravelPts = Math.round((travel / 100) * 10);
+1796:                 const cTravelPts = Math.round((travel / 100) * 17);
+1797: 
+1798:                 const kOtherPts = Math.round((lifestyle / 100) * 3);
+1799:                 const cOtherPts = Math.round((lifestyle / 100) * 3);
+1800: 
+1801:                 const kVacationPts = Math.round((vacation / 100) * 10);
+1802:                 const cVacationPts = Math.round((vacation / 100) * 3);
+1803: 
+1804:                 const kTotalYearly = (kTravelPts * 12) + (kOtherPts * 12) + kVacationPts;
+1805:                 const cTotalYearly = (cTravelPts * 12) + (cOtherPts * 12) + cVacationPts;
+1806: 
+1807:                 kotakTravelRow.textContent = `Monthly spend on travel → ₹ ${travel.toLocaleString('en-IN')} → ${kTravelPts}pts (10 RP/₹100)`;
+1808:                 compTravelRow.textContent = `Monthly spend on travel → ₹ ${travel.toLocaleString('en-IN')} → ${cTravelPts}pts (17 RP/₹100)`;
+1809: 
+1810:                 kotakOtherRow.textContent = `Monthly other spends → ₹ ${lifestyle.toLocaleString('en-IN')} → ${kOtherPts}pts (3 RP/₹100)`;
+1811:                 compOtherRow.textContent = `Monthly other spends → ₹ ${lifestyle.toLocaleString('en-IN')} → ${cOtherPts}pts (3 RP/₹100)`;
+1812: 
+1813:                 kotakVacationRow.textContent = `Annual vacation spends → ₹ ${vacation.toLocaleString('en-IN')} → ${kVacationPts}pts (10 RP/₹100)`;
+1814:                 compVacationRow.textContent = `Annual vacation spends → ₹ ${vacation.toLocaleString('en-IN')} → ${cVacationPts}pts (3 RP/₹100)`;
+1815: 
+1816:                 kotakTotalPtsCell.innerHTML = `<strong>${kTotalYearly.toLocaleString('en-IN')} points earned yearly</strong>`;
+1817:                 compTotalPtsCell.innerHTML = `<strong>~ ${cTotalYearly.toLocaleString('en-IN')} points earned yearly</strong>`;
+1818: 
+1819:                 whatCanYouDoHeader.textContent = `What can you do with ${kTotalYearly.toLocaleString('en-IN')} points?`;
+1820: 
+1821:                 // Calculate flights/nights (e.g. 5,000 pts per domestic flight, 25,000 pts per intl flight)
+1822:                 const domCount = Math.floor(kTotalYearly / 5000);
+1823:                 const intlCount = Math.floor(kTotalYearly / 25000);
+1824:                 const pullmanCount = Math.floor(kTotalYearly / 12000);
+1825:                 const baliCount = Math.floor(kTotalYearly / 15000);
+1826: 
+1827:                 domesticFlightsCount.textContent = `${domCount} Flights*`;
+1828:                 intlFlightsCount.textContent = `${intlCount} Flights*`;
+1829:                 pullmanNightsCount.textContent = `${pullmanCount} Nights*`;
+1830:                 baliNightsCount.textContent = `${baliCount} Nights*`;
+
+==================================================
+2481:         const compTotalPtsCell = document.getElementById('compTotalPtsCell');
+2482:         const whatCanYouDoHeader = document.getElementById('whatCanYouDoHeader');
+2483: 
+2484:         const domesticFlightsCount = document.getElementById('domesticFlightsCount');
+2485:         const intlFlightsCount = document.getElementById('intlFlightsCount');
+2486:         const pullmanNightsCount = document.getElementById('pullmanNightsCount');
+2487:         const baliNightsCount = document.getElementById('baliNightsCount');
+2488: 
+2489:         if (btnCalculate) {
+2490:             btnCalculate.addEventListener('click', () => {
+2491:                 const travel = parseFloat(document.getElementById('monthlyTravelSpend').value) || 0;
+2492:                 const lifestyle = parseFloat(document.getElementById('monthlyLifestyleSpend').value) || 0;
+2493:                 const vacation = parseFloat(document.getElementById('annualVacationSpend').value) || 0;
+2494: 
+2495:                 const compName = competitorProduct.options[competitorProduct.selectedIndex]?.text || "HDFC Infinia";
+2496:                 competitorHeaderName.innerHTML = `${compName} <span class="cap-note">(Accelerated RP capped at 15,000 per St. cycle)</span>`;
+2497: 
+2498:                 // Kotak Privy (10 RP/₹100 travel, 3 RP/₹100 lifestyle, 10 RP/₹100 vacation)
+2499:                 // Competitor (HDFC Infinia: 17 RP/₹100 travel, 3 RP/₹100 lifestyle, 3 RP/₹100 vacation)
+2500:                 const kTravelPts = Math.round((travel / 100) * 10);
+2501:                 const cTravelPts = Math.round((travel / 100) * 17);
+2502: 
+2503:                 const kOtherPts = Math.round((lifestyle / 100) * 3);
+2504:                 const cOtherPts = Math.round((lifestyle / 100) * 3);
+2505: 
+2506:                 const kVacationPts = Math.round((vacation / 100) * 10);
+2507:                 const cVacationPts = Math.round((vacation / 100) * 3);
+2508: 
+2509:                 const kTotalYearly = (kTravelPts * 12) + (kOtherPts * 12) + kVacationPts;
+2510:                 const cTotalYearly = (cTravelPts * 12) + (cOtherPts * 12) + cVacationPts;
+2511: 
+2512:                 kotakTravelRow.textContent = `Monthly spend on travel → ₹ ${travel.toLocaleString('en-IN')} → ${kTravelPts}pts (10 RP/₹100)`;
+2513:                 compTravelRow.textContent = `Monthly spend on travel → ₹ ${travel.toLocaleString('en-IN')} → ${cTravelPts}pts (17 RP/₹100)`;
+2514: 
+2515:                 kotakOtherRow.textContent = `Monthly other spends → ₹ ${lifestyle.toLocaleString('en-IN')} → ${kOtherPts}pts (3 RP/₹100)`;
+2516:                 compOtherRow.textContent = `Monthly other spends → ₹ ${lifestyle.toLocaleString('en-IN')} → ${cOtherPts}pts (3 RP/₹100)`;
+2517: 
+2518:                 kotakVacationRow.textContent = `Annual vacation spends → ₹ ${vacation.toLocaleString('en-IN')} → ${kVacationPts}pts (10 RP/₹100)`;
+2519:                 compVacationRow.textContent = `Annual vacation spends → ₹ ${vacation.toLocaleString('en-IN')} → ${cVacationPts}pts (3 RP/₹100)`;
+2520: 
+2521:                 kotakTotalPtsCell.innerHTML = `<strong>${kTotalYearly.toLocaleString('en-IN')} points earned yearly</strong>`;
+2522:                 compTotalPtsCell.innerHTML = `<strong>~ ${cTotalYearly.toLocaleString('en-IN')} points earned yearly</strong>`;
+2523: 
+2524:                 whatCanYouDoHeader.textContent = `What can you do with ${kTotalYearly.toLocaleString('en-IN')} points?`;
+2525: 
+2526:                 // Calculate flights/nights (e.g. 5,000 pts per domestic flight, 25,000 pts per intl flight)
+2527:                 const domCount = Math.floor(kTotalYearly / 5000);
+2528:                 const intlCount = Math.floor(kTotalYearly / 25000);
+2529:                 const pullmanCount = Math.floor(kTotalYearly / 12000);
+2530:                 const baliCount = Math.floor(kTotalYearly / 15000);

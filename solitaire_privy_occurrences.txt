@@ -1,0 +1,49 @@
+Line 612: <div style="font-weight: 700; font-size: 0.9rem; color: #111827;">Privy League Neon Debit</div>
+Line 633: <div style="font-size: 0.92rem; font-weight: 700; color: #111827;">Privy League Neon Credit Card</div>
+Line 1045: .col-privy { width: 25%; }
+Line 1046: .col-privyplus { width: 25%; }
+Line 1065: .cg-privy { flex: 0 0 25%; padding-left: 24px; }
+Line 1066: .cg-privyplus { flex: 0 0 25%; padding-left: 24px; }
+Line 1088: <div class="compare-global-header"><div class="cg-benefit">Benefit / Feature</div><div class="cg-privy">PRIVY</div><div class="cg-privyplus">PRIVY+</div><div class="cg-solitaire">SOLITAIRE</div></div>
+Line 1099: <td class="col-privy">₹10L</td>
+Line 1100: <td class="col-privyplus">₹30L</td>
+Line 1105: <td class="col-privy">₹1L+/month</td>
+Line 1106: <td class="col-privyplus">₹3L+/month</td>
+Line 1123: <td class="col-privy">✓</td>
+Line 1124: <td class="col-privyplus">✓</td>
+Line 1129: <td class="col-privy">✓</td>
+Line 1130: <td class="col-privyplus">✓</td>
+Line 1135: <td class="col-privy">✓</td>
+Line 1136: <td class="col-privyplus">✓</td>
+Line 1141: <td class="col-privy">✓</td>
+Line 1142: <td class="col-privyplus">✓</td>
+Line 1147: <td class="col-privy">✓</td>
+Line 1148: <td class="col-privyplus">✓</td>
+Line 1165: <td class="col-privy">Air</td>
+Line 1166: <td class="col-privyplus">Air+</td>
+Line 1171: <td class="col-privy">3/₹100</td>
+Line 1172: <td class="col-privyplus">5/₹100</td>
+Line 1177: <td class="col-privy">1/₹100</td>
+Line 1178: <td class="col-privyplus">2/₹100</td>
+Line 1183: <td class="col-privy">4/year*</td>
+Line 1184: <td class="col-privyplus">4/year*</td>
+Line 1189: <td class="col-privy">—</td>
+Line 1190: <td class="col-privyplus">2/year*</td>
+Line 1195: <td class="col-privy">Standard</td>
+Line 1196: <td class="col-privyplus">2%</td>
+Line 1201: <td class="col-privy">1,000</td>
+Line 1202: <td class="col-privyplus">2,500</td>
+Line 1207: <td class="col-privy">1,000</td>
+Line 1208: <td class="col-privyplus">2,500</td>
+Line 1213: <td class="col-privy">₹999 + GST</td>
+Line 1214: <td class="col-privyplus">₹3,000 + GST</td>
+Line 1231: <td class="col-privy">Up to ₹85L</td>
+Line 1232: <td class="col-privyplus">Up to ₹1Cr</td>
+Line 1237: <td class="col-privy">Up to ₹25L</td>
+Line 1238: <td class="col-privyplus">Up to ₹40L</td>
+Line 1243: <td class="col-privy">Up to ₹10L</td>
+Line 1244: <td class="col-privyplus">Up to ₹15L</td>
+Line 1249: <td class="col-privy">—</td>
+Line 1250: <td class="col-privyplus">Mid-Month Advance</td>
+Line 1255: <td class="col-privy">—</td>
+Line 1256: <td class="col-privyplus">—</td>

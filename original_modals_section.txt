@@ -1,0 +1,63 @@
+Created At: 2026-08-13T06:41:09Z
+Completed At: 2026-08-13T06:41:09Z
+File Path: `file:///c:/Users/vaibh/Desktop/Pitch%20Perfector%20-%20Copy%20%283%29/customer_overview_solitaire.html`
+Total Lines: 1304
+Total Bytes: 89857
+Showing lines 1250 to 1304
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1250: <td class="col-privyplus">Mid-Month Advance</td>
+1251: <td class="col-solitaire">Up to ₹25L</td>
+1252: </tr>
+1253: <tr>
+1254: <td class="col-benefit">LAP</td>
+1255: <td class="col-privy">—</td>
+1256: <td class="col-privyplus">—</td>
+1257: <td class="col-solitaire">Special Rates</td>
+1258: </tr>
+1259: </tbody>
+1260: </table>
+1261: </div>
+1262: </div>
+1263: 
+1264:     </div>
+1265: </div>
+1266: 
+1267: <script>
+1268: function handleSendDeck(btn) {
+1269:     const email = document.getElementById('send-deck-email').value;
+1270:     if(!email) { alert("Please enter an email address."); return; }
+1271:     btn.innerText = "Sending...";
+1272:     btn.style.opacity = "0.7";
+1273:     setTimeout(() => {
+1274:         btn.innerText = "Sent Successfully!";
+1275:         btn.style.background = "#10b981";
+1276:         btn.style.opacity = "1";
+1277:         setTimeout(() => {
+1278:             document.getElementById('send-deck-modal').style.display='none';
+1279:             btn.innerText = "Send Email";
+1280:             btn.style.background = "#1e3a8a";
+1281:             document.getElementById('send-deck-email').value = "";
+1282:         }, 1500);
+1283:     }, 1000);
+1284: }
+1285: 
+1286: function handleCreateLead(btn) {
+1287:     btn.innerText = "Creating...";
+1288:     btn.style.opacity = "0.7";
+1289:     setTimeout(() => {
+1290:         btn.innerText = "Lead Created Successfully!";
+1291:         btn.style.background = "#10b981";
+1292:         btn.style.opacity = "1";
+1293:         setTimeout(() => {
+1294:             document.getElementById('create-lead-modal').style.display='none';
+1295:             btn.innerText = "Create Lead";
+1296:             btn.style.background = "#1e3a8a";
+1297:         }, 1500);
+1298:     }, 1000);
+1299: }
+1300: </script>
+1301: <!-- END MODALS -->
+1302: </body>
+1303: </html>
+1304: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -1,0 +1,13 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Local runtime logs & temporary files
+cf_tunnel_url.txt
+out*.txt
+test*.txt
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db

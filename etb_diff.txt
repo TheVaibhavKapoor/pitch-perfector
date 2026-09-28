@@ -1,0 +1,975 @@
+--- privy_etb
++++ solitaire_etb
+@@ -6,7 +6,42 @@
+     <title>Cloud Bank - Customer Dashboard</title>
+     <link rel="stylesheet" href="styles.css">
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+-</head>
++<style>
++.ntb-modal-overlay {
++    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(4px);
++}
++.ntb-modal {
++    background: white; border-radius: 16px; padding: 32px; width: 100%; max-width: 600px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; max-height: 90vh; overflow-y: auto;
++}
++.ntb-modal-close {
++    position: absolute; top: 24px; right: 24px; cursor: pointer; color: #64748b; font-size: 1.5rem; line-height: 1; border: none; background: none; padding: 0;
++}
++.ntb-modal h3 { font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; margin-top: 0; }
++.ntb-modal p { color: #64748b; font-size: 0.95rem; margin-bottom: 24px; }
++.ntb-modal-input { width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 1rem; margin-bottom: 16px; outline: none; transition: border-color 0.2s; box-sizing: border-box; font-family: inherit; }
++.ntb-modal-input:focus { border-color: #1e3a8a; }
++.ntb-modal-btn { width: 100%; padding: 14px; background: #1e3a8a; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
++.ntb-modal-btn:hover { background: #172554; }
++
++.program-compare-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
++.program-compare-table th, .program-compare-table td { border: 1px solid #e2e8f0; padding: 12px 16px; text-align: left; font-size: 0.9rem; }
++.program-compare-table th { background: #f8fafc; font-weight: 700; color: #0f172a; }
++.program-compare-table td { color: #475569; }
++
++.lead-checkbox-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
++.lead-checkbox-label { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 0.95rem; color: #334155; font-weight: 500; }
++.lead-checkbox-label input { width: 18px; height: 18px; cursor: pointer; }
++
++</style>
++
++    <style>
++        @keyframes ticker {
++            0% { transform: translateX(0); }
++            100% { transform: translateX(-100%); }
++        }
++    </style>
++    </head>
++
+ <body>
+     <div class="app-container">
+         <!-- Left Navigation Sidebar (Customer Assisting Mode) -->
+@@ -82,216 +117,64 @@
+ 
+         <!-- Main Content Area -->
+         <main class="main-content">
+-            <header class="top-header">
+-                <div class="profile-avatar">VK</div>
++            <header class="top-header" style="justify-content: flex-end; gap: 12px; align-items: center; padding: 12px 32px;">
++                <div style="display: flex; gap: 12px; align-items: center; margin-right: auto;">
++                    <!-- Optional left side content, leaving blank for now -->
++                </div>
++                <div style="display: flex; gap: 12px; align-items: center;">
++                    <button onclick="document.getElementById('compare-modal').style.display='flex'" style="background: white; border: 1.5px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='white'">Compare Program</button>
++                    <button onclick="document.getElementById('send-deck-modal').style.display='flex'" style="background: white; border: 1.5px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='white'">Send Deck</button>
++                    <button onclick="document.getElementById('create-lead-modal').style.display='flex'" style="background: white; border: 1.5px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='white'">Create Lead</button>
++                    <button onclick="window.location.href='reliability.html'" style="background: #1e3a8a; border: none; padding: 9px 20px; border-radius: 8px; font-weight: 600; color: white; cursor: pointer; box-shadow: 0 4px 12px rgba(30,58,138,0.2); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Open Reliability</button>
++                </div>
++                <div class="profile-avatar" style="margin-left: 16px;">VK</div>
+             </header>
+ 
+             <div class="content-body">
+-                <!-- Experience Solitaire Benefits Banner for Privy Client -->
+-                <section class="card" id="section-privy-benefits" style="margin-bottom: 28px; background: transparent; border: none; padding: 0; box-shadow: none;">
+-                    <div class="card-section-title">
+-                        <div class="section-indicator"></div>
+-                        <h2 style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 0;">Experience Solitaire Benefits</h2>
+-                    </div>
+-
+-                    <div style="background: linear-gradient(135deg, #132247 0%, #0a1329 100%); color: #ffffff; border-radius: 18px; padding: 20px 28px; box-shadow: 0 8px 24px rgba(19,34,71,0.25); display: flex; justify-content: space-between; align-items: center; cursor: pointer; margin-top: 12px; transition: transform 0.2s ease;" onclick="window.location.href='experience_solitaire_dashboard.html'" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+-                        <div>
+-                            <span style="background: rgba(255,255,255,0.18); color: #ffffff; font-size: 0.68rem; font-weight: 800; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">PROGRAM COMPARISON</span>
+-                            <h3 style="font-size: 1.45rem; font-weight: 800; margin: 8px 0 0 0; color: #ffffff;">Compare Privy League vs Solitaire Program</h3>
+-                        </div>
+-                        <div style="display: flex; align-items: center; gap: 20px;">
+-                            <img src="solitaire_infinity_logo.png" alt="Solitaire Infinity Logo" style="height: 48px; object-fit: contain;">
+-                            <button onclick="event.stopPropagation(); window.location.href='experience_solitaire_dashboard.html'" style="background: #ffffff; color: #132247; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; font-size: 0.9rem; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 14px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 6px; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='none'">Explore Solitaire Privileges ↗</button>
+-                        </div>
+-                    </div>
+-                </section>
+-
+                 <!-- 1. Top Summary Cards Grid (Photo 1) -->
+-                <section class="bank-summary-grid" style="margin-bottom: 28px;">
+-                    <!-- Card 1: Bank accounts -->
+-                    <div class="summary-card" data-target="#section-bank-accounts" style="cursor: pointer;">
+-                        <div class="summary-content">
+-                            <span class="summary-subtitle">2 bank accounts</span>
+-                            <span class="summary-amount">₹ 2,91,435.31</span>
+-                            <span class="summary-timestamp">AS OF 29 JUL, 0:10 PM</span>
+-                            <span class="status-pill-badge">2 ACTIVE</span>
+-                        </div>
+-                        <div class="summary-3d-graphic">
+-                            <svg width="68" height="58" viewBox="0 0 100 85" fill="none">
+-                                <defs>
+-                                    <linearGradient id="roofGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#fbbf24"/>
+-                                        <stop offset="50%" stop-color="#d97706"/>
+-                                        <stop offset="100%" stop-color="#78350f"/>
+-                                    </linearGradient>
+-                                    <linearGradient id="colGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+-                                        <stop offset="0%" stop-color="#fef3c7"/>
+-                                        <stop offset="50%" stop-color="#fde68a"/>
+-                                        <stop offset="100%" stop-color="#d97706"/>
+-                                    </linearGradient>
+-                                </defs>
+-                                <path d="M10 70 L90 70 L84 78 L16 78 Z" fill="#78350f"/>
+-                                <rect x="12" y="66" width="76" height="5" rx="1" fill="#b45309"/>
+-                                <rect x="18" y="32" width="10" height="34" rx="2" fill="url(#colGrad)"/>
+-                                <rect x="36" y="32" width="10" height="34" rx="2" fill="url(#colGrad)"/>
+-                                <rect x="54" y="32" width="10" height="34" rx="2" fill="url(#colGrad)"/>
+-                                <rect x="72" y="32" width="10" height="34" rx="2" fill="url(#colGrad)"/>
+-                                <rect x="14" y="27" width="72" height="6" rx="1" fill="#f59e0b"/>
+-                                <path d="M50 6 L10 28 L90 28 Z" fill="url(#roofGrad)"/>
+-                                <path d="M50 11 L18 26 L82 26 Z" fill="#fef3c7" opacity="0.4"/>
+-                            </svg>
+-                        </div>
+-                    </div>
+-
+-                    <!-- Card 2: Deposits -->
+-                    <div class="summary-card" data-target="#section-deposits" style="cursor: pointer;">
+-                        <div class="summary-content">
+-                            <span class="summary-subtitle">10 deposits</span>
+-                            <span class="summary-amount">₹ 31,60,229</span>
+-                            <span class="summary-timestamp">VALUE AS OF 29 JUL, 0:10 PM</span>
+-                            <span class="status-pill-badge">10 ACTIVE</span>
+-                        </div>
+-                        <div class="summary-3d-graphic">
+-                            <svg width="60" height="60" viewBox="0 0 90 90" fill="none">
+-                                <defs>
+-                                    <linearGradient id="vaultBody" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#94a3b8"/>
+-                                        <stop offset="60%" stop-color="#475569"/>
+-                                        <stop offset="100%" stop-color="#1e293b"/>
+-                                    </linearGradient>
+-                                    <linearGradient id="vaultDial" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#f8fafc"/>
+-                                        <stop offset="100%" stop-color="#cbd5e1"/>
+-                                    </linearGradient>
+-                                </defs>
+-                                <rect x="10" y="12" width="70" height="66" rx="12" fill="url(#vaultBody)"/>
+-                                <rect x="14" y="16" width="62" height="58" rx="8" fill="none" stroke="#cbd5e1" stroke-width="1.5" opacity="0.3"/>
+-                                <circle cx="45" cy="45" r="20" fill="#334155" stroke="#64748b" stroke-width="3"/>
+-                                <circle cx="45" cy="45" r="14" fill="url(#vaultDial)"/>
+-                                <circle cx="45" cy="45" r="6" fill="#475569"/>
+-                                <rect x="42" y="27" width="6" height="8" rx="2" fill="#e2e8f0"/>
+-                            </svg>
+-                        </div>
+-                    </div>
+-
+-                    <!-- Card 3: Debit Cards -->
+-                    <div class="summary-card" data-target="#section-debit-cards" style="cursor: pointer;">
+-                        <div class="summary-content">
+-                            <span class="summary-subtitle">2 cards</span>
+-                            <span class="summary-amount" style="font-size: 1.25rem;">Debit cards</span>
+-                            <span class="summary-timestamp">AS OF 29 JUL, 0:10 PM</span>
+-                            <span class="status-pill-badge">2 OPEN</span>
+-                        </div>
+-                        <div class="summary-3d-graphic">
+-                            <svg width="68" height="52" viewBox="0 0 95 70" fill="none">
+-                                <defs>
+-                                    <linearGradient id="debitCardTop" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#38bdf8"/>
+-                                        <stop offset="100%" stop-color="#0284c7"/>
+-                                    </linearGradient>
+-                                    <linearGradient id="debitCardBack" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#7dd3fc"/>
+-                                        <stop offset="100%" stop-color="#0369a1"/>
+-                                    </linearGradient>
+-                                </defs>
+-                                <rect x="16" y="8" width="68" height="42" rx="7" fill="url(#debitCardBack)" transform="rotate(-6 50 29)"/>
+-                                <rect x="10" y="18" width="72" height="44" rx="7" fill="url(#debitCardTop)"/>
+-                                <rect x="20" y="32" width="11" height="9" rx="2" fill="#fbbf24"/>
+-                                <line x1="10" y1="50" x2="82" y2="50" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
+-                            </svg>
+-                        </div>
+-                    </div>
+-
+-                    <!-- Card 4: Credit Cards -->
+-                    <div class="summary-card" data-target="#section-credit-cards" style="cursor: pointer;">
+-                        <div class="summary-content">
+-                            <span class="summary-subtitle">2 cards</span>
+-                            <span class="summary-amount" style="font-size: 1.25rem;">Credit cards</span>
+-                            <span class="summary-timestamp">AS OF 29 JUL, 0:10 PM</span>
+-                            <span class="status-pill-badge">2 ACTIVE</span>
+-                        </div>
+-                        <div class="summary-3d-graphic">
+-                            <svg width="68" height="52" viewBox="0 0 95 70" fill="none">
+-                                <defs>
+-                                    <linearGradient id="creditCardTop" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#3b82f6"/>
+-                                        <stop offset="100%" stop-color="#1d4ed8"/>
+-                                    </linearGradient>
+-                                    <linearGradient id="creditCardBack" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#60a5fa"/>
+-                                        <stop offset="100%" stop-color="#1e40af"/>
+-                                    </linearGradient>
+-                                </defs>
+-                                <rect x="16" y="8" width="68" height="42" rx="7" fill="url(#creditCardBack)" transform="rotate(-6 50 29)"/>
+-                                <rect x="10" y="18" width="72" height="44" rx="7" fill="url(#creditCardTop)"/>
+-                                <rect x="20" y="32" width="11" height="9" rx="2" fill="#fbbf24"/>
+-                                <circle cx="70" cy="36" r="6" fill="#ef4444" opacity="0.8"/>
+-                                <circle cx="76" cy="36" r="6" fill="#f59e0b" opacity="0.8"/>
+-                            </svg>
+-                        </div>
+-                    </div>
+-
+-                    <!-- Card 5: Loans -->
+-                    <div class="summary-card" data-target="#section-loans" style="cursor: pointer;">
+-                        <div class="summary-content">
+-                            <span class="summary-subtitle">1 loan</span>
+-                            <span class="summary-amount">₹ 52,27,809</span>
+-                            <span class="summary-timestamp">OUTSTANDING AS OF 29 JUL, 0:10 PM</span>
+-                            <span class="status-pill-badge">1 ACTIVE</span>
+-                        </div>
+-                        <div class="summary-3d-graphic">
+-                            <svg width="62" height="62" viewBox="0 0 90 90" fill="none">
+-                                <defs>
+-                                    <linearGradient id="bagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#d97706"/>
+-                                        <stop offset="60%" stop-color="#b45309"/>
+-                                        <stop offset="100%" stop-color="#78350f"/>
+-                                    </linearGradient>
+-                                    <linearGradient id="coinGold" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#fef08a"/>
+-                                        <stop offset="100%" stop-color="#eab308"/>
+-                                    </linearGradient>
+-                                </defs>
+-                                <ellipse cx="45" cy="74" rx="30" ry="8" fill="#78350f" opacity="0.3"/>
+-                                <path d="M25 42 C15 52 18 74 45 74 C72 74 75 52 65 42 C58 35 56 26 56 22 L34 22 C34 26 32 35 25 42 Z" fill="url(#bagGrad)"/>
+-                                <path d="M30 20 Q45 12 60 20 Q54 26 36 26 Z" fill="#f59e0b"/>
+-                                <rect x="32" y="24" width="26" height="4" rx="2" fill="#fef3c7"/>
+-                                <circle cx="45" cy="52" r="10" fill="url(#coinGold)"/>
+-                                <text x="45" y="56" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">₹</text>
+-                            </svg>
+-                        </div>
+-                    </div>
+-
+-                    <!-- Card 6: Investments (NEW!) -->
+-                    <div class="summary-card" data-target="#section-investments" style="cursor: pointer;">
+-                        <div class="summary-content">
+-                            <span class="summary-subtitle">Investments</span>
+-                            <span class="summary-amount">₹ 18,45,000</span>
+-                            <span class="summary-timestamp">VALUE AS OF 29 JUL, 0:10 PM</span>
+-                            <span class="status-pill-badge" style="background-color: #f0fdf4; color: #15803d;">3 ACTIVE SIPS</span>
+-                        </div>
+-                        <div class="summary-3d-graphic">
+-                            <svg width="62" height="62" viewBox="0 0 90 90" fill="none">
+-                                <defs>
+-                                    <linearGradient id="growthGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+-                                        <stop offset="0%" stop-color="#15803d"/>
+-                                        <stop offset="100%" stop-color="#22c55e"/>
+-                                    </linearGradient>
+-                                    <linearGradient id="goldCoin" x1="0%" y1="0%" x2="100%" y2="100%">
+-                                        <stop offset="0%" stop-color="#fef08a"/>
+-                                        <stop offset="100%" stop-color="#eab308"/>
+-                                    </linearGradient>
+-                                </defs>
+-                                <ellipse cx="32" cy="68" rx="16" ry="6" fill="#ca8a04"/>
+-                                <ellipse cx="32" cy="64" rx="16" ry="6" fill="url(#goldCoin)"/>
+-                                <ellipse cx="32" cy="58" rx="16" ry="6" fill="url(#goldCoin)"/>
+-                                <ellipse cx="32" cy="52" rx="16" ry="6" fill="url(#goldCoin)"/>
+-                                <path d="M30 65 L48 42 L60 52 L80 24" stroke="url(#growthGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+-                                <path d="M68 22 L82 22 L82 36" fill="none" stroke="url(#growthGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+-                            </svg>
+-                        </div>
+-                    </div>
+-                </section>
++                <section class="bank-summary-grid" style="margin-bottom: 24px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;">
++    <!-- Bank Accounts -->
++    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#1e3a8a'" onmouseout="this.style.borderColor='#e2e8f0'">
++        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Bank Accounts</div>
++        <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">₹ 2.91L</div>
++        <div style="background: #f1f5f9; color: #475569; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; display: inline-block;">2 ACTIVE</div>
++    </div>
++    
++    <!-- Deposits -->
++    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#1e3a8a'" onmouseout="this.style.borderColor='#e2e8f0'">
++        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Deposits</div>
++        <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">₹ 31.60L</div>
++        <div style="background: #f1f5f9; color: #475569; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; display: inline-block;">10 ACTIVE</div>
++    </div>
++
++    <!-- Debit Cards -->
++    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#1e3a8a'" onmouseout="this.style.borderColor='#e2e8f0'">
++        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Debit Cards</div>
++        <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">2 Cards</div>
++        <div style="background: #f1f5f9; color: #475569; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; display: inline-block;">2 OPEN</div>
++    </div>
++
++    <!-- Credit Cards -->
++    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#1e3a8a'" onmouseout="this.style.borderColor='#e2e8f0'">
++        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Credit Cards</div>
++        <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">2 Cards</div>
++        <div style="background: #f1f5f9; color: #475569; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; display: inline-block;">2 ACTIVE</div>
++    </div>
++
++    <!-- Loans -->
++    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#1e3a8a'" onmouseout="this.style.borderColor='#e2e8f0'">
++        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Loans</div>
++        <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">₹ 52.27L</div>
++        <div style="background: #f1f5f9; color: #475569; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; display: inline-block;">1 ACTIVE</div>
++    </div>
++
++    <!-- Investments -->
++    <div style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.02);" onmouseover="this.style.borderColor='#1e3a8a'" onmouseout="this.style.borderColor='#e2e8f0'">
++        <div style="font-size: 0.75rem; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Investments</div>
++        <div style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 6px;">₹ 18.45L</div>
++        <div style="background: #f0fdf4; color: #15803d; font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 6px; display: inline-block;">3 ACTIVE SIPS</div>
++    </div>
++</section>
+ 
+ 
+ 
+@@ -302,43 +185,56 @@
+                         <h2>Sales Opportunities</h2>
+                     </div>
+ 
+-                    <div class="sales-opportunities-grid">
+-                        <!-- Box 1: Personalised offers -->
+-                        <div class="opportunity-card purple-card">
+-                            <div>
+-                                <div class="opp-title">Personalised offers</div>
+-                                <div class="opp-sub">To view and redeem offers, please use the ineract app.</div>
+-                            </div>
+-                            <button class="btn-opp-action">
+-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+-                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+-                                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
+-                                </svg>
+-                                Open Interact App ↗
+-                            </button>
+-                        </div>
+-
+-                        <!-- Box 2: Customer Cues -->
+-                        <div class="opportunity-card green-card">
+-                            <div>
+-                                <div class="opp-title">Customer Cues</div>
+-                                <div class="opp-sub">5 Cues to supercharge your SOP</div>
+-                                <div class="opp-chips-row">
+-                                    <span class="opp-chip">Service - Updation</span>
+-                                    <span class="opp-chip">Mutual Funds</span>
+-                                    <span class="opp-chip">Term Deposit</span>
++                    <div style="display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap;">
++                          <!-- Customer Cues (Expandable) -->
++                            <div style="flex: 1; min-width: 100%; background: linear-gradient(135deg, #065f46 0%, #064e3b 100%); border-radius: 12px; box-shadow: 0 4px 12px rgba(6,95,70,0.15); overflow: hidden;">
++                                <div style="padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;">
++                                    <div style="display: flex; align-items: center; gap: 16px;">
++                                        <div style="background: rgba(255,255,255,0.15); padding: 8px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
++                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fbbf24">
++                                                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
++                                            </svg>
++                                        </div>
++                                        <div>
++                                            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
++                                                <span style="color: white; font-weight: 700; font-size: 0.95rem;">5 Customer Cues</span>
++                                                <div style="display: flex; gap: 6px;">
++                                                    <span style="background: rgba(255,255,255,0.15); color: #d1fae5; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">Service - Updation</span>
++                                                    <span style="background: rgba(255,255,255,0.15); color: #d1fae5; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">Mutual Funds</span>
++                                                    <span style="background: rgba(255,255,255,0.15); color: #d1fae5; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600;">Term Deposit</span>
++                                                </div>
++                                            </div>
++                                        </div>
++                                    </div>
++                                    <button onclick="var content = document.getElementById('cues-expanded-content'); var isHidden = content.style.display === 'none'; content.style.display = isHidden ? 'block' : 'none'; this.innerHTML = isHidden ? 'View Less' : 'View More';" style="background: white; border: none; color: #065f46; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">View More</button>
+                                 </div>
+-                            </div>
+-                            <button class="btn-opp-translucent">✨ View Pitch</button>
+-
+-                            <div class="opp-sparkles-icon">
+-                                <svg width="36" height="36" viewBox="0 0 24 24" fill="#fbbf24">
+-                                    <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/>
+-                                </svg>
+-                            </div>
+-                        </div>
+-                    </div>
+-                </section>
++                                <div id="cues-expanded-content" style="display: none; padding: 20px; background: white; border-top: 1px solid #e2e8f0;">
++                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
++                                        <h3 style="color: #0f172a; margin: 0; font-size: 1.1rem; font-weight: 800;">Active Offers</h3>
++                                        <button onclick="window.location.href='experience_solitaire_dashboard_new.html'" style="background: #065f46; border: none; color: white; padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; box-shadow: 0 2px 8px rgba(6,95,70,0.2); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">✨ View Pitches</button>
++                                    </div>
++                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px;">
++                                        <div style="background: white; border: 1px solid #e2e8f0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
++                                            <div style="color: #0f172a; font-weight: 700; font-size: 0.85rem; margin-bottom: 4px;">Credit Card Limit Upgrade</div>
++                                            <div style="color: #475569; font-size: 0.75rem; line-height: 1.4;">Pre-approved limit enhancement of ₹1,50,000 on existing Platinum Card.</div>
++                                        </div>
++                                        <div style="background: white; border: 1px solid #e2e8f0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
++                                            <div style="color: #0f172a; font-weight: 700; font-size: 0.85rem; margin-bottom: 4px;">Home Loan Top-up</div>
++                                            <div style="color: #475569; font-size: 0.75rem; line-height: 1.4;">Eligible for ₹10L top-up at preferential interest rate of 8.45%.</div>
++                                        </div>
++                                        <div style="background: white; border: 1px solid #e2e8f0; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
++                                            <div style="color: #0f172a; font-weight: 700; font-size: 0.85rem; margin-bottom: 4px;">Term Deposit Renewal</div>
++                                            <div style="color: #475569; font-size: 0.75rem; line-height: 1.4;">₹5L FD maturing next week. Offer higher yield ActivMoney.</div>
++                                        </div>
++                                    </div>
++                                </div>
++                            </div>
++                                </div>
++                            </div>
++                                </div>
++                            </div>
++                      </div>
++                  </section>
+ 
+                 <!-- 3. Help And Support Section (Photo 2) -->
+                 <section class="card" style="margin-bottom: 28px;">
+@@ -844,6 +740,564 @@
+         </div>
+     </div>
+ 
++    <!-- Product Bento Benefits Modal (Strictly Solitaire - No Comparison) -->
++    <div id="comparisonModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px); z-index: 9999; justify-content: center; align-items: center; padding: 20px;">
++        <div style="background: #ffffff; width: 100%; max-width: 850px; max-height: 90vh; overflow-y: auto; border-radius: 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); padding: 32px; position: relative;">
++            <button onclick="closeComparisonModal()" style="position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none; width: 36px; height: 36px; border-radius: 50%; font-weight: 700; cursor: pointer; color: #64748b; font-size: 1.1rem;">✕</button>
++            
++            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 24px;">
++                <div style="background: #eff6ff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #1e3a8a;">✨</div>
++                <div>
++                    <h2 style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin: 0;">Exclusive Solitaire Pre-Approved Benefits</h2>
++                    <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Click an offer category below to explore pre-approved privileges for your account</p>
++                </div>
++            </div>
++
++            <!-- Product Switcher Tabs -->
++            <div style="display: flex; gap: 12px; border-bottom: 2px solid #e2e8f0; margin-bottom: 24px;">
++                <button id="compTabCC" onclick="switchCompTab('cc')" style="padding: 10px 20px; font-weight: 700; font-size: 0.95rem; border: none; background: none; border-bottom: 3px solid #1e3a8a; color: #1e3a8a; cursor: pointer;">💳 Credit Card Benefits</button>
++                <button id="compTabHL" onclick="switchCompTab('hl')" style="padding: 10px 20px; font-weight: 700; font-size: 0.95rem; border: none; background: none; border-bottom: 3px solid transparent; color: #64748b; cursor: pointer;">🏠 Home Loan Rates & Benefits</button>
++                <button id="compTabAM" onclick="switchCompTab('am')" style="padding: 10px 20px; font-weight: 700; font-size: 0.95rem; border: none; background: none; border-bottom: 3px solid transparent; color: #64748b; cursor: pointer;">⚡ ActivMoney Benefits</button>
++            </div>
++
++            <!-- Credit Card Bento Grid View -->
++            <div id="compViewCC" style="display: block;">
++                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
++                    <!-- Bento Card 1: Solitaire Infinite Header -->
++                    <div style="grid-column: span 2; background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); color: white; border-radius: 16px; padding: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 14px rgba(30,58,138,0.25);">
++                        <div>
++                            <span style="background: rgba(255,255,255,0.2); color: #ffffff; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; text-transform: uppercase;">LIFETIME FREE • PRE-APPROVED</span>
++                            <h3 style="font-size: 1.4rem; font-weight: 800; margin: 8px 0 4px 0;">Solitaire Infinite Credit Card</h3>
++                            <p style="font-size: 0.85rem; color: #93c5fd; margin: 0;">Unmatched luxury privileges, accelerated rewards & VIP travel services.</p>
++                        </div>
++                        <img src="solitaire_3d_logo.png" style="height: 48px; object-fit: contain;">
++                    </div>
++
++                    <!-- Bento Card 2: 10x Rewards -->
++                    <div style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">💎</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #991b1b; margin: 0 0 6px 0;">10x Reward Points</h4>
++                        <p style="font-size: 0.82rem; color: #7f1d1d; margin: 0; line-height: 1.4;">Earn 10x accelerated rewards on luxury shopping, dining, and international spends.</p>
++                    </div>
++
++                    <!-- Bento Card 3: Lounge Access -->
++                    <div style="background: #eff6ff; border: 1px solid #dbeafe; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">✈️</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #1e3a8a; margin: 0 0 6px 0;">Unlimited Lounge & Airport VIP</h4>
++                        <p style="font-size: 0.82rem; color: #1e3a8a; margin: 0; line-height: 1.4;">Unlimited worldwide Priority Pass airport lounge access for cardholder & guest.</p>
++                    </div>
++
++                    <!-- Bento Card 4: Zero Forex Markup -->
++                    <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">🌍</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #166534; margin: 0 0 6px 0;">1.5% Forex Markup</h4>
++                        <p style="font-size: 0.82rem; color: #14532d; margin: 0; line-height: 1.4;">Enjoy industry-lowest 1.5% foreign currency markup fee on international transactions.</p>
++                    </div>
++
++                    <!-- Bento Card 5: Golf & Concierge -->
++                    <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">⛳</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #92400e; margin: 0 0 6px 0;">Complimentary Golf & Concierge</h4>
++                        <p style="font-size: 0.82rem; color: #78350f; margin: 0; line-height: 1.4;">4 complimentary golf rounds per month + 24x7 dedicated Solitaire lifestyle concierge desk.</p>
++                    </div>
++                </div>
++                <button onclick="window.location.href='credit_card_details.html'" style="margin-top: 20px; width: 100%; background: #1e3a8a; color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 12px rgba(30,58,138,0.2);">View Full Card Benefits & Apply ↗</button>
++            </div>
++
++            <!-- Home Loan Bento Grid View -->
++            <div id="compViewHL" style="display: none;">
++                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
++                    <!-- Bento Card 1: Solitaire Home Loan Header -->
++                    <div style="grid-column: span 2; background: linear-gradient(135deg, #065f46 0%, #022c22 100%); color: white; border-radius: 16px; padding: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 14px rgba(6,95,70,0.25);">
++                        <div>
++                            <span style="background: rgba(255,255,255,0.2); color: #ffffff; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; text-transform: uppercase;">SPECIAL RATE @ 7.25% P.A.</span>
++                            <h3 style="font-size: 1.4rem; font-weight: 800; margin: 8px 0 4px 0;">Bespoke Solitaire Home Loan</h3>
++                            <p style="font-size: 0.85rem; color: #a7f3d0; margin: 0;">Concessionary interest rates, zero fees & doorstep legal clearance.</p>
++                        </div>
++                        <div style="font-size: 3rem;">🏠</div>
++                    </div>
++
++                    <!-- Bento Card 2: Concessionary Rate -->
++                    <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">📉</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #166534; margin: 0 0 6px 0;">7.25% p.a. Concessionary Interest</h4>
++                        <p style="font-size: 0.82rem; color: #14532d; margin: 0; line-height: 1.4;">40 bps interest rate discount linked to repo rate for Solitaire relationship holders.</p>
++                    </div>
++
++                    <!-- Bento Card 3: Zero Processing Fee -->
++                    <div style="background: #eff6ff; border: 1px solid #dbeafe; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">🏷️</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #1e3a8a; margin: 0 0 6px 0;">Zero Processing Fee</h4>
++                        <p style="font-size: 0.82rem; color: #1e3a8a; margin: 0; line-height: 1.4;">100% processing fee waiver + complimentary property legal & technical valuation report.</p>
++                    </div>
++
++                    <!-- Bento Card 4: Doorstep Express Sanction -->
++                    <div style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">⚡</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #991b1b; margin: 0 0 6px 0;">Instant Doorstep Sanction</h4>
++                        <p style="font-size: 0.82rem; color: #7f1d1d; margin: 0; line-height: 1.4;">Express 24-hour approval with dedicated Senior RM & Legal Lead visiting your doorstep.</p>
++                    </div>
++
++                    <!-- Bento Card 5: Flexible Structuring -->
++                    <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">🔄</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #92400e; margin: 0 0 6px 0;">Flexible Overdraft & Prepayment</h4>
++                        <p style="font-size: 0.82rem; color: #78350f; margin: 0; line-height: 1.4;">Zero prepayment penalty + home loan overdraft structuring to save interest on idle savings.</p>
++                    </div>
++                </div>
++                <button onclick="window.location.href='home_loan_calculator.html'" style="margin-top: 20px; width: 100%; background: #065f46; color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 12px rgba(6,95,70,0.2);">Calculate Loan EMI & View Full Details ↗</button>
++            </div>
++
++            <!-- ActivMoney Bento Grid View -->
++            <div id="compViewAM" style="display: none;">
++                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
++                    <!-- Bento Card 1: ActivMoney Header -->
++                    <div style="grid-column: span 2; background: linear-gradient(135deg, #92400e 0%, #451a03 100%); color: white; border-radius: 16px; padding: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 14px rgba(146,64,14,0.25);">
++                        <div>
++                            <span style="background: rgba(255,255,255,0.2); color: #ffffff; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 8px; text-transform: uppercase;">EARN UP TO 7.0% P.A.</span>
++                            <h3 style="font-size: 1.4rem; font-weight: 800; margin: 8px 0 4px 0;">ActivMoney Auto-Sweep Pro</h3>
++                            <p style="font-size: 0.85rem; color: #fde68a; margin: 0;">Fixed Deposit interest rates on excess savings with zero liquidity restrictions.</p>
++                        </div>
++                        <div style="font-size: 3rem;">⚡</div>
++                    </div>
++
++                    <!-- Bento Card 2: FD Interest Rates -->
++                    <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">📈</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #92400e; margin: 0 0 6px 0;">Up to 7.00% p.a. Return</h4>
++                        <p style="font-size: 0.82rem; color: #78350f; margin: 0; line-height: 1.4;">Surplus funds above threshold automatically sweep into 180-day FDs earning high interest.</p>
++                    </div>
++
++                    <!-- Bento Card 3: Complete Liquidity -->
++                    <div style="background: #eff6ff; border: 1px solid #dbeafe; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">💳</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #1e3a8a; margin: 0 0 6px 0;">24x7 Instant Liquidity</h4>
++                        <p style="font-size: 0.82rem; color: #1e3a8a; margin: 0; line-height: 1.4;">Use funds anytime for ATM, UPI, NetBanking, or Cheque without manually breaking FDs.</p>
++                    </div>
++
++                    <!-- Bento Card 4: Zero Premature Penalty -->
++                    <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">🛡️</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #166534; margin: 0 0 6px 0;">Zero Premature Penalty</h4>
++                        <p style="font-size: 0.82rem; color: #14532d; margin: 0; line-height: 1.4;">Zero penalty charged when funds auto-reverse sweep back into your active account.</p>
++                    </div>
++
++                    <!-- Bento Card 5: Customizable Threshold -->
++                    <div style="background: #fff5f5; border: 1px solid #fee2e2; border-radius: 14px; padding: 18px;">
++                        <div style="font-size: 1.5rem; margin-bottom: 8px;">⚙️</div>
++                        <h4 style="font-size: 1rem; font-weight: 800; color: #991b1b; margin: 0 0 6px 0;">Customizable Sweep Threshold</h4>
++                        <p style="font-size: 0.82rem; color: #7f1d1d; margin: 0; line-height: 1.4;">Set custom minimum balance threshold based on your monthly cash flow requirements.</p>
++                    </div>
++                </div>
++                <button onclick="window.location.href='linked_deposits.html'" style="margin-top: 20px; width: 100%; background: #92400e; color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 12px rgba(146,64,14,0.2);">Set Up ActivMoney & View Details ↗</button>
++            </div>
++        </div>
++    </div>
++
+     <script src="app.js"></script>
++
++    <script>
++        function openComparisonModal(tab) {
++            const modal = document.getElementById('comparisonModal');
++            if (modal) modal.style.display = 'flex';
++            if (tab) switchCompTab(tab);
++        }
++
++        function closeComparisonModal() {
++            const modal = document.getElementById('comparisonModal');
++            if (modal) modal.style.display = 'none';
++        }
++
++        function switchCompTab(tab) {
++            const tabCC = document.getElementById('compTabCC');
++            const tabHL = document.getElementById('compTabHL');
++            const tabAM = document.getElementById('compTabAM');
++            const viewCC = document.getElementById('compViewCC');
++            const viewHL = document.getElementById('compViewHL');
++            const viewAM = document.getElementById('compViewAM');
++
++            if (tabCC) {
++                tabCC.style.borderBottom = tab === 'cc' ? '3px solid #1e3a8a' : '3px solid transparent';
++                tabCC.style.color = tab === 'cc' ? '#1e3a8a' : '#64748b';
++            }
++            if (tabHL) {
++                tabHL.style.borderBottom = tab === 'hl' ? '3px solid #1e3a8a' : '3px solid transparent';
++                tabHL.style.color = tab === 'hl' ? '#1e3a8a' : '#64748b';
++            }
++            if (tabAM) {
++                tabAM.style.borderBottom = tab === 'am' ? '3px solid #1e3a8a' : '3px solid transparent';
++                tabAM.style.color = tab === 'am' ? '#1e3a8a' : '#64748b';
++            }
++
++            if (viewCC) viewCC.style.display = tab === 'cc' ? 'block' : 'none';
++            if (viewHL) viewHL.style.display = tab === 'hl' ? 'block' : 'none';
++            if (viewAM) viewAM.style.display = tab === 'am' ? 'block' : 'none';
++        }
++    </script>
++<!-- MODALS -->
++<style>
++.ntb-modal-overlay {
++    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(4px);
++}
++.ntb-modal {
++    background: white; border-radius: 16px; padding: 32px; width: 100%; max-width: 600px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: relative; max-height: 90vh; overflow-y: auto;
++}
++.ntb-modal-close {
++    position: absolute; top: 24px; right: 24px; cursor: pointer; color: #64748b; font-size: 1.5rem; line-height: 1; border: none; background: none; padding: 0;
++}
++.ntb-modal h3 { font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; margin-top: 0; }
++.ntb-modal p { color: #64748b; font-size: 0.95rem; margin-bottom: 24px; }
++.ntb-modal-input { width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 1rem; margin-bottom: 16px; outline: none; transition: border-color 0.2s; box-sizing: border-box; font-family: inherit; }
++.ntb-modal-input:focus { border-color: #1e3a8a; }
++.ntb-modal-btn { width: 100%; padding: 14px; background: #1e3a8a; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
++.ntb-modal-btn:hover { background: #172554; }
++
++.program-compare-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
++.program-compare-table th, .program-compare-table td { border: 1px solid #e2e8f0; padding: 12px 16px; text-align: left; font-size: 0.9rem; }
++.program-compare-table th { background: #f8fafc; font-weight: 700; color: #0f172a; }
++.program-compare-table td { color: #475569; }
++
++.lead-checkbox-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
++.lead-checkbox-label { display: flex; align-items: center; gap: 12px; cursor: pointer; font-size: 0.95rem; color: #334155; font-weight: 500; }
++.lead-checkbox-label input { width: 18px; height: 18px; cursor: pointer; }
++</style>
++
++<!-- Compare Modal -->
++<div id="compare-modal" class="ntb-modal-overlay" onclick="if(event.target===this) this.style.display='none'">
++    <div class="ntb-modal" style="max-width: 1100px;">
++        <button class="ntb-modal-close" onclick="document.getElementById('compare-modal').style.display='none'">&times;</button>
++        <h3>Program Comparison</h3>
++        <p>A quick view of the eligibility and core benefits across our premium tiers.</p>
++        
++        <div class="compare-accordion">
++
++<style>
++.compare-accordion {
++    width: 100%;
++    border: 1px solid #e2e8f0;
++    border-radius: 12px;
++    overflow: hidden;
++    background: #ffffff;
++    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
++}
++.compare-category {
++    border-bottom: 1px solid #e2e8f0;
++}
++.compare-category:last-child {
++    border-bottom: none;
++}
++.compare-cat-header {
++    width: 100%;
++    padding: 16px 24px;
++    background: #f8fafc;
++    border: none;
++    text-align: left;
++    font-size: 1.05rem;
++    font-weight: 700;
++    color: #0f172a;
++    cursor: pointer;
++    display: flex;
++    justify-content: space-between;
++    align-items: center;
++    transition: background 0.2s;
++}
++.compare-cat-header:hover {
++    background: #f1f5f9;
++}
++.compare-cat-icon {
++    transition: transform 0.3s ease;
++    font-size: 1.2rem;
++    color: #64748b;
++}
++.compare-cat-content {
++    display: none;
++    padding: 0;
++}
++.compare-cat-content.active {
++    display: block;
++    animation: fadeIn 0.3s ease-in-out;
++}
++.compare-inner-table {
++    width: 100%;
++    border-collapse: collapse;
++}
++.compare-inner-table th {
++    background: #f1f5f9;
++    padding: 12px 24px;
++    font-size: 0.85rem;
++    color: #475569;
++    text-transform: uppercase;
++    letter-spacing: 0.05em;
++    font-weight: 600;
++    text-align: left;
++}
++.compare-inner-table td {
++    padding: 16px 24px;
++    border-bottom: 1px solid #f1f5f9;
++    font-size: 0.95rem;
++    color: #334155;
++    vertical-align: top;
++}
++.compare-inner-table tr:last-child td {
++    border-bottom: none;
++}
++.col-benefit { width: 25%; font-weight: 600; color: #0f172a; }
++.col-privy { width: 25%; }
++.col-privyplus { width: 25%; }
++.col-solitaire { width: 25%; font-weight: 700; color: #1e3a8a; }
++
++/* Desktop header row outside accordion so columns align visually */
++.compare-global-header {
++    display: flex;
++    padding: 12px 24px 12px 24px;
++    background: #e2e8f0;
++    border-radius: 12px 12px 0 0;
++    font-weight: 700;
++    color: #0f172a;
++    font-size: 0.9rem;
++    text-transform: uppercase;
++    letter-spacing: 0.05em;
++}
++.compare-global-header > div {
++    flex: 1;
++}
++.cg-benefit { flex: 0 0 25%; }
++.cg-privy { flex: 0 0 25%; padding-left: 24px; }
++.cg-privyplus { flex: 0 0 25%; padding-left: 24px; }
++.cg-solitaire { flex: 0 0 25%; padding-left: 24px; color: #1e40af; }
++</style>
++
++<script>
++function toggleCompareCategory(btn) {
++    const content = btn.nextElementSibling;
++    const icon = btn.querySelector('.compare-cat-icon');
++    
++    if (content.classList.contains('active')) {
++        content.classList.remove('active');
++        icon.style.transform = 'rotate(0deg)';
++    } else {
++        // Optional: close all others
++        // document.querySelectorAll('.compare-cat-content').forEach(c => c.classList.remove('active'));
++        // document.querySelectorAll('.compare-cat-icon').forEach(i => i.style.transform = 'rotate(0deg)');
++        
++        content.classList.add('active');
++        icon.style.transform = 'rotate(180deg)';
++    }
++}
++</script>
++<div class="compare-global-header"><div class="cg-benefit">Benefit / Feature</div><div class="cg-privy">PRIVY</div><div class="cg-privyplus">PRIVY+</div><div class="cg-solitaire">SOLITAIRE</div></div>
++<div class="compare-category">
++<button class="compare-cat-header" onclick="toggleCompareCategory(this)">
++    Eligibility
++    <span class="compare-cat-icon">▼</span>
++</button>
++<div class="compare-cat-content">
++<table class="compare-inner-table">
++<tbody>
++<tr>
++<td class="col-benefit">Relationship Value</td>
++<td class="col-privy">₹10L</td>
++<td class="col-privyplus">₹30L</td>
++<td class="col-solitaire">₹75L+</td>
++</tr>
++<tr>
++<td class="col-benefit">Salary Route</td>
++<td class="col-privy">₹1L+/month</td>
++<td class="col-privyplus">₹3L+/month</td>
++<td class="col-solitaire">₹5L+/month</td>
++</tr>
++</tbody>
++</table>
++</div>
++</div>
++<div class="compare-category">
++<button class="compare-cat-header" onclick="toggleCompareCategory(this)">
++    Accounts & Convenience
++    <span class="compare-cat-icon">▼</span>
++</button>
++<div class="compare-cat-content">
++<table class="compare-inner-table">
++<tbody>
++<tr>
++<td class="col-benefit">Privileged Savings Account</td>
++<td class="col-privy">✓</td>
++<td class="col-privyplus">✓</td>
++<td class="col-solitaire">✓</td>
++</tr>
++<tr>
++<td class="col-benefit">4-in-1 Account</td>
++<td class="col-privy">✓</td>
++<td class="col-privyplus">✓</td>
++<td class="col-solitaire">✓</td>
++</tr>
++<tr>
++<td class="col-benefit">ActiveMoney</td>
++<td class="col-privy">✓</td>
++<td class="col-privyplus">✓</td>
++<td class="col-solitaire">✓</td>
++</tr>
++<tr>
++<td class="col-benefit">Demat & Trading</td>
++<td class="col-privy">✓</td>
++<td class="col-privyplus">✓</td>
++<td class="col-solitaire">✓</td>
++</tr>
++<tr>
++<td class="col-benefit">Family Banking</td>
++<td class="col-privy">✓</td>
++<td class="col-privyplus">✓</td>
++<td class="col-solitaire">✓</td>
++</tr>
++</tbody>
++</table>
++</div>
++</div>
++<div class="compare-category">
++<button class="compare-cat-header" onclick="toggleCompareCategory(this)">
++    Credit Cards
++    <span class="compare-cat-icon">▼</span>
++</button>
++<div class="compare-cat-content">
++<table class="compare-inner-table">
++<tbody>
++<tr>
++<td class="col-benefit">Card</td>
++<td class="col-privy">Air</td>
++<td class="col-privyplus">Air+</td>
++<td class="col-solitaire">Solitaire</td>
++</tr>
++<tr>
++<td class="col-benefit">Travel Air Miles</td>
++<td class="col-privy">3/₹100</td>
++<td class="col-privyplus">5/₹100</td>
++<td class="col-solitaire">10/₹100 via Unbox</td>
++</tr>
++<tr>
++<td class="col-benefit">Other Eligible Spends</td>
++<td class="col-privy">1/₹100</td>
++<td class="col-privyplus">2/₹100</td>
++<td class="col-solitaire">3/₹100</td>
++</tr>
++<tr>
++<td class="col-benefit">Domestic Lounge</td>
++<td class="col-privy">4/year*</td>
++<td class="col-privyplus">4/year*</td>
++<td class="col-solitaire">Unlimited</td>
++</tr>
++<tr>
++<td class="col-benefit">International Lounge</td>
++<td class="col-privy">—</td>
++<td class="col-privyplus">2/year*</td>
++<td class="col-solitaire">Unlimited</td>
++</tr>
++<tr>
++<td class="col-benefit">Forex Mark-up</td>
++<td class="col-privy">Standard</td>
++<td class="col-privyplus">2%</td>
++<td class="col-solitaire">0%</td>
++</tr>
++<tr>
++<td class="col-benefit">Welcome Air Miles</td>
++<td class="col-privy">1,000</td>
++<td class="col-privyplus">2,500</td>
++<td class="col-solitaire">—</td>
++</tr>
++<tr>
++<td class="col-benefit">Renewal Air Miles</td>
++<td class="col-privy">1,000</td>
++<td class="col-privyplus">2,500</td>
++<td class="col-solitaire">—</td>
++</tr>
++<tr>
++<td class="col-benefit">Annual Fee</td>
++<td class="col-privy">₹999 + GST</td>
++<td class="col-privyplus">₹3,000 + GST</td>
++<td class="col-solitaire">₹0 while eligible</td>
++</tr>
++</tbody>
++</table>
++</div>
++</div>
++<div class="compare-category">
++<button class="compare-cat-header" onclick="toggleCompareCategory(this)">
++    Loans & Credit
++    <span class="compare-cat-icon">▼</span>
++</button>
++<div class="compare-cat-content">
++<table class="compare-inner-table">
++<tbody>
++<tr>
++<td class="col-benefit">Home Loan</td>
++<td class="col-privy">Up to ₹85L</td>
++<td class="col-privyplus">Up to ₹1Cr</td>
++<td class="col-solitaire">Up to ₹7.5Cr</td>
++</tr>
++<tr>
++<td class="col-benefit">Auto Loan</td>
++<td class="col-privy">Up to ₹25L</td>
++<td class="col-privyplus">Up to ₹40L</td>
++<td class="col-solitaire">Available as per eligibility</td>
++</tr>
++<tr>
++<td class="col-benefit">Personal Loan</td>
++<td class="col-privy">Up to ₹10L</td>
++<td class="col-privyplus">Up to ₹15L</td>
++<td class="col-solitaire">Available as per eligibility</td>
++</tr>
++<tr>
++<td class="col-benefit">Credit Line</td>
++<td class="col-privy">—</td>
++<td class="col-privyplus">Mid-Month Advance</td>
++<td class="col-solitaire">Up to ₹25L</td>
++</tr>
++<tr>
++<td class="col-benefit">LAP</td>
++<td class="col-privy">—</td>
++<td class="col-privyplus">—</td>
++<td class="col-solitaire">Special Rates</td>
++</tr>
++</tbody>
++</table>
++</div>
++</div>
++
++    </div>
++</div>
++
++<script>
++function handleSendDeck(btn) {
++    const email = document.getElementById('send-deck-email').value;
++    if(!email) { alert("Please enter an email address."); return; }
++    btn.innerText = "Sending...";
++    btn.style.opacity = "0.7";
++    setTimeout(() => {
++        btn.innerText = "Sent Successfully!";
++        btn.style.background = "#10b981";
++        btn.style.opacity = "1";
++        setTimeout(() => {
++            document.getElementById('send-deck-modal').style.display='none';
++            btn.innerText = "Send Email";
++            btn.style.background = "#1e3a8a";
++            document.getElementById('send-deck-email').value = "";
++        }, 1500);
++    }, 1000);
++}
++
++function handleCreateLead(btn) {
++    btn.innerText = "Creating...";
++    btn.style.opacity = "0.7";
++    setTimeout(() => {
++        btn.innerText = "Lead Created Successfully!";
++        btn.style.background = "#10b981";
++        btn.style.opacity = "1";
++        setTimeout(() => {
++            document.getElementById('create-lead-modal').style.display='none';
++            btn.innerText = "Create Lead";
++            btn.style.background = "#1e3a8a";
++        }, 1500);
++    }, 1000);
++}
++</script>
++<!-- END MODALS -->
+ </body>
+ </html>

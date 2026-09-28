@@ -1,0 +1,149 @@
+<div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">
+<span>₹10 Lakh</span>
+<span>₹5 Crore</span>
+</div>
+</div>
+<!-- Tenure Slider -->
+<div style="margin-bottom: 16px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+<label style="font-size: 0.85rem; font-weight: 700; color: #1e3a8a;">Tenure (Years)</label>
+<span id="modal-hl-tenure-disp" style="font-size: 1rem; font-weight: 800; color: #0f172a;">20 Years</span>
+</div>
+<input id="modal-hl-tenure" max="30" min="5" oninput="calcHomeLoanModal()" step="1" style="width: 100%; accent-color: #1e3a8a; cursor: pointer;" type="range" value="20"/>
+<div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">
+<span>5 Years</span>
+<span>30 Years</span>
+</div>
+</div>
+<!-- Rate comparison pill -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+<div style="background: white; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 14px; text-align: center;">
+<div style="font-size: 0.72rem; color: #64748b; font-weight: 600;">Standard Market Rate</div>
+<div style="font-size: 1.1rem; font-weight: 800; color: #dc2626;">7.80% p.a.</div>
+</div>
+<div style="background: #ecfdf5; border: 1.5px solid #a7f3d0; border-radius: 10px; padding: 10px 14px; text-align: center;">
+<div style="font-size: 0.72rem; color: #047857; font-weight: 700;">Solitaire Preferential Rate</div>
+<div style="font-size: 1.1rem; font-weight: 900; color: #059669;">7.50% p.a. ₹</div>
+</div>
+</div>
+</div>
+<!-- Savings Results Section -->
+<div style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); border-radius: 16px; padding: 24px; color: white; margin-bottom: 20px;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 16px;">
+<div>
+<div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; margin-bottom: 2px;">Standard Rate Monthly EMI (7.80%)</div>
+<div id="modal-emi-normal" style="font-size: 1.25rem; font-weight: 800; color: #fca5a5;">₹ 82,404</div>
+</div>
+<div>
+<div style="font-size: 0.75rem; color: #94a3b8; font-weight: 600; margin-bottom: 2px;">Solitaire Monthly EMI (7.50%)</div>
+<div id="modal-emi-solitaire" style="font-size: 1.25rem; font-weight: 800; color: #34d399;">₹ 80,559</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: center;">
+<div>
+<div style="font-size: 0.78rem; color: #cbd5e1; font-weight: 600;">Monthly EMI Savings</div>
+<div id="modal-monthly-savings" style="font-size: 1.4rem; font-weight: 900; color: #34d399;">₹ 1,845 / mo</div>
+</div>
+<div style="background: rgba(255,255,255,0.12); border-radius: 12px; padding: 12px; text-align: right;">
+<div style="font-size: 0.75rem; color: #a7f3d0; font-weight: 700; text-transform: uppercase;">Total Interest Saved</div>
+<div id="modal-total-interest-saved" style="font-size: 1.6rem; font-weight: 900; color: #ffffff;">₹ 4,42,800</div>
+</div>
+</div>
+</div>
+<!-- Bonus Zero Processing Fee Callout -->
+<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 14px; font-size: 0.85rem; color: #166534; display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+<span>₹ <strong>Zero Processing Fee Savings:</strong> Waived (Save up to ₹50,000)</span>
+<span style="font-weight: 800; color: #15803d;">+ ₹ 50,000</span>
+</div>
+<button onclick="closeHomeLoanModal()" style="width: 100%; padding: 14px; background: #1e3a8a; color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 800; cursor: pointer; transition: background 0.2s;">
+            CLOSE CALCULATOR
+        </button>
+</div>
+</div>
+<script>
+    function openHomeLoanModal() {
+        const modal = document.getElementById('homeLoanModal');
+        if(modal) {
+            modal.style.display = 'flex';
+            calcHomeLoanModal();
+        }
+    }
+
+    function closeHomeLoanModal() {
+        const modal = document.getElementById('homeLoanModal');
+        if(modal) modal.style.display = 'none';
+    }
+
+    function calcHomeLoanModal() {
+        const p = parseFloat(document.getElementById('modal-hl-amount').value) || 10000000;
+        const yrs = parseInt(document.getElementById('modal-hl-tenure').value) || 20;
+        const n = yrs * 12;
+
+        const rNormal = 7.80 / 100 / 12;
+        const rSolitaire = 7.50 / 100 / 12;
+
+        // EMI Formula: P * r * (1+r)^n / ((1+r)^n - 1)
+        const emiNormal = p * rNormal * Math.pow(1 + rNormal, n) / (Math.pow(1 + rNormal, n) - 1);
+        const emiSolitaire = p * rSolitaire * Math.pow(1 + rSolitaire, n) / (Math.pow(1 + rSolitaire, n) - 1);
+
+        const monthlySave = emiNormal - emiSolitaire;
+        const totalInterestNormal = (emiNormal * n) - p;
+        const totalInterestSolitaire = (emiSolitaire * n) - p;
+        const totalInterestSaved = totalInterestNormal - totalInterestSolitaire;
+
+        document.getElementById('modal-hl-amount-disp').textContent = '₹ ' + (p >= 10000000 ? (p/10000000).toFixed(2) + ' Cr' : (p/100000).toFixed(1) + ' Lakh');
+        document.getElementById('modal-hl-tenure-disp').textContent = yrs + ' Years';
+
+        document.getElementById('modal-emi-normal').textContent = '₹ ' + Math.round(emiNormal).toLocaleString('en-IN');
+        document.getElementById('modal-emi-solitaire').textContent = '₹ ' + Math.round(emiSolitaire).toLocaleString('en-IN');
+        document.getElementById('modal-monthly-savings').textContent = '₹ ' + Math.round(monthlySave).toLocaleString('en-IN') + ' / mo';
+        document.getElementById('modal-total-interest-saved').textContent = '₹ ' + Math.round(totalInterestSaved).toLocaleString('en-IN');
+    }
+</script>
+<script>
+function toggleCalculator() {
+    var calc = document.getElementById('reward-calculator');
+    var chevron = document.getElementById('calc-chevron');
+    if (calc.style.display === 'none') {
+        calc.style.display = 'block';
+        chevron.style.transform = 'rotate(180deg)';
+    } else {
+        calc.style.display = 'none';
+        chevron.style.transform = 'rotate(0deg)';
+    }
+}
+</script>
+<script>
+function switchInnerTab(btn, tabName) {
+    const container = btn.closest('.info-panel');
+    if (!container) return;
+    
+    container.querySelectorAll('.inner-tab-btn').forEach(b => {
+        b.style.background = 'transparent';
+        b.style.color = '#475569';
+        b.style.boxShadow = 'none';
+        b.classList.remove('active');
+    });
+    
+    btn.style.background = 'white';
+    btn.style.color = '#0f172a';
+    btn.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+    btn.classList.add('active');
+    
+    container.querySelectorAll('.inner-tab-content').forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    const activeContent = container.querySelector('.inner-tab-content-' + tabName);
+    if (activeContent) {
+        activeContent.style.display = 'block';
+        activeContent.style.animation = 'fadeIn 0.3s ease-in-out';
+    }
+}
+</script>
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+</style>

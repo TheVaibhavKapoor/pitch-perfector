@@ -1,0 +1,8 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/:splat.html"
+  status = 200
+  conditions = {Path = ["!^.*\\.[a-zA-Z0-9]+$"]}

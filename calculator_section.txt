@@ -1,0 +1,60 @@
+661:                                         <div style="font-size: 0.7rem; color: #6b7280; font-weight: 600; text-transform: uppercase;">Outstanding Balance</div>
+662:                                         <div style="font-size: 0.88rem; font-weight: 700; color: #111827;">₹ 0</div>
+663:                                     </div>
+664:                                 </div>
+665:                             </div>
+666:                         </div>
+667:                     </div>
+668:                 </section>
+669: 
+670:                 <!-- Featured Pre-Approved Offers (NEW!) -->
+671:                 <section class="card" id="section-offers" style="margin-bottom: 28px;">
+672:                     <div class="card-section-title">
+673:                         <div class="section-indicator"></div>
+674:                         <h2>Featured Pre-Approved Offers</h2>
+675:                     </div>
+676: 
+677:                     <!-- Offer Cards Grid -->
+678:                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+679:                         
+680:                         <!-- Offer Card 1: Solitaire CC -->
+681:                         <div onclick="window.location.href='experience_solitaire_dashboard.html'" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.04)';">
+682:                             <div style="pointer-events: none;">
+683:                                 <div style="font-size: 1rem; font-weight: 500; color: #4b5563; margin-bottom: 8px;">Benefit Calculator</div>
+684:                                 <div style="font-size: 1.85rem; font-weight: 800; color: #0f172a; line-height: 1.15; margin-bottom: 16px;">Solitaire<br>Credit Card</div>
+685:                                 <div style="font-size: 0.85rem; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">AS OF 29 JUL, 0:10 PM</div>
+686:                             </div>
+687:                             <div style="width: 130px; height: 130px; border-radius: 16px; background: #ffffff; border: 1px solid #f3f4f6; box-shadow: 0 4px 14px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; padding: 8px;">
+688:                                 <img src="kotak_solitaire_cc_card.png" alt="Solitaire Credit Card" style="width: 100%; height: auto; object-fit: contain; transform: scale(1.1);">
+689:                             </div>
+690:                         </div>
+691: 
+692:                         <!-- Offer Card 2: Home Loan -->
+693:                         <div onclick="window.location.href='home_loan_calculator.html'" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.04)';">
+694:                             <div style="pointer-events: none;">
+695:                                 <div style="font-size: 1rem; font-weight: 500; color: #1e3a8a; margin-bottom: 8px;">Preferential Lending @ 7.50%</div>
+696:                                 <div style="font-size: 1.85rem; font-weight: 800; color: #0f172a; line-height: 1.15; margin-bottom: 16px;">Home<br>Loan</div>
+697:                                 <div style="font-size: 0.85rem; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 0.5px;">SAVE 0.30% VS NORMAL 7.80% RATE</div>
+698:                             </div>
+699:                             <div style="width: 120px; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+700:                                 <svg viewBox="0 0 100 100" width="100%" height="100%">
+701:                                     <!-- Roof -->
+702:                                     <polygon points="50,25 15,45 85,45" fill="#a89b8d"/>
+703:                                     <!-- Top Trim -->
+704:                                     <rect x="18" y="45" width="64" height="6" fill="#d1ccc3"/>
+705:                                     <!-- Pillars -->
+706:                                     <rect x="25" y="51" width="8" height="24" fill="#e2ddd7"/>
+707:                                     <rect x="46" y="51" width="8" height="24" fill="#e2ddd7"/>
+708:                                     <rect x="67" y="51" width="8" height="24" fill="#e2ddd7"/>
+709:                                     <!-- Door -->
+710:                                     <path d="M47.5,60 h5 v15 h-5 z" fill="#facc15" stroke="#ca8a04" stroke-width="1"/>
+711:                                     <circle cx="51.5" cy="68" r="0.8" fill="#ca8a04"/>
+712:                                     <!-- Base Steps -->
+713:                                     <rect x="18" y="75" width="64" height="5" fill="#a89b8d"/>
+714:                                     <rect x="10" y="80" width="80" height="6" fill="#897c6d"/>
+715:                                 </svg>
+716:                             </div>
+717:                         </div>
+718: 
+719:                         <!-- Offer Card 3: Experience Solitaire -->
+720:                         <a href="experience_solitaire.html" style="display: block; text-decoration: none; color: inherit; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 28px 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.04)';">

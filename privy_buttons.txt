@@ -1,0 +1,40 @@
+176: <div class="nav-left">
+177: <svg class="nav-icon" fill="none" height="18" stroke="#182545" stroke-width="2" viewbox="0 0 24 24" width="18"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" x2="9" y1="12" y2="12"></line></svg>
+178: <span style="font-weight: 600;">Exit Walkthrough</span>
+179: </div>
+180: </a>
+181: </nav>
+182: </aside>
+183: <main class="main-content">
+184: 
+185: <div class="top-header-combined" style="background: #ffffff; border-bottom: 1px solid #e5e7eb; padding: 0 32px; display: flex; justify-content: space-between; align-items: center;">
+186:     <div style="display: flex; gap: 32px;">
+187:         <div class="segment-tab active" onclick="setSegment('Individual', this)" style="padding: 16px 0; font-weight: 600; color: #d61f26; border-bottom: 2px solid #d61f26; cursor: pointer;">Individual</div>
+188:         <div class="segment-tab" onclick="setSegment('Corporate Salary', this)" style="padding: 16px 0; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; cursor: pointer;">Corporate Salary</div>
+189:         <div class="segment-tab" onclick="setSegment('Business', this)" style="padding: 16px 0; font-weight: 600; color: #6b7280; border-bottom: 2px solid transparent; cursor: pointer;">Business</div>
+190:     </div>
+191:     <div style="display: flex; gap: 12px; align-items: center;">
+192:         <button onclick="document.getElementById('compare-modal').style.display='flex'" style="background: white; border: 1.5px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='white'">Compare Program</button>
+193:         <button onclick="document.getElementById('send-deck-modal').style.display='flex'" style="background: white; border: 1.5px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='white'">Send Deck</button>
+194:         <button style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 8px 16px; border-radius: 8px; font-weight: 600; color: #94a3b8; cursor: not-allowed; display: flex; align-items: center; gap: 6px;" title="Feature Locked">
+195:             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+196:             Open Reliability
+197:         </button>
+198:         <button onclick="document.getElementById('create-lead-modal').style.display='flex'" style="background: #1e3a8a; border: none; padding: 9px 20px; border-radius: 8px; font-weight: 600; color: white; cursor: pointer; box-shadow: 0 4px 12px rgba(30,58,138,0.2); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Create Lead</button>
+199:     </div>
+200: </div>
+201: 
+202: <div class="content-body" style="padding: 32px; max-width: 1000px; margin: 0 auto;">
+203: <div class="segment-wrapper active" id="segment-individual-content">
+204: <!-- Product Grid -->
+205: <div class="product-grid">
+206: <div class="product-card active" onclick="showPanel('intro', this)">
+207: <div class="product-content">
+208: <span class="product-subtitle">Overview</span>
+209: <h3 class="product-title">Introduction to RM and Program</h3>
+210: <span class="product-timestamp">Program pitch and benefits</span>
+211: </div>
+212: <div class="product-icon">👋</div>
+213: </div>
+214: <div class="product-card" onclick="showPanel('lifestyle', this)">
+215: <div class="product-content">

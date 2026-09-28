@@ -1,0 +1,25 @@
+Line 822: <p style="text-align: left; color: #475569; font-size: 0.95rem; margin-bottom: 16px;">This is the strongest approach to use with Premium (Solitaire / Privy / Privy+) clients. Do not individually pitch 7 loans.</p>
+Line 1152: <p style="text-align: left; color: #475569; font-size: 0.95rem; margin-bottom: 16px;">For your Privy / Privy+ / Solitaire customers, don't randomly pitch MF, Trinity and NEO. Do an Investment Health Check.</p>
+Line 1184: <p style="font-size: 0.85rem; color: #475569; font-weight: 400; font-style: italic; margin-top: 8px;">(That last line is the premium-RM positioning I'd use with Solitaire/Privy+ clients.)</p>
+Line 2050: <p>Compare Privy, Privy+ and Solitaire across eligibility, products and rewards.</p>
+Line 2180: <td class="col-privyplus">₹30L</td>
+Line 2186: <td class="col-privyplus">₹3L+/month</td>
+Line 2204: <td class="col-privyplus">✓</td>
+Line 2210: <td class="col-privyplus">✓</td>
+Line 2216: <td class="col-privyplus">✓</td>
+Line 2222: <td class="col-privyplus">✓</td>
+Line 2228: <td class="col-privyplus">✓</td>
+Line 2246: <td class="col-privyplus">Air+</td>
+Line 2252: <td class="col-privyplus">5/₹100</td>
+Line 2258: <td class="col-privyplus">2/₹100</td>
+Line 2264: <td class="col-privyplus">4/year*</td>
+Line 2270: <td class="col-privyplus">2/year*</td>
+Line 2276: <td class="col-privyplus">2%</td>
+Line 2282: <td class="col-privyplus">2,500</td>
+Line 2288: <td class="col-privyplus">2,500</td>
+Line 2294: <td class="col-privyplus">₹3,000 + GST</td>
+Line 2312: <td class="col-privyplus">Up to ₹1Cr</td>
+Line 2318: <td class="col-privyplus">Up to ₹40L</td>
+Line 2324: <td class="col-privyplus">Up to ₹15L</td>
+Line 2330: <td class="col-privyplus">Mid-Month Advance</td>
+Line 2336: <td class="col-privyplus">—</td>
